@@ -20,19 +20,41 @@
 				{ id: "4", firstName: "John", lastName: "Doe", email: "john@gmail.com" },
 				{ id: "5", firstName: "Jenny", lastName: "Doe", email: "jenny@gmail.com" }
 			];
+			
+		this.getAll = function () {
+			return CONTACTS;
+		}
 	}
 	ContactsService._contactId = 5;
 	
 	function Controller(contactsService) {
 		this.contactsService = contactsService;
 		
-
+		this.drawContactsList = function() {
+			var contacts = this.contactsService.getAll();
+			
+			var html = '';
+			for( var ind in contacts ) {
+				var contact = contacts[ind];
+				html += 
+					"<div class='item" + ( this.selectedId==contact.id ? ' active' : '' ) + "'>" + 
+						"<a href='#' onclick='ctrl.select(event, " + contact.id + ")'>" + contact.firstName + ' ' + contact.lastName.toUpperCase() + "</a>" +
+						"<a href='#' onclick='ctrl.remove(event, " + contact.id + ")' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>" +
+					"</div>";
+			}
+			
+			var contactsListContainer = document.getElementById('contactsListContainer');
+			contactsListContainer.innerHTML = html;
+		}
 	}
 	
 	function bootstrap() {
 		var contactsService = new ContactsService();
 		var controller = new Controller(contactsService);
 		
+		window.ctrl = controller
+		
+		controller.drawContactsList()
 	}
 	
 	bootstrap();
