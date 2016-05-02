@@ -6,21 +6,21 @@
     </head>
    <body>
       <script type = "text/javascript">
-			"use strict";
+            "use strict";
 			
             var myVar = "global<br/>"; // Declare a global variable
 			
-			document.write(myVar);
+            document.write(myVar);
 			
             function checkscope( ) {
                var myVar = "local<br/>";  // Declare a local variable
                document.write(myVar);
             }
 			
-			checkscope();
+            checkscope();
 			
-			document.write(myVar);
-			// document.write(window.myVar);
+            document.write(myVar);
+            // document.write(window.myVar);
       </script>
    </body>
 </html>
