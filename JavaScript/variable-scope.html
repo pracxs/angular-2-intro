@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Demo Variable Scope</title>
+    </head>
+   <body>
+      <script type = "text/javascript">
+			"use strict";
+			
+            var myVar = "global<br/>"; // Declare a global variable
+			
+			document.write(myVar);
+			
+            function checkscope( ) {
+               var myVar = "local<br/>";  // Declare a local variable
+               document.write(myVar);
+            }
+			
+			checkscope();
+			
+			document.write(myVar);
+			// document.write(window.myVar);
+      </script>
+   </body>
+</html>

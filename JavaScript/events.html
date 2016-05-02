@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Demo Events</title>
+		
+		<script>
+			function sayClicked() {
+				document.getElementById('clickMsg').innerHTML = 'Button clicked';
+            }
+			
+			function over(event) {
+				event.target.innerHTML = 'Mouse Over';
+            }
+			
+			function out(event) {
+				event.target.innerHTML = 'Mouse Out';
+            }
+		</script>
+    </head>
+    <body onload="alert('Document has loaded')">
+		<input type="button" onclick="sayClicked()" value="Click me" />
+	
+		<span id="clickMsg"></span>
+	
+		<div onmouseover="over(event)" onmouseout="out(event)" style="background: #eee;">
+			<h2> This is inital HTML of the div </h2>
+		</div>
+	
+		<div onclick="alert('Outer div clicked')" style="background: #eee;">
+			<a href="#clicked" onclick="alert('Innder link clicked')">Click this link!</a>
+		</div>
+	
+		<script>
+            alert('Loading...');
+			document.getElementById('clickMsg').onclick = function() { alert('Message clicked'); };
+        </script>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+   <head>
+	  <meta charset="utf-8">
+      <title>Demo Template Pattern</title>
+     
+      <script type="text/javascript">
+         function Vehical() {			
+            this.run = function() {
+				this.prepare();
+                this.move();
+            };
+ 
+			this.prepare = function () {}
+			this.move = function () {}
+         }
+         
+         function Car() {
+            this.prepare = function() {
+               document.write("Start car engine <br/>");
+            }
+			this.move = function() {
+               document.write("Drive the car <br/>");
+            }
+            this.__proto__ = new Vehical();
+         }
+		 
+		 function Yacht() {
+			this.move = function() {
+               document.write("Sail the yacht <br/>");
+            }
+            this.__proto__ = new Vehical();
+         }
+      </script>
+     
+   </head>
+  
+   <body>
+      <script type="text/javascript">
+         var car = new Car();
+         car.run();
+		 
+		 document.write("<br/>");
+		 
+		 var yacht = new Yacht();
+		 yacht.run();
+		 
+		 document.write("<br/>");
+		 
+		 yacht.prepare = function() { document.write('Hoist the sails <br/>') };
+		 yacht.run();
+      </script>
+  
+   </body>
+</html>

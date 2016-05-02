@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <meta charset="utf-8">
+       <title>Demo Creator Function</title>
+   </head>
+   <body>
+      <pre><script type="text/javascript">
+			"use strict";
+			
+			function multiplierCreator(multiplier) {
+				function multiply(value) {
+					return multiplier * value;
+				}
+				
+				return multiply;
+			}
+			
+			var multiplierBy10 = multiplierCreator(10);
+			document.write( 'multiplierBy10(1):           ' + multiplierBy10(1) + '\n' );
+			document.write( 'multiplierBy10(3):           ' + multiplierBy10(3) + '\n' );
+			document.write( 'multiplierCreator(20)(10):   ' + multiplierCreator(20)(10) + '\n' );
+      </script></pre>
+   </body>
+<html>

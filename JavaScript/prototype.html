@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Demo Prototype</title>
+	
+		<script>
+			function Person(first, last, age) {
+				this.firstName = first;
+				this.lastName = last;
+				this.age = age;
+			}
+			
+			var myFather = new Person("John", "Doe", 50, "blue");
+			var myMother = new Person("Sally", "Rally", 48, "green");
+			
+			myFather.name = function () {
+				return this.firstName + " " + this.lastName;
+			};
+			
+			console.log('--- name() -----------------------------');
+			console.log('myFather.name(): ' + myFather.name());
+			//console.log('myMother.name(): ' + myMother.name());
+			
+			console.log('--- Person.residence -----------------------------');
+			// Cant add new property to prototype
+			Person.residence = "Canda";
+			console.log('myFather.residence: ' + myFather.residence);
+			console.log('myMother.residence: ' + myMother.residence);
+			
+			console.log('--- Person.prototype -----------------------------');
+			
+			Person.prototype.residence = "Canda";
+			console.log('myFather.residence: ' + myFather.residence);
+			console.log('myMother.residence: ' + myMother.residence);
+			
+			Person.prototype.name = function() {
+				return this.lastName + ", " + this.firstName;
+			};
+			
+			console.log('myFather.name(): ' + myFather.name());
+			console.log('myMother.name(): ' + myMother.name());
+			
+			// console.log(myFather);
+			// console.log(Object.getPrototypeOf(myFather));
+		</script>
+	</head>
+	<body>
+		See the browser console for the results from this page
+	</body>
+<html>

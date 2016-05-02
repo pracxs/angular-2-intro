@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <meta charset="utf-8">
+       <title>Demo Loop Statements</title>
+   </head>
+   <body>
+      <script type="text/javascript">
+         <!--
+            var count = 0;
+            while (count < 5){
+               document.write("while loop cycle : " + count + "<br />");
+               count++;
+            }
+			
+			document.write('<br />');
+			
+			count = 0;
+			do {
+               document.write("do-while cycle : " + count + "<br />");
+               count++;
+            } while (count < 5)
+			
+			document.write('<br />');
+			
+			for(var i=0; i<5; i++) {
+				document.write("for loop cycle : " + i + "<br />");
+			}
+			
+			
+			document.write('<br />');
+			
+			var obj = { firstName: 'Todor', lastName: 'Kisov', age: 42 };
+			for(var key in obj) {
+				document.write("obj key: " + key);
+				document.write(" value: " + obj[key] + "<br />");
+			}
+			
+			document.write('<br />');
+			
+			var array = [10, 20, 30, 40];
+			for(var key in array) {
+				document.write("array key: " + key);
+				document.write(" value: " + array[key] + "<br />");
+			}
+			
+			document.write('<br />');
+			
+			document.write('obj keys: ' + Object.keys(obj) + "<br />");
+			document.write('array keys: ' + Object.keys(array) + "<br />");
+         //-->
+      </script>
+   </body>
+<html>

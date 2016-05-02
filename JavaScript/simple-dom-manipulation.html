@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Demo Simple DOM manipulation</title>
+		<style>
+			.green { color: green; }
+		</style>
+    </head>
+    <body>
+		<div id="hi">Hi</div>
+		<div>course participants</div>
+    </body>
+	<script>
+		document.body.style = "background: yellow";
+		
+		var hiElement = document.getElementById('hi');
+		hiElement.style = 'font-size: 44px;';
+		
+		var divs = document.getElementsByTagName('div');
+		divs[0].className = 'green'; 
+		divs[1].className = 'green'; 
+	</script>
+</html>

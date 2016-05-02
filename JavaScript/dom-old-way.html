@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Demo Modify DOM Old Way</title>
+		
+		<style>
+			div { margin: 20px; }
+			
+			button { margin: 0 0 0 20px; font-size: 120%; }
+		</style>
+		
+		<script>
+			var cnt = 0;
+		
+			function add() {
+				var btn = document.createElement("button");        			// Create a <button> element
+				var txt = document.createTextNode("Remove me " + ++cnt);	// Create a text node
+				btn.appendChild(txt);                              			// Append the text to <button>
+				document.body.appendChild(btn);                    			// Append <button> to <body>
+				
+				btn.onclick = remove;                              			// Attach onclick method
+			}
+			
+			function remove(event) {
+				var element = event.target;
+				element.parentNode.removeChild(element);
+			}
+		</script>		
+	</head>
+	<body>
+		<div>This page demonstrates modifing DOM with document.createElement()</div>
+		<button onclick="add()">Add</button>
+	</body>
+<html>

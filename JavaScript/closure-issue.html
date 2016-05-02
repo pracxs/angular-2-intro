@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Demo Clouser Issue</title>
+		<script>
+			function fire() {
+				for(var i=0; i<10; i++) {
+					setTimeout( function() { 
+						console.log('Variable i: ' + i);
+					}, 1000 + 100*i);
+				}
+			}
+			
+			fire();
+		</script>
+	</head>
+	<body>
+		See the browser console for the results from this page
+	</body>
+<html>

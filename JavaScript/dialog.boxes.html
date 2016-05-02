@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Demo Dialog Boxes</title>
+		
+		<style>
+			button { display: block; margin: 20px; font-size: 120%; }
+			a { display: block; margin: 20px; font-size: 110%; }
+			span { display: block; margin: 20px; font-size: 110%; }
+		</style>
+
+		<script type="text/javascript">
+			"use strict";
+			
+			function warn() {
+               alert ("This is a warning message!");
+            }
+			
+			function getConfirmation(){
+               var retVal = confirm("Do you want to continue ?");
+               return retVal;
+            }
+			
+			function getValue(){
+               var retVal = prompt("Enter your name : ", "your name here");
+			   document.getElementById('promptMsg').innerText = 'Propmt text: ' + retVal;
+            }
+		</script>
+	</head>
+	<body>
+		<button onclick="warn()">Alert</button>
+		<a onclick="return getConfirmation()" href="#confirmed">Confirm click</a>
+		<button onclick="getValue()">Prompt me</button> <span id="promptMsg"></span>
+	</body>
+<html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Demo Operators</title>
+    </head>
+   <body>
+      <pre><script type = "text/javascript">
+		"use strict";
+		
+		function demoFunction() {
+			return true;
+		}
+		
+		document.write( "'1'==1                " + ( '1'==1 			? 'true' : 'false' ) + '\n' );
+		document.write( "'1'===1               " + ( '1'===1 			? 'true' : 'false' ) + '\n' );
+		document.write( "'1'!=1                " + ( '1'!=1 			? 'true' : 'false' ) + '\n' );
+		document.write( "'1'!==1               " + ( '1'!==1			? 'true' : 'false' ) + '\n' );
+		document.write( "null===null           " + ( null===null		? 'true' : 'false' ) + '\n' );
+		document.write( "''==0                 " + ( ''==0				? 'true' : 'false' ) + '\n' );
+		document.write( "0==false              " + ( 0==false			? 'true' : 'false' ) + '\n' );
+		document.write( "''==false             " + ( ''==false			? 'true' : 'false' ) + '\n' );
+		document.write( "''                    " + ( ''					? 'true' : 'false' ) + '\n' );
+		document.write( "0                     " + ( 0					? 'true' : 'false' ) + '\n' );
+		document.write( "false                 " + ( false				? 'true' : 'false' ) + '\n' );
+		document.write( "window.x              " + ( window.x			? 'true' : 'false' ) + '\n' );
+		document.write( "window                " + ( window 			? 'true' : 'false' ) + '\n' );
+		document.write( "null                  " + ( null	 			? 'true' : 'false' ) + '\n' );
+		document.write( "null==window.x        " + ( null==window.x		? 'true' : 'false' ) + '\n' );
+		document.write( "null===window.x       " + ( null===window.x	? 'true' : 'false' ) + '\n' );
+		document.write( "void 0===window.x     " + ( void 0===window.x	? 'true' : 'false' ) + '\n' );
+		
+		document.write( '\n' );
+		
+		document.write( "typeof null           ", typeof null			+ '\n');
+		document.write( "typeof x              ", typeof x			+ '\n');
+		document.write( "typeof 1.2            ", typeof 1.2 			+ '\n');
+		document.write( "typeof '1.2'          ", typeof '1.2' 		+ '\n');
+		document.write( "typeof '1.2'          ", typeof '1.2' 		+ '\n');
+		document.write( "typeof (1==1)         ", typeof (1==1) 		+ '\n');
+		document.write( "typeof (new Date())   ", typeof (new Date())	+ '\n');
+		document.write( "typeof demoFunction   ", typeof demoFunction	+ '\n');
+		
+		document.write( '\n' );
+		
+		document.write( "typeof '1'            ", typeof '1'			+ '\t= ' + '1'        	+ '\n');
+		document.write( "typeof +'1'           ", typeof +'1'			+ '\t= ' + +'1' 		 	+'\n');
+		document.write( "typeof (1 + '10')     ", typeof (1 + '10')		+ '\t= ' + (1 + '10')		+'\n');
+		document.write( "typeof (1 + +'10')    ", typeof (1 + +'10')	+ '\t= ' + (1 + +'10')	+'\n');
+		document.write( "typeof void 0         ", typeof void 0			+ '\t= ' + void 0		+'\n');
+		
+      </script></pre>
+   </body>
+</html>

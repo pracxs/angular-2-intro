@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Demo Data Iteration</title>
+	</head>
+	<body>
+		<script>
+			document.write('--- filter() ------------------------------- <br/>');
+			
+			var array = [0, -11, 22, -33, 44, -55, 66, -77, 88, -99];
+			var res = array.filter( function(val) {
+				return val % 2 == 0;
+			});
+			document.write( res );
+			
+			document.write('<br/><br/>--- map() ------------------------------- <br/>');
+			
+			res = array.map( function(val) {
+				if( val % 2 == 0 ) return null;
+				return 'Value ' + val;
+			});
+			document.write( res );
+			
+			document.write('<br/><br/>--- forEach() ------------------------------- <br/>');
+			function minVal(array) {
+				var minVal = null
+				
+				array.forEach( function(val) {
+					if( minVal===null || minVal > val )
+						minVal = val
+					return null
+				});
+				
+				return minVal
+			}
+			document.write( minVal(array) + '<br/>');
+			document.write( array );
+			
+			
+			document.write('<br/><br/>--- reduce() ------------------------------- <br/>');
+			res = array.reduce(function(val1, val2) {
+				if( val1===null || val1 > val2 )
+					return val2;
+				else
+					return val1;
+			});
+			document.write( res );
+			
+			document.write('<br/><br/>--- sort() simple ------------------------------- <br/>');
+			res = array.sort();
+			document.write( res );
+			
+			document.write('<br/><br/>--- sort() with function ------------------------------- <br/>');
+			res = array.sort(function(val1, val2) {
+				return Math.abs(val1) - Math.abs(val2)
+			});
+			document.write( res );
+			
+			document.write('<br/><br/>--- splice() ------------------------------- <br/>');
+			var source = array.slice();
+			var removed = source.splice(2, 3, 'One', 'Two', 'Three');
+			document.write( 'Result: ' + source + '<br/>');
+			document.write( 'Removed: ' + removed );
+			
+			document.write('<br/><br/>--- concat() ------------------------------- <br/>');
+			res = array.concat(['Trailing 1', 'Trailing 2']);
+			document.write( res );
+		</script>
+	</body>
+<html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <meta charset="utf-8">
+       <title>Demo Functions</title>
+   </head>
+   <body>
+   
+      <script type="text/javascript">
+			"use strict";
+	  
+            function hello(somebody) {
+				return 'Hello ' + somebody;
+			}
+			
+			// Parameter may be of any type
+			document.write( '<br/>--- Parameter may be of any type ---<br/>' );
+			
+			document.write( hello('Todor') + '<br/>');
+			document.write( hello(2)  + '<br/>' ); 
+			document.write( hello(null)  + '<br/>' );
+			document.write( hello()  + '<br/>' );
+			
+			document.write( '<br/>' );
+			
+			// Parameter counts may exceed defined
+			document.write( '<br/>--- Exceed number of parameters ---<br/>' );
+			
+			document.write( hello('Todor', 23)  + '<br/>' );
+			
+			
+			// Anonymous function
+			document.write( '<br/>--- Function Literals ---<br/>' );
+			
+			var func = function() {
+				return 'Anonymous function';
+			}
+			
+			document.write( func()  + '<br/>' );
+			
+			// dynamic list of parameters
+			document.write( '<br/>--- Dynamic list of parameters ---<br/>' );
+			
+			func = function() {
+				console.log('Function called with ' + arguments.length + ' arguments');
+				for(var key in arguments) {
+					document.write( key + ' -> ' + arguments[key] + '<br/>' );
+				};
+			}
+			
+			func();
+			func(1);
+			func('Todor', 123);
+			
+			// function without return
+			document.write( '<br/>--- Function without return ---<br/>' );
+			
+			document.write( func()  + '<br/>' );
+			
+			// Nested Functions
+			document.write( '<br/>--- Nested Functions ---<br/>' );
+
+			function hypotenuse(a, b) {
+               function square(x) { return x*x; }
+               return Math.sqrt(square(a) + square(b));
+            }
+			document.write( hypotenuse(3, 5) + '<br/>' );
+      </script>
+   </body>
+<html>
