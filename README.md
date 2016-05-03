@@ -67,16 +67,77 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
 
     Examples: [throw.html](JavaScript/throw.html), [onerror.html](JavaScript/onerror.html)
 
-Examples: [](JavaScript/)
+## TypeScript
+
+1. Basic Types
+
+    Examples: [basic-types](TypeScript/basic-types/basic-types.ts)
+
+1. Variable Declarations
+    
+    Examples: [variable-declarations](TypeScript/variable-declarations/variable-declarations.ts)
+
+1. Destructuring
+    
+    Examples: [destructuring](TypeScript/destructing/destructing.ts)
+    
+1. Interfaces
+    
+    Examples: [interfaces](TypeScript/interfaces/interfaces.ts)
+    
+1. Classes
+    
+    Examples: [classes](TypeScript/classes/classes.ts)
+    
+1. Functions
+    
+    Examples: [functions](TypeScript/functions/functions.ts)
+
+1. Generics
+    
+    Examples: [generics](TypeScript/generics/generics.ts)
+
+1. Enums
+    
+    Examples: [enums](TypeScript/enums/enums.ts)
+
+1. Type Inference
+    
+    Examples: [type-inference](TypeScript/type-inference/type-inference.ts)
+
+1. Type Compatibility
+    
+    Examples: [type-compatibility](TypeScript/type-compatibility/type-compatibility.ts)
+
+1. Advanced Types
+    
+    Examples: [advanced-types](TypeScript/advanced-types/advanced-types.ts)
+
+1. Modules AND Namespaces
+    
+    Examples: [modules](TypeScript/modules), [namespaces](TypeScript/namespaces)
+
+1. JSX
+    
+    Examples: [jsx](TypeScript/jsx)
+
+1. Decorators
+    
+    Examples: [decorators](TypeScript/decorators/decorators.ts)
+
+1. Mixins
+    
+    Examples: [mixins](TypeScript/mixins/mixins.ts)
 
 ## Usefull link
 |Ttile|Link|
 |---|---|
 |Javascript Tutorial|http://www.ttorialspoint.com/javascript/|
 |Understanding JavaScript Function Invocation and "this"|http://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/|
-|RxJS Observables vs Promises|https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises|
-|RxMarbles<br/><sup>Interactive diagrams of Rx Observables</sup>|http://rxmarbles.com/|
+|TypeScript official site|http://www.typescriptlang.org/|
 |TypeScript Language Specification|https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md|
 |Metaprogramming in ES6: Symbols and why they're awesome|http://blog.keithcirkel.co.uk/metaprogramming-in-es6-symbols/|
+|RxJS Observables vs Promises|https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises|
+|RxMarbles<br/><sup>Interactive diagrams of Rx Observables</sup>|http://rxmarbles.com/|
 |Angular 2 Unit Testing recipes|https://medium.com/google-developer-experts/angular-2-unit-testing-with-jasmine-defe20421584#.8x5d58123|
 |Angular 2 Go with Protractor|https://github.com/CarmenPopoviciu/angular2-go-protractor|
