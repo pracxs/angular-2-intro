@@ -24,6 +24,16 @@
 		this.getAll = function () {
 			return CONTACTS;
 		}
+		
+		this.getById = function(id) {
+			return findById(id);
+		}
+		
+		function findById(contactId) {
+			return CONTACTS.find(function(row){
+				return row.id == contactId;
+			})
+		}
 	}
 	ContactsService._contactId = 5;
 	
@@ -45,6 +55,26 @@
 			
 			var contactsListContainer = document.getElementById('contactsListContainer');
 			contactsListContainer.innerHTML = html;
+		}
+		
+		this.select = function(event, contactId) {
+			this.selectedId = contactId;
+			 
+			this.drawContactsList();
+			this.drawViewDetails(contactId);
+			
+			event.preventDefault();
+			return false;
+		}
+		
+		this.drawViewDetails = function(contactId) {
+			var contactsDetailsContainer = document.getElementById('contactsDetailsContainer');
+			var contact = this.contactsService.getById(contactId);
+			contactsDetailsContainer.innerHTML = 
+				'<label>First Name: </label><b>' + contact.firstName + '</b><br/>' +
+				'<label>Last Name: </label><b>' + contact.lastName + '</b><br/>' +
+				'<label>email: </label><b>' + contact.email + '</b><br/>' +
+				'<label></label><a href="#" class="text-danger" onclick="ctrl.edit(event,' + contact.id + ')"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>';
 		}
 	}
 	
