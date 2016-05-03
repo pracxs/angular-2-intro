@@ -136,6 +136,7 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
 |Understanding JavaScript Function Invocation and "this"|http://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/|
 |TypeScript official site|http://www.typescriptlang.org/|
 |TypeScript Language Specification|https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md|
+|Introduction to TypeScript by Jess Chadwick|https://youtu.be/qRD7bkK7m10|
 |Metaprogramming in ES6: Symbols and why they're awesome|http://blog.keithcirkel.co.uk/metaprogramming-in-es6-symbols/|
 |RxJS Observables vs Promises|https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises|
 |RxMarbles<br/><sup>Interactive diagrams of Rx Observables</sup>|http://rxmarbles.com/|
