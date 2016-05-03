@@ -12,14 +12,40 @@
 (function(exports) {
 	'use strict';
 	
+	function ContactsLoadService() {
+		this.load = function(successCallback) {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (xhttp.readyState == 4) { // 4 means DONE
+					if (xhttp.status == 200) { // 200 is OK status of HTML
+						successCallback( JSON.parse(xhttp.responseText) );
+					} else {
+						alert('Communication error!');
+					}
+				}
+			};
+			xhttp.open("GET", "contacts.json", true);
+			xhttp.send();
+		}
+	}
+	
 	function ContactsService() {
-		var CONTACTS = [
-				{ id: "1", firstName: "Max", lastName: "Smith", email: "max@gmail.com" },
-				{ id: "2", firstName: "Chris", lastName: "Raches", email: "chris@gmail.com" },
-				{ id: "3", firstName: "Michael", lastName: "Alloy", email: "michael@gmail.com" },
-				{ id: "4", firstName: "John", lastName: "Doe", email: "john@gmail.com" },
-				{ id: "5", firstName: "Jenny", lastName: "Doe", email: "jenny@gmail.com" }
-			];
+		var CONTACTS = [];
+			
+		this.init = function(afterInitCallback) {
+			var contactsLoadService = new ContactsLoadService();		
+			
+			contactsLoadService.load(function(data) {
+				CONTACTS = data;
+				
+				// find last used id
+				ContactsService._contactId = 0; // if no contacts in the data
+				for(var i=0; i < data.length; i++)
+					ContactsService._contactId = Math.max(ContactsService._contactId, data[i].id);
+				
+				afterInitCallback();
+			});
+		}
 			
 		this.getAll = function () {
 			return CONTACTS;
@@ -33,19 +59,6 @@
 			var ind = findIndexById(id);
 			if( ind>=0 )
 				CONTACTS.splice(ind,1);
-		}
-		
-		function findById(contactId) {
-			return CONTACTS.find(function(row){
-				return row.id == contactId;
-			})
-		}
-		
-		function findIndexById(contactId) {
-			var contact = findById(contactId);
-			if( !contact ) return -1;
-			
-			return CONTACTS.indexOf(contact);
 		}
 		
 		this.update = function(contact) {
@@ -64,8 +77,20 @@
 			
 			return contact.id;
 		}
+		
+		function findById(contactId) {
+			return CONTACTS.find(function(row){
+				return row.id == contactId;
+			});
+		}
+		
+		function findIndexById(contactId) {
+			var contact = findById(contactId);
+			if( !contact ) return -1;
+			
+			return CONTACTS.indexOf(contact);
+		}
 	}
-	ContactsService._contactId = 5;
 	
 	function Controller(contactsService) {
 		this.contactsService = contactsService;
@@ -87,16 +112,6 @@
 			contactsListContainer.innerHTML = html;
 		}
 		
-		this.select = function(event, contactId) {
-			this.selectedId = contactId;
-			 
-			this.drawContactsList();
-			this.drawViewDetails(contactId);
-			
-			event.preventDefault();
-			return false;
-		}
-		
 		this.drawViewDetails = function(contactId) {
 			var contactsDetailsContainer = document.getElementById('contactsDetailsContainer');
 			var contact = this.contactsService.getById(contactId);
@@ -105,6 +120,36 @@
 				'<label>Last Name: </label><b>' + contact.lastName + '</b><br/>' +
 				'<label>email: </label><b>' + contact.email + '</b><br/>' +
 				'<label></label><a href="#" class="text-danger" onclick="ctrl.edit(event,' + contact.id + ')"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>';
+		}
+		
+		this.drawEditDetails = function(contactId) {
+			
+			var contact = !contactId ? {id:'', firstName:'', lastName:'', email:''} : this.contactsService.getById(contactId);
+			
+			var contactsDetailsContainer = document.getElementById('contactsDetailsContainer');
+			contactsDetailsContainer.innerHTML = 
+				'<form name="editContactForm" onsubmit="ctrl.submit(event)">' +
+					'<input name="id" type="hidden" value="' + contact.id + '">' +
+					'<label>First Name: </label><input name="firstName" value="' + contact.firstName + '"><br/>' +
+					'<label>Last Name: </label><input name="lastName" value="' + contact.lastName + '"><br/>' +
+					'<label>email: </label><input name="email" value="' + contact.email + '"><br/>' +
+					'<label></label><input type="submit" class="btn btn-danger" value="' + ( !contactId ? 'Add' : 'Save' ) + '"/>' +
+					'<a href="#" class="text-danger" onclick="ctrl.cancelEdit(event)">Cancel</a>' +
+				'</form>';
+			
+			var firstNameInput = document.editContactForm.firstName;	
+			firstNameInput.focus();
+			firstNameInput.select();
+		}
+		
+		this.select = function(event, contactId) {
+			this.selectedId = contactId;
+			 
+			this.drawContactsList();
+			this.drawViewDetails(contactId);
+			
+			event.preventDefault();
+			return false;
 		}
 		
 		this.clearDetails = function() {
@@ -144,26 +189,6 @@
 			return false;
 		}
 		
-		this.drawEditDetails = function(contactId) {
-			
-			var contact = !contactId ? {id:'', firstName:'', lastName:'', email:''} : this.contactsService.getById(contactId);
-			
-			var contactsDetailsContainer = document.getElementById('contactsDetailsContainer');
-			contactsDetailsContainer.innerHTML = 
-				'<form name="editContactForm" onsubmit="ctrl.submit(event)">' +
-					'<input name="id" type="hidden" value="' + contact.id + '">' +
-					'<label>First Name: </label><input name="firstName" value="' + contact.firstName + '"><br/>' +
-					'<label>Last Name: </label><input name="lastName" value="' + contact.lastName + '"><br/>' +
-					'<label>email: </label><input name="email" value="' + contact.email + '"><br/>' +
-					'<label></label><input type="submit" class="btn btn-danger" value="' + ( !contactId ? 'Add' : 'Save' ) + '"/>' +
-					'<a href="#" class="text-danger" onclick="ctrl.cancelEdit(event)">Cancel</a>' +
-				'</form>';
-			
-			var firstNameInput = document.editContactForm.firstName;	
-			firstNameInput.focus();
-			firstNameInput.select();
-		}
-		
 		this.cancelEdit = function(event) {
 			if( this.editMode == 'edit') 
 				this.drawViewDetails( this.selectedId );
@@ -171,17 +196,6 @@
 				this.clearDetails();
 			
 			event.preventDefault();
-			return false;
-		}
-		
-		this.submit = function(event) {
-			event.preventDefault();
-			
-			var fomValid = this.validate();
-			if( !fomValid ) return;
-			
-			this.save();
-			
 			return false;
 		}
 		
@@ -221,15 +235,29 @@
 			this.drawContactsList();
 			this.drawViewDetails( this.selectedId );
 		}
+		
+		this.submit = function(event) {
+			event.preventDefault();
+			
+			var fomValid = this.validate();
+			if( !fomValid ) return;
+			
+			this.save();
+			
+			return false;
+		}
 	}
 	
 	function bootstrap() {
 		var contactsService = new ContactsService();
 		var controller = new Controller(contactsService);
 		
-		window.ctrl = controller
+		exports.ctrl = controller;
 		
-		controller.drawContactsList()
+		contactsService.init(function() {
+			controller.drawContactsList();
+			document.getElementById('add').style = 'display: block;';
+		});
 	}
 	
 	bootstrap();
