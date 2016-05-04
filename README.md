@@ -129,6 +129,28 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
     
     Examples: [mixins](TypeScript/mixins/mixins.ts)
 
+## Angular 2.0
+
+1. Hello world
+
+    Examples: [hello-world](Angular2/hello-world/index.html)
+    
+1. Attribute, class & style bindings
+
+    Examples: [user-inputs](Angular2/user-inputs), [emitter](Angular2/emitter)
+    
+1. Forms
+
+    Examples: [debounce](Angular2/debounce)
+    
+1. Pipes
+    
+    Examples: [pipes](Angular2/pipes), [async-pipe](Angular2/async-pipe)
+
+1. Custom Attribute Directive
+
+    Examples: [attribute-directive](Angular2/attribute-directive)
+
 ## Usefull link
 |Ttile|Link|
 |---|---|
@@ -140,5 +162,8 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
 |Metaprogramming in ES6: Symbols and why they're awesome|http://blog.keithcirkel.co.uk/metaprogramming-in-es6-symbols/|
 |RxJS Observables vs Promises|https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises|
 |RxMarbles<br/><sup>Interactive diagrams of Rx Observables</sup>|http://rxmarbles.com/|
+|Developing a Tabs Component in Angular 2|http://blog.thoughtram.io/angular/2015/04/09/developing-a-tabs-component-in-angular-2.html|
+|The Ultimate Guide to Forms in Angular 2|http://blog.ng-book.com/the-ultimate-guide-to-forms-in-angular-2/|
+|Custom Validators in Angular 2|http://blog.thoughtram.io/angular/2016/03/14/custom-validators-in-angular-2.html|
 |Angular 2 Unit Testing recipes|https://medium.com/google-developer-experts/angular-2-unit-testing-with-jasmine-defe20421584#.8x5d58123|
 |Angular 2 Go with Protractor|https://github.com/CarmenPopoviciu/angular2-go-protractor|
