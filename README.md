@@ -150,6 +150,10 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
 1. Custom Attribute Directive
 
     Examples: [attribute-directive](Angular2/attribute-directive)
+    
+1. HTTP Client
+
+    Examples: [observables-vs-promises](Angular2/observables-vs-promises/index.html)
 
 ## Usefull link
 |Ttile|Link|
