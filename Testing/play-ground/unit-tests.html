@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>Ng App Unit Tests</title>
+    
+    <link rel="stylesheet" href="node_modules/jasmine-core/lib/jasmine-core/jasmine.css">
+    <script src="node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+    <script src="node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+    <script src="node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
+    <script>window.posponeonload = window.onload; window.onload = null</script>
+    
+    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+    <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="node_modules/angular2/bundles/testing.dev.js"></script>
+    <script src="node_modules/zone.js/dist/fake-async-test.js"></script>
+    
+    <script src="/node_modules/angular2/bundles/router.dev.js"></script>
+    <script src="node_modules/angular2/bundles/http.dev.js"></script>
+    
+    <script>
+        System.config({
+          packages: {
+            'app': {defaultExtension: 'js'}
+          }
+        })
+
+        
+        Promise.all([
+          System.import('app/1st.spec'),
+        ])
+          .then(window.posponeonload)
+          .catch(console.error.bind(console));
+      </script>
+  </head>
+  <body>
+  </body>
+</html>
