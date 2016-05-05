@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core'
+import {Component, Input, OnChanges} from 'angular2/core'
 import {NgForm} from 'angular2/common' 
 import {Person} from "./person"
 import {ContactsService} from "./contact.service"
@@ -39,7 +39,7 @@ import {EmailValidator} from "./email-validator.directive"
     `,
     styles: ['.alert {margin-left: 104px;}']
 })
-export class ContactDetailsComponent {
+export class ContactDetailsComponent implements OnChanges {
     @Input()
     contact: Person
     showEdit: boolean = false
@@ -66,5 +66,10 @@ export class ContactDetailsComponent {
     
     onCancel() {
         this.showEdit = false
+    }
+    
+    ngOnChanges(changes) {
+        if(changes && changes.contact && changes.contact.currentValue!==changes.contact.previousValue)
+            this.showEdit = ( this.contact && this.contact.id === null )
     }
  }
