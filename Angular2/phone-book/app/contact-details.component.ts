@@ -1,7 +1,8 @@
-import {Component, Input} from 'angular2/core'
+import {Component, Input, Output, OnChanges, EventEmitter} from 'angular2/core'
 import {NgForm} from 'angular2/common' 
 import {Person} from "./person"
 import {ContactsService} from "./contact.service"
+import {EmailValidator} from "./email-validator.directive"
 
 @Component({
     selector: 'contact-details',
@@ -16,28 +17,33 @@ import {ContactsService} from "./contact.service"
             <form name="editContactForm" #form="ngForm" (ngSubmit)="onSubmit(form)" *ngIf="showEdit" novalidate>
                 <label for="firstName">First Name: </label>
                 <input id="firstName" name="firstName" [ngModel]="contact.firstName" ngControl="firstName" required><br/>
+                <div class="alert alert-danger" role="alert" *ngIf="form.controls.firstName && !form.controls.firstName.pristine && !form.controls.firstName.valid">First name is required</div>
                 
                 <label for="lastName">Last Name: </label>
                 <input id="lastName" name="lastName" [ngModel]="contact.lastName" ngControl="lastName" required><br/>
+                <div class="alert alert-danger" role="alert" *ngIf="form.controls.lastName && !form.controls.lastName.pristine && !form.controls.lastName.valid">Last name is required</div>
                 
                 <label for="email">email: </label>
-                <input id="email" name="email" [ngModel]="contact.email" ngControl="email"><br/>
+                <input id="email" name="email" [ngModel]="contact.email" ngControl="email" email><br/>
+                <div class="alert alert-danger" role="alert" *ngIf="form.controls.email && !form.controls.email.valid">Email is invalid</div>
+                
                 
                 <label></label>
-                <input  type="submit" 
-                        class="btn btn-danger"
-                        value="{{ !contact.id ? 'Add' : 'Save' }}"
-                        [disabled]="!form.valid || form.pristine" />
+                <input type="submit" class="btn btn-danger" value="{{ !contact.id ? 'Add' : 'Save' }}" [disabled]="form.invalid || form.pristine" />
                 <a href="#" class="text-danger" (click)="onCancel()">Cancel</a>
             </form>
         </div>
     `,
-    styles: ['.alert {margin-left: 104px;}']
+    styles: ['.alert {margin-left: 104px;}'],
+    directives: [EmailValidator]
 })
-export class ContactDetailsComponent {
+export class ContactDetailsComponent implements OnChanges {
     @Input()
     contact: Person
-    showEdit: boolean = false
+    @Output()
+    contactChange = new EventEmitter<Person>()
+    @Input()
+    showEdit: boolean
     
     
     constructor(private _personService: ContactsService) {}
@@ -46,20 +52,35 @@ export class ContactDetailsComponent {
         this._personService.remove(person.id);
     }
     
+    ngOnChanges(changes) {
+        if(changes && changes.contact && changes.contact.currentValue!==changes.contact.previousValue)
+            this.showEdit = ( this.contact && this.contact.id === null )
+    }
+    
     onSubmit(form: NgForm) {
         if(! form.valid) return;
         
         let dirtyContact: Person = form.value
         dirtyContact.id = this.contact.id
         
-        this._personService.update(dirtyContact);
+        if(this.contact.id === null)
+            this._personService.add(dirtyContact)   
+        else
+            this._personService.update(dirtyContact);
             
         this.contact = dirtyContact
+        
+        this.contactChange.emit(this.contact);
          
         this.showEdit = false
     }
     
     onCancel() {
         this.showEdit = false
+        
+        if( this.contact.id === null ) {
+            this.contact = null;
+            this.contactChange.emit(this.contact);
+        }
     }
  }
