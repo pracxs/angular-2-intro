@@ -36,3 +36,6 @@ TypeScript/phone-book/js/pracxs.js.map
 TypeScript/phone-book/js/pracxs.js
 Angular2/play-ground/typings/
 Angular2/phone-book/typings/
+*.map
+Testing/karma/src/typings/
+*.js

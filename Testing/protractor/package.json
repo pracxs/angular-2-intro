@@ -1,0 +1,32 @@
+{
+  "name": "pracxs-angular-2-protractor",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Based on [angular2-go seed](https://github.com/johnpapa/angular2-go) by John Papa",
+  "scripts": {
+    "copy": "cpy src/**/*.html src/**/*.css src/**/*.png src/**/*.ico dev/ --parents",
+    "tsc": "tsc --outDir dev -w",
+    "dev": "npm run copy && npm run tsc",
+    "start": "live-server --open=dev/src/#/dashboard",
+    "e2e": "npm run instdrv && protractor protractor.conf.js",
+    "instdrv": "node ./node_modules/protractor/bin/webdriver-manager update"
+  },
+  "engines": {
+    "npm": ">=2.14.x",
+    "node": ">=4.2.x"
+  },
+  "dependencies": {
+    "angular2": "^2.0.0-beta.17",
+    "cpy": "^3.4.1",
+    "es6-shim": "^0.35.0",
+    "rx": "^4.1.0",
+    "rxjs": "^5.0.0-beta.7",
+    "systemjs": "0.19.5"
+  },
+  "devDependencies": {
+    "cpy": "^3.4.1",
+    "live-server": "^0.8.1",
+    "protractor": "^3.0.0",
+    "typescript": "^1.6.2"
+  }
+}
