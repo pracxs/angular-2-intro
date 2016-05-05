@@ -169,6 +169,10 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
     
     Examples: [di-with-mock](Testing/di-with-mock)
 
+1. Different testing scenarios example
+
+    Examples: [test-pack](Testing/test-pack)
+
 1. Karma - The Spectacular Test Runner for Javascript
 
     Examples: [karma](Testing/karma)
