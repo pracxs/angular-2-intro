@@ -39,3 +39,5 @@ Angular2/phone-book/typings/
 *.map
 Testing/karma/src/typings/
 *.js
+Angular2/phone-book-http/typings/
+Angular2/phone-book-router/typings/
