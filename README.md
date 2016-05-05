@@ -155,6 +155,28 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
 
     Examples: [observables-vs-promises](Angular2/observables-vs-promises/index.html)
 
+## Testing - Angular 2.0
+
+1. Jasmine - Behavior-Driven JavaScript
+
+    Examples: [jasmine-demo](Testing/jasmine-demo)
+
+1. Dependency injection without mocking
+
+    Examples: [di-no-mock](Testing/di-no-mock)
+    
+1. Dependency injection with mocking
+    
+    Examples: [di-with-mock](Testing/di-with-mock)
+
+1. Karma - The Spectacular Test Runner for Javascript
+
+    Examples: [karma](Testing/karma)
+
+1. Protractor - end to end testing for Angular
+
+    Examples: [protractor](Testing/protractor)
+
 ## Usefull link
 |Ttile|Link|
 |---|---|
