@@ -2,9 +2,6 @@
 
 This course is intendet for quick introduction into JavaScript, TypeScript and Angular 2. It also deleivers introductory concepts on testin Angular 2 applications.
 
-## Survey
-https://www.surveymonkey.com/r/Z13818052016
-
 ## JavaScript
 
 1. Include JavaScript in an HTML
@@ -70,6 +67,10 @@ https://www.surveymonkey.com/r/Z13818052016
 
     Examples: [throw.html](JavaScript/throw.html), [onerror.html](JavaScript/onerror.html)
 
+### Demo Apps
+- Phone book app with mocked data service [phone-book](JavaScript/phone-book)
+- Phone book app with example of async data service [phone-book-data](JavaScript/phone-book-data)
+	
 ## TypeScript
 
 1. Basic Types
@@ -196,6 +197,7 @@ https://www.surveymonkey.com/r/Z13818052016
 |RxJS Observables vs Promises|https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises|
 |RxJS and Observables with Angular 2|https://youtu.be/ZmEvKLYF0os|
 |RxMarbles<br/><sup>Interactive diagrams of Rx Observables</sup>|http://rxmarbles.com/|
+|Global Events in Angular 2|http://stackoverflow.com/questions/34700438/global-events-in-angular-2|
 |Developing a Tabs Component in Angular 2|http://blog.thoughtram.io/angular/2015/04/09/developing-a-tabs-component-in-angular-2.html|
 |The Ultimate Guide to Forms in Angular 2|http://blog.ng-book.com/the-ultimate-guide-to-forms-in-angular-2/|
 |Custom Validators in Angular 2|http://blog.thoughtram.io/angular/2016/03/14/custom-validators-in-angular-2.html|
