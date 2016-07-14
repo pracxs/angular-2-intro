@@ -1,4 +1,4 @@
-import {Directive, EventEmitter, Output, HostListener} from "angular2/core"
+import {Directive, EventEmitter, Output, HostListener} from "@angular/core"
 
 @Directive({
   selector: "[log-clicks]"

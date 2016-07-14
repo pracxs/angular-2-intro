@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core'
+import {Component, OnInit} from '@angular/core'
 import {Person} from './person'
 import {PersonService} from './person.service'
 import {LoadPersonsService} from './load-persons.service'
@@ -7,7 +7,7 @@ import {LoadPersonsService} from './load-persons.service'
     selector: 'persons-details',
     template: `
         <ul>
-            <li *ngFor="#person of persons">{{person.firstName}} {{person.lastName}}</li>
+            <li *ngFor="let person of persons">{{person.firstName}} {{person.lastName}}</li>
         </ul>
     `,
     providers: [PersonService, LoadPersonsService]

@@ -1,8 +1,8 @@
-import {describe, expect,it, xit, inject, beforeEach, beforeEachProviders, TestComponentBuilder} from 'angular2/testing'
-import {provide, Injector} from 'angular2/core'
-import {Http, Response} from 'angular2/http'
-import {MockBackend} from 'angular2/http/testing'
-import {BaseRequestOptions}    from 'angular2/http'
+import {inject, addProviders} from '@angular/core/testing'
+import {provide, Injector} from '@angular/core'
+import {Http, Response} from '@angular/http'
+import {MockBackend} from '@angular/http/testing'
+import {BaseRequestOptions}    from '@angular/http'
 
 import {LoadPersonsService} from "./load-persons.service"
 
@@ -14,14 +14,16 @@ describe('MockBackend: LoadPersonsService', () => {
   let mockbackend: MockBackend, service: LoadPersonsService
   
   //setup
-  beforeEachProviders(() => [
-    LoadPersonsService,
-    MockBackend,
-    BaseRequestOptions,
-    provide(Http, {
-      useFactory: (backend, options) => new Http(backend, options), 
-      deps: [MockBackend, BaseRequestOptions]})
-  ])
+  beforeEach(() => {
+    addProviders([
+      LoadPersonsService,
+      MockBackend,
+      BaseRequestOptions,
+      provide(Http, {
+        useFactory: (backend, options) => new Http(backend, options), 
+        deps: [MockBackend, BaseRequestOptions]})
+    ])
+  })
   
   beforeEach(inject([MockBackend, LoadPersonsService], (_mockbackend, _service) => {
     mockbackend = _mockbackend

@@ -2,6 +2,9 @@
 
 This course is intendet for quick introduction into JavaScript, TypeScript and Angular 2. It also deleivers introductory concepts on testin Angular 2 applications.
 
+## Survey
+https://www.surveymonkey.com/r/Z13818052016
+
 ## JavaScript
 
 1. Include JavaScript in an HTML
@@ -191,6 +194,7 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
 |Introduction to TypeScript by Jess Chadwick|https://youtu.be/qRD7bkK7m10|
 |Metaprogramming in ES6: Symbols and why they're awesome|http://blog.keithcirkel.co.uk/metaprogramming-in-es6-symbols/|
 |RxJS Observables vs Promises|https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises|
+|RxJS and Observables with Angular 2|https://youtu.be/ZmEvKLYF0os|
 |RxMarbles<br/><sup>Interactive diagrams of Rx Observables</sup>|http://rxmarbles.com/|
 |Developing a Tabs Component in Angular 2|http://blog.thoughtram.io/angular/2015/04/09/developing-a-tabs-component-in-angular-2.html|
 |The Ultimate Guide to Forms in Angular 2|http://blog.ng-book.com/the-ultimate-guide-to-forms-in-angular-2/|

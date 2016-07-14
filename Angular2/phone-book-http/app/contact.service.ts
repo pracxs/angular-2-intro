@@ -1,9 +1,18 @@
-import {Injectable} from "angular2/core"
-import {Http, Response} from 'angular2/http'
+/* Copyright (C) 2016 Pracxs Net & ITCE - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the Prometheus courses license.
+ *
+ * You should have received a copy of the Prometheus courses
+ * license.If not, please write to: prometheus@pracxs.com
+ * or to prometheus@itce.com
+ */
+
+import {Injectable} from "@angular/core"
+import {Http, Response} from '@angular/http'
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
-import {Person} from "./person"
+import {Contact} from "./contact"
 
 const CONTACTS_URL = 'contacts.json'
 
@@ -13,10 +22,10 @@ export class ContactsService {
 	
 	constructor(private http: Http) {}
 	
-	getAll(): Observable<Person[]> {
+	getAll(): Observable<Contact[]> {
 		return this.http.get(CONTACTS_URL)
                     .map((res: Response) => {
-						let data: Person[] = this.extractData(res)
+						let data: Contact[] = this.extractData(res)
 						 
 						data.map((val) => { ContactsService._contactId = Math.max(val.id, ContactsService._contactId) })
 						ContactsService._contactId++;
@@ -31,23 +40,23 @@ export class ContactsService {
 	}
 	
 	remove(id: number) {
-		throw {name: 'Unimplemented', message: 'Unimpemented functionality'}
+		throw 'Unimpemented functionality'
 	}
 	
-	update(contact: Person) {
-		throw {name: 'Unimplemented', message: 'Unimpemented functionality'}
+	update(contact: Contact) {
+		throw 'Unimpemented functionality'
 	}
 	
-	add(contact: Person) {
-		throw {name: 'Unimplemented', message: 'Unimpemented functionality'}
+	add(contact: Contact) {
+		throw 'Unimpemented functionality'
 	}
 	
-	private findById(contactId: number): Person {
-		throw {name: 'Unimplemented', message: 'Unimpemented functionality'}
+	private findById(contactId: number): Contact {
+		throw 'Unimpemented functionality'
 	}
 	
 	private findIndexById(contactId: number) {
-		throw {name: 'Unimplemented', message: 'Unimpemented functionality'}
+		throw 'Unimpemented functionality'
 	}
 	
 	private extractData(res: Response) {

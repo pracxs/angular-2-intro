@@ -10,38 +10,32 @@
     <script src="node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
     <script>window.posponeonload = window.onload; window.onload = null</script>
     
-    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
-    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
-    <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
-    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="node_modules/rxjs/bundles/Rx.js"></script>
-    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-    <script src="node_modules/angular2/bundles/testing.dev.js"></script>
+    
+    <script src="node_modules/zone.js/dist/async-test.js"></script>
+    
+    <script src="systemjs.config.js"></script> 
+    
     <script src="node_modules/zone.js/dist/fake-async-test.js"></script>
     
-    <script src="/node_modules/angular2/bundles/router.dev.js"></script>
-    <script src="node_modules/angular2/bundles/http.dev.js"></script>
-    
     <script>
-        System.config({
-          packages: {
-            'app': {defaultExtension: 'js'}
-          }
-        })
-
-        
         Promise.all([
-          System.import('app/person.service.spec'),
-          System.import('app/details.component.spec'),
-          System.import('app/greeter.component.spec'),
-          System.import('app/observable.spec'),
-          System.import('app/counter.component.spec'),
-          System.import('app/log-clicks.directive.spec'),
-          System.import('app/log-clicks.directive.sync.spec'),
-          System.import('app/details.component.spy.spec'),
-          System.import('app/http.spec'),
-          System.import('app/router.spec'),
+          System.import('dist/1st.spec'),
+          // System.import('dist/observable.spec'),
+          // System.import('dist/person.service.spec'),
+          // System.import('dist/counter.component.spec'),
+          // System.import('dist/greeter.component.spec'),
+          // System.import('dist/details.component.spec'),
+          // System.import('dist/log-clicks.directive.spec'),
+          // System.import('dist/log-clicks.directive.sync.spec'),
+          // System.import('dist/details.component.spy.spec'),
+          // System.import('dist/http.spec'),
+          // System.import('dist/router.spec'),
+          // System.import('dist/router.app.spec'),
         ])
           .then(window.posponeonload)
           .catch(console.error.bind(console));

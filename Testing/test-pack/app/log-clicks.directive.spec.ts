@@ -1,5 +1,6 @@
-import {describe, expect,it, xit, inject, beforeEach, beforeEachProviders, TestComponentBuilder, ComponentFixture} from 'angular2/testing'
-import {Component, Output, EventEmitter} from "angular2/core"
+import {inject, async, TestComponentBuilder, ComponentFixture, setBaseTestProviders, getTestInjector} from '@angular/core/testing'
+import {TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS} from '@angular/platform-browser-dynamic/testing'
+import {Component, Output, EventEmitter} from "@angular/core"
 import {LogClicksDirective} from "./log-clicks.directive"
 
 @Component({ 
@@ -16,15 +17,16 @@ export class TestContainer {
 }
 
 describe('LogClicksDirective', () => {
-    let fixture: ComponentFixture
+    if( !getTestInjector().platformProviders.length )
+        setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS)
+    
+    let fixture: ComponentFixture<TestContainer>
   
-    beforeEachProviders(() => [TestComponentBuilder])
-  
-    beforeEach(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+    beforeEach(async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
         return tcb
             .createAsync(TestContainer)
             .then(f => fixture = f)
-    }))
+    })))
   
     it('should increment counter', done => {
         let container = fixture.componentInstance

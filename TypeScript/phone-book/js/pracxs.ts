@@ -7,16 +7,16 @@
  * or to prometheus@itce.com
  */
 
-/// <reference path="contact-service.ts" />
-/// <reference path="controller.ts" />
+/// <reference path="Contacts.service.ts" />
+/// <reference path="Contacts.controller.ts" />
 
-function bootstrapApp() {
-	let contactsService = new ContactsService();
-	let controller = new Controller(contactsService);
+function bootstrap(): void {
+	var contactsService = new ContactsService();
+	var controller = new ContactsController(contactsService);
 	
-	(<any>window).ctrl = controller;
+	(<any> window).ctrl = controller
 	
-	controller.drawContactsList();
+	controller.drawContactsList()
 }
 
-bootstrapApp();
+bootstrap();

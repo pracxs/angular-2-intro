@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "amd",
         "target": "es5",
         "noImplicitAny": false,
-        "sourceMap": true
-        //"outFile": "pracxs.js"
+        "sourceMap": true,
+        "outFile": "js/pracxs.js"
     },
     "exclude": [
         "node_modules"

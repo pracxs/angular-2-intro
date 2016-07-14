@@ -1,11 +1,15 @@
-import {provide} from 'angular2/core'
-import {describe,expect,it,xit, inject, beforeEach, beforeEachProviders, TestComponentBuilder, ComponentFixture} from 'angular2/testing'
+import {inject, async, TestComponentBuilder, ComponentFixture, setBaseTestProviders, getTestInjector} from '@angular/core/testing'
+import {TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS} from '@angular/platform-browser-dynamic/testing'
+import {provide} from '@angular/core'
 import {PersonsDetailsComponent} from './details.component'
 import {PersonService} from './person.service'
 import {LoadPersonsService} from './load-persons.service'
 
 describe('PersonsDetailsComponent (SPY)', () => {
-    let fixture: ComponentFixture
+    if( !getTestInjector().platformProviders.length )
+        setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS)
+    
+    let fixture: ComponentFixture<PersonsDetailsComponent>
     
     class PersonServiceMock {
         getAll() {
@@ -17,9 +21,7 @@ describe('PersonsDetailsComponent (SPY)', () => {
     
     let personServiceSpy = new PersonServiceMock()
     
-    beforeEachProviders(() => [TestComponentBuilder])
-    
-    beforeEach(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+    beforeEach(async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
         spyOn(personServiceSpy, 'getAll').and.callThrough()
         
         return tcb
@@ -31,7 +33,7 @@ describe('PersonsDetailsComponent (SPY)', () => {
             )
             .createAsync(PersonsDetailsComponent)
             .then(rootFixture => fixture = rootFixture)
-    }))
+    })))
     
     it('must be a list of persons list', () => {
         let component = fixture.componentInstance

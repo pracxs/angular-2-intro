@@ -1,6 +1,15 @@
-import {Component, Input, Output, OnChanges, EventEmitter} from 'angular2/core'
-import {NgForm} from 'angular2/common' 
-import {Person} from "./person"
+/* Copyright (C) 2016 Pracxs Net & ITCE - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the Prometheus courses license.
+ *
+ * You should have received a copy of the Prometheus courses
+ * license.If not, please write to: prometheus@pracxs.com
+ * or to prometheus@itce.com
+ */
+
+import {Component, Input, Output, OnChanges, EventEmitter} from '@angular/core'
+import {NgForm} from '@angular/common' 
+import {Contact} from "./contact"
 import {ContactsService} from "./contact.service"
 import {EmailValidator} from "./email-validator.directive"
 
@@ -16,15 +25,15 @@ import {EmailValidator} from "./email-validator.directive"
             </span>
             <form name="editContactForm" #form="ngForm" (ngSubmit)="onSubmit(form)" *ngIf="showEdit" novalidate>
                 <label for="firstName">First Name: </label>
-                <input id="firstName" name="firstName" [ngModel]="contact.firstName" ngControl="firstName" required><br/>
+                <input id="firstName" name="firstName" [ngModel]="contact.firstName" required><br/>
                 <div class="alert alert-danger" role="alert" *ngIf="form.controls.firstName && !form.controls.firstName.pristine && !form.controls.firstName.valid">First name is required</div>
                 
                 <label for="lastName">Last Name: </label>
-                <input id="lastName" name="lastName" [ngModel]="contact.lastName" ngControl="lastName" required><br/>
+                <input id="lastName" name="lastName" [ngModel]="contact.lastName" required><br/>
                 <div class="alert alert-danger" role="alert" *ngIf="form.controls.lastName && !form.controls.lastName.pristine && !form.controls.lastName.valid">Last name is required</div>
                 
                 <label for="email">email: </label>
-                <input id="email" name="email" [ngModel]="contact.email" ngControl="email" email><br/>
+                <input id="email" name="email" [ngModel]="contact.email" email><br/>
                 <div class="alert alert-danger" role="alert" *ngIf="form.controls.email && !form.controls.email.valid">Email is invalid</div>
                 
                 
@@ -39,16 +48,16 @@ import {EmailValidator} from "./email-validator.directive"
 })
 export class ContactDetailsComponent implements OnChanges {
     @Input()
-    contact: Person
+    contact: Contact
     @Output()
-    contactChange = new EventEmitter<Person>()
+    contactChange = new EventEmitter<Contact>()
     @Input()
     showEdit: boolean
     
     
     constructor(private _personService: ContactsService) {}
     
-    remove(person: Person) {
+    remove(person: Contact) {
         this._personService.remove(person.id);
     }
     
@@ -60,7 +69,7 @@ export class ContactDetailsComponent implements OnChanges {
     onSubmit(form: NgForm) {
         if(! form.valid) return;
         
-        let dirtyContact: Person = form.value
+        let dirtyContact: Contact = form.value
         dirtyContact.id = this.contact.id
         
         if(this.contact.id === null)

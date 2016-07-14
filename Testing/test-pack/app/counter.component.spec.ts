@@ -1,12 +1,12 @@
-import {describe,expect,it,xit, inject, beforeEach, beforeEachProviders, TestComponentBuilder, ComponentFixture} from 'angular2/testing'
+import {inject, addProviders} from '@angular/core/testing'
 import {Counter} from "./counter.component"
 
 describe('EventEmitter: Counter', () => {
   
   //setup
-  beforeEachProviders(() => [
-    Counter
-  ])
+  beforeEach(() => {
+    addProviders([Counter])
+  })
   
   beforeEach(inject([Counter], c => {
     this.counter = c

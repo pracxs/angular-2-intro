@@ -1,24 +1,27 @@
-import {provide} from 'angular2/core'
-import {describe,expect,it,xit, inject, beforeEach, beforeEachProviders, TestComponentBuilder, ComponentFixture, setBaseTestProviders} from 'angular2/testing'
-import {TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser'
-import {Http} from 'angular2/http'
+import {provide} from '@angular/core'
+import {inject, async, addProviders, setBaseTestProviders, getTestInjector, TestComponentBuilder, ComponentFixture} from '@angular/core/testing'
+import {TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS} from '@angular/platform-browser-dynamic/testing'
+import {Http} from '@angular/http'
 import {PersonsDetailsComponent} from './details.component'
 
 describe('PersonsDetailsComponent', () => {
-    setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS)
+    if( !getTestInjector().platformProviders.length )
+        setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS)
     
-    let fixture: ComponentFixture
+    let fixture: ComponentFixture<PersonsDetailsComponent>
     
-    beforeEachProviders(() => [
-        TestComponentBuilder,
-        provide(Http, {useValue: {}})
-    ])
-    
-    beforeEach(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-        return tcb
-            .createAsync(PersonsDetailsComponent)
-            .then(rootFixture => fixture = rootFixture)
-    }))
+    beforeEach( () => {
+        addProviders([
+            provide(Http, {useValue: {}})
+        ])
+    })
+
+    beforeEach(async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            return tcb
+                .createAsync(PersonsDetailsComponent)
+                .then(rootFixture => fixture = rootFixture )
+        })
+    ))
     
     it('must be a list of persons list', () => {
         let component = fixture.componentInstance

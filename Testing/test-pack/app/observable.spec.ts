@@ -1,5 +1,5 @@
-import {describe, expect,it, xit, inject, beforeEach} from 'angular2/testing'
-import {Observable} from 'rxjs/Rx'
+//import { async } from '@angular/core/testing'
+import { Observable } from 'rxjs/Rx'
 
 describe('Observable: basic observable', () => {
   //setup

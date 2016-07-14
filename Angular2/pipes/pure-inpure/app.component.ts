@@ -1,5 +1,5 @@
 import {Repeater} from './repeater.pipte';
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 
 let PERSONS = [
     { "name": "Max", },

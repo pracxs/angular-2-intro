@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "module": "system",
+        "target": "es5",
+        "noImplicitAny": false,
+        "sourceMap": true //,
+        //"outFile": "js/pracxs.js"
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

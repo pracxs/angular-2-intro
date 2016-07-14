@@ -1,23 +1,22 @@
-import {Component, OnInit} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
-import {ContactsListComponent} from "./contacts-list.component"
-import {ContactDetailsComponent} from "./contact-details.component"
-import {ContactsService} from "./contact.service"
-import {Person} from "./person"
+/* Copyright (C) 2016 Pracxs Net & ITCE - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the Prometheus courses license.
+ *
+ * You should have received a copy of the Prometheus courses
+ * license.If not, please write to: prometheus@pracxs.com
+ * or to prometheus@itce.com
+ */
+
+import { Component } from '@angular/core'
+import { ROUTER_DIRECTIVES } from '@angular/router'
+import { DialogService } from "./dialog.service"
 
 @Component({
     selector: 'my-app',
+    directives: [ROUTER_DIRECTIVES],
+    providers: [DialogService],
     template: `
-        <contacts-list></contacts-list>
-        
-        <a id="add" class="text-danger" [routerLink]="['PersonDetail', {id: -1}]"><span class="glyphicon glyphicon-plus"></span>Add</a>
-        
         <router-outlet></router-outlet>
-    `,
-    directives: [ContactsListComponent, ROUTER_DIRECTIVES],
-    providers: [ContactsService]
+    `
 })
-@RouteConfig([
-  {path:'/:id', name: 'PersonDetail', component: ContactDetailsComponent, useAsDefault: true}
-])
 export class AppComponent {}

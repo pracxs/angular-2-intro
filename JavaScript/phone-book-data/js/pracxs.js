@@ -98,15 +98,16 @@
 		this.drawContactsList = function() {
 			var contacts = this.contactsService.getAll();
 			
-			var html = '';
+			var html = '<ul>';
 			for( var ind in contacts ) {
 				var contact = contacts[ind];
 				html += 
-					"<div class='item" + ( this.selectedId==contact.id ? ' active' : '' ) + "'>" + 
+					"<li class='item" + ( this.selectedId==contact.id ? ' active' : '' ) + "'>" + 
 						"<a href='#' onclick='ctrl.select(event, " + contact.id + ")'>" + contact.firstName + ' ' + contact.lastName.toUpperCase() + "</a>" +
 						"<a href='#' onclick='ctrl.remove(event, " + contact.id + ")' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>" +
-					"</div>";
+					"</li>";
 			}
+			html += '</ul>'
 			
 			var contactsListContainer = document.getElementById('contactsListContainer');
 			contactsListContainer.innerHTML = html;

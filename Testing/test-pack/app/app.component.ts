@@ -1,5 +1,5 @@
-import {Component} from 'angular2/core'
-import {RouteConfig, RouterOutlet, RouterLink} from 'angular2/router'
+import {Component} from '@angular/core'
+import {RouteConfig, RouterOutlet, RouterLink} from '@angular/router-deprecated'
 import {PersonsDetailsComponent} from './details.component'
 import {GreeterComponent} from './greeter.component'
 import {AboutComponent} from './about.component'

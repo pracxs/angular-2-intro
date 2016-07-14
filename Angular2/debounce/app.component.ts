@@ -1,5 +1,5 @@
-import {Component, OnInit} from 'angular2/core';
-import {Control} from 'angular2/common';
+import {Component, OnInit} from '@angular/core';
+import {Control} from '@angular/common';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({

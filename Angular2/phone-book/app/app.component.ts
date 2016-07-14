@@ -1,8 +1,17 @@
-import {Component, OnInit} from 'angular2/core';
+/* Copyright (C) 2016 Pracxs Net & ITCE - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the Prometheus courses license.
+ *
+ * You should have received a copy of the Prometheus courses
+ * license.If not, please write to: prometheus@pracxs.com
+ * or to prometheus@itce.com
+ */
+
+import {Component, OnInit} from '@angular/core';
 import {ContactsListComponent} from "./contacts-list.component"
 import {ContactDetailsComponent} from "./contact-details.component"
 import {ContactsService} from "./contact.service"
-import {Person} from "./person"
+import {Contact} from "./contact"
 
 @Component({
     selector: 'my-app',
@@ -17,7 +26,7 @@ import {Person} from "./person"
     providers: [ContactsService]
 })
 export class AppComponent {
-    selected: Person
+    selected: Contact
     
     onAdd() {
         this.selected = {id: null, firstName: '', lastName: '', email: ''}

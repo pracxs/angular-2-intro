@@ -1,26 +1,28 @@
-import {describe, expect,it, xit, inject, beforeEach, beforeEachProviders, setBaseTestProviders} from 'angular2/testing'
-import {TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser'
-import {provide, Component} from "angular2/core"
-import {RouteRegistry, Router, ROUTER_PRIMARY_COMPONENT} from "angular2/router"
-import {Location} from 'angular2/platform/common'
-import {SpyLocation} from "angular2/src/mock/location_mock"
-import {RootRouter} from "angular2/src/router/router"
+import {inject, addProviders, setBaseTestProviders, getTestInjector} from '@angular/core/testing'
+import {TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS} from '@angular/platform-browser-dynamic/testing'
+import {provide} from "@angular/core"
+import {RouteRegistry, Router, ROUTER_PRIMARY_COMPONENT} from "@angular/router-deprecated"
+import {Location} from '@angular/common'
+import {SpyLocation} from "@angular/common/testing"
+import {RootRouter} from "@angular/router-deprecated/src/router"
 import {AppComponent} from "./app.component"
 
 describe('Router tests', () => {
-  //setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS)
+  if( !getTestInjector().platformProviders.length )
+    setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS)
   
   let router: Router
   let spylocation: SpyLocation
   
   //setup
-  beforeEachProviders(() => [
-    TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS,
-    RouteRegistry,
-    provide(ROUTER_PRIMARY_COMPONENT, {useValue: AppComponent}),
-    provide(Location, {useClass: SpyLocation}),
-    provide(Router, {useClass: RootRouter}),
-  ])
+  beforeEach(() => {
+    addProviders([
+      RouteRegistry,
+      provide(ROUTER_PRIMARY_COMPONENT, {useValue: AppComponent}),
+      provide(Location, {useClass: SpyLocation}),
+      provide(Router, {useClass: RootRouter}),
+    ])
+  })
   
   beforeEach(inject([Router, Location], (r, l) => {
     router = r

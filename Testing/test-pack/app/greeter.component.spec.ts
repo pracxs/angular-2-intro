@@ -1,20 +1,16 @@
-import {provide} from 'angular2/core'
-import {describe,expect,it,xit, inject, beforeEach, beforeEachProviders, TestComponentBuilder, ComponentFixture, setBaseTestProviders} from 'angular2/testing'
-import {
-  TEST_BROWSER_PLATFORM_PROVIDERS,
-  TEST_BROWSER_APPLICATION_PROVIDERS
-} from 'angular2/platform/testing/browser'
+import {provide} from '@angular/core'
+import {inject, async, addProviders, TestComponentBuilder, ComponentFixture, setBaseTestProviders, getTestInjector} from '@angular/core/testing'
+import {TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS} from '@angular/platform-browser-dynamic/testing'
 import {GreeterComponent} from './greeter.component'
 
 describe('GreeterComponent', () => {
-    setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS)
+    if( !getTestInjector().platformProviders.length )
+        setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS)
     
-    beforeEachProviders(() => [TestComponentBuilder])
-
     it('must be "Phone Book App"', 
-        inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+        async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             return tcb.createAsync(GreeterComponent)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<GreeterComponent>) => {
                     let element = fixture.nativeElement
 
                     fixture.detectChanges()
@@ -22,6 +18,6 @@ describe('GreeterComponent', () => {
                     expect(element.querySelectorAll('h1').length).toBe(1);
                     expect(element.querySelector('h1').innerText).toBe('Phone Book App');
                 })
-        })
+        }))
     )   
 })
