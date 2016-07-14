@@ -1,5 +1,5 @@
-import {provide} from 'angular2/core'
-import {describe,expect,it,xit, inject, beforeEachProviders} from 'angular2/testing'
+import {inject, addProviders} from '@angular/core/testing'
+import {provide} from '@angular/core'
 import {Person} from './person'
 import {PersonService} from './person.service'
 import {LoadPersonsService} from './load-persons.service'
@@ -14,10 +14,12 @@ describe('PersonService', () => {
         }
     }
     
-    beforeEachProviders(() => [
+    beforeEach(() => {
+        addProviders([
             PersonService,
             provide(LoadPersonsService,{useClass: LoadPersonsServiceMock})
         ])
+    })
     
     it('must have 2 persons', inject([PersonService], (personService) => {
         let persons = personService.getAll();

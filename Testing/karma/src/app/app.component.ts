@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core'
+import {Component, OnInit} from '@angular/core'
 import {Person} from './person'
 import {PersonService} from './person.service'
 import {LoadPersonsService} from './load-persons.service'
