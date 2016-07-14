@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from 'angular2/core'
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core'
 import {Person} from "./person"
 import {ContactsService} from "./contact.service"
 

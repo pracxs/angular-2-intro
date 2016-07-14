@@ -1,3 +1,5 @@
+/// <reference path="../../../typings/main.d.ts" />
+
 export class HomePageObject {    
     public copyright = element(by.css('.copyright'))
     public addButton = element(by.id('add'))
@@ -5,6 +7,10 @@ export class HomePageObject {
 
     selectContact(ind: number) {
         this.contactsList.get(ind).element(by.tagName('a')).click()
+    }
+    
+    getCopyrightText() {
+        return this.copyright.getText()
     }
     
     /////

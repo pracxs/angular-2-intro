@@ -4,12 +4,12 @@ describe('Home page', () => {
 
     var homepage = new HomePageObject();
 
-    beforeEach(() => {
+    beforeAll(() => { // beforeEach
         browser.get('#');
     })
 
     it('should have copyright', () => {
-        expect(homepage.copyright.getText()).toEqual('© Copyright ITCE & Pracxs 2016')
+        expect(homepage.getCopyrightText()).toEqual('© Copyright ITCE & Pracxs 2016')
     })
     
     it('should have add button', () => {

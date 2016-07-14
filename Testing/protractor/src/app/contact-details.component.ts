@@ -1,5 +1,5 @@
-import {Component, Input, Output, OnChanges, EventEmitter} from 'angular2/core'
-import {NgForm} from 'angular2/common' 
+import {Component, Input, Output, OnChanges, EventEmitter} from '@angular/core'
+import {NgForm} from '@angular/common' 
 import {Person} from "./person"
 import {ContactsService} from "./contact.service"
 import {EmailValidator} from "./email-validator.directive"
