@@ -34,7 +34,7 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
 
 1. User-Defined Objects
 
-    Examples: [object-1.html](JavaScript/object-1.html), Examples: [object-2.html](JavaScript/object-2.html), Examples: [object-with-method.html](JavaScript/object-with-method.html)
+    Examples: [object-1.html](JavaScript/object-1.html), [object-2.html](JavaScript/object-2.html), [object-with-method.html](JavaScript/object-with-method.html)
 
 1. Native Objects
 
