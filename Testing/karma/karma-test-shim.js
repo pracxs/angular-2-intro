@@ -15,8 +15,7 @@ var map = {
     'app':                        'base/dist', // 'app',
     'rxjs':                       'base/node_modules/rxjs',
     //'angular2-in-memory-web-api': 'base/node_modules/angular2-in-memory-web-api',
-    '@angular':                   'base/node_modules/@angular',
-    'symbol-observable':          'base/node_modules/symbol-observable'
+    '@angular':                   'base/node_modules/@angular'
 }
 
 var packages = {
@@ -42,8 +41,7 @@ var packageNames = [
     '@angular/router-deprecated',
     '@angular/testing',
     '@angular/upgrade',
-    '@angular/forms',
-    'symbol-observable'
+    '@angular/forms'
 ]
 
 packageNames.forEach(function(pkgName) {

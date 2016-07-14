@@ -19,7 +19,6 @@ module.exports = function(config) {
             {pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false},
             {pattern: 'node_modules/@angular/**/*.js', included: false, watched: false},
             {pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: false},
-            {pattern: 'node_modules/symbol-observable/**/*.js', included: false, watched: false},
             {pattern: 'karma-test-shim.js', included: true, watched: true},
             {pattern: 'node_modules/zone.js/dist/fake-async-test.js', included: true, watched: true},
             
@@ -70,6 +69,6 @@ module.exports = function(config) {
             ]
         },
  
-        singleRun: false
+        singleRun: true
     })
 };
