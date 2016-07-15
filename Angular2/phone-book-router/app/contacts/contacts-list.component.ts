@@ -38,11 +38,11 @@ export class ContactsListComponent implements OnInit, OnDestroy {
     remove(person: Contact) {    
         this.personService.remove(person.id)
         if(person.id==this.selected )
-            this.router.navigate(['/'])
+            this.router.navigate(['/contacts'])
     }
     
     onSelect(person: Contact) {
-        this.router.navigate(['/', person.id])
+        this.router.navigate(['/contacts', person.id])
     }
     
     ngOnInit() {
@@ -58,6 +58,8 @@ export class ContactsListComponent implements OnInit, OnDestroy {
 
                 if(this.sub)
                     this.sub.unsubscribe()
+
+                if( ! oldChildRoute ) return
 
                 this.sub = childRoute.params.subscribe(params => {
                     if( params['id']!=='' && + params['id'] > 0)
@@ -78,6 +80,7 @@ export class ContactsListComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe()
+        if(this.sub)
+            this.sub.unsubscribe()
     }
  }

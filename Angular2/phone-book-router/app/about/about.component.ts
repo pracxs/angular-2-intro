@@ -9,19 +9,14 @@
 
 import { Component } from '@angular/core'
 import { ROUTER_DIRECTIVES } from '@angular/router'
-import { ContactsService } from "./contact.service"
-import { ContactsListComponent } from "./contacts-list.component"
 
 @Component({
     selector: 'contacts',
-    providers: [ContactsService],
-    directives: [ContactsListComponent, ROUTER_DIRECTIVES],
     template: `
-        <contacts-list></contacts-list>
-        
-        <a id="add" class="text-danger" [routerLink]="['/contacts', -1]"><span class="glyphicon glyphicon-plus"></span>Add</a>
-        
-        <router-outlet></router-outlet>
+        <h1>About</h1>
+        <div class='about'>
+            This is demo app about page
+        </div>
     `
 })
-export class ContactsComponent {}
+export class AboutComponent {}

@@ -100,7 +100,7 @@ export class ContactDetailsComponent implements OnInit, OnDestroy, CanComponentD
             
         this.contact = this.contactsService.getById(saveId)
 
-        this.router.navigate(['/', saveId]);
+        this.router.navigate(['/contacts', saveId]);
         this.showEdit = false
     }
     
@@ -108,7 +108,7 @@ export class ContactDetailsComponent implements OnInit, OnDestroy, CanComponentD
         this.showEdit = false
         
         if( this.contact.id === null ) {
-            this.router.navigate(['/']);
+            this.router.navigate(['/contacts']);
             // this.contactChange.emit(this.contact);
         }
     }

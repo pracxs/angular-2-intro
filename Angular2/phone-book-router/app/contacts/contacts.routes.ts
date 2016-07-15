@@ -7,13 +7,13 @@
  * or to prometheus@itce.com
  */
 
-import { provideRouter, RouterConfig } from '@angular/router'
+import { RouterConfig } from '@angular/router'
 import { CanDeactivateGuard }    from '../can-deactivate-guard'
 import { ContactsComponent } from "./contacts.component"
 import { ContactDetailsComponent } from "./contact-details.component"
 
 export const ContactsRoutes: RouterConfig = [
-  { path: '', component: ContactsComponent,
+  { path: 'contacts', component: ContactsComponent,
     children: [
       { path: ':id', component: ContactDetailsComponent, canDeactivate: [CanDeactivateGuard] },
       { path: '',    component: null }

@@ -10,9 +10,16 @@
 import { provideRouter, RouterConfig } from '@angular/router'
 import { CanDeactivateGuard }    from './can-deactivate-guard'
 import { ContactsRoutes } from "./contacts/contacts.routes"
+import { AboutRoutes } from "./about/about.routes"
 
 export const routes: RouterConfig = [
-  ...ContactsRoutes
+  ...ContactsRoutes,
+  ...AboutRoutes,
+  {
+    path: '',
+    redirectTo: '/contacts',
+    pathMatch: 'partial'
+  },
 ]
 
 export const APP_ROUTER_PROVIDERS = [
