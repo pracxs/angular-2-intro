@@ -8,6 +8,7 @@
  */
 
 import { Component } from '@angular/core'
+import { Contact } from "./contact"
 import { ContactsService } from "./contact.service"
 import { ContactDetails } from "./contact-details.component"
 import { ContactsListComponent } from "./contacts-list.component"
@@ -17,9 +18,11 @@ import { ContactsListComponent } from "./contacts-list.component"
     providers: [ContactsService],
     directives: [ContactDetails, ContactsListComponent],
     template: `
-        <contacts-list #list></contacts-list>
+        <contacts-list (selectedEvent)="selected = $event"></contacts-list>
 
-        <contact-details [contact]="list.selected"></contact-details>
+        <contact-details [contact]="selected"></contact-details>
     `
 })
-export class AppComponent {}
+export class AppComponent {
+    selected: Contact
+}

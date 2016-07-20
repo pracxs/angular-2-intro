@@ -7,7 +7,7 @@
  * or to prometheus@itce.com
  */
 
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, EventEmitter, Output } from '@angular/core'
 import { Contact } from "./contact"
 import { ContactsService } from "./contact.service"
 
@@ -29,6 +29,9 @@ export class ContactsListComponent implements OnInit {
 
     selected: Contact
 
+    @Output()
+    selectedEvent: EventEmitter<Contact> = new EventEmitter<Contact>()
+
     constructor(private contactsService: ContactsService) {}
 
     ngOnInit() {
@@ -39,5 +42,6 @@ export class ContactsListComponent implements OnInit {
 
     select(contact: Contact) {
         this.selected = contact
+        this.selectedEvent.emit(contact)
     }
 }
