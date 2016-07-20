@@ -10,6 +10,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'
 import { Subscription } from 'rxjs/Subscription'
+import 'rxjs/add/operator/filter'
+import 'rxjs/add/operator/map'
 import { Contact } from "./contact"
 import { ContactsService } from "./contact.service"
 
@@ -61,20 +63,15 @@ export class ContactsListComponent implements OnInit, OnDestroy {
 
                 if( ! oldChildRoute ) return
 
-                this.sub = childRoute.params.subscribe(params => {
-                    if( params['id']!=='' && + params['id'] > 0)
-                        this.selected = +params['id']
-                    else
-                        this.selected = null;
-                })
+                this.sub = childRoute.params
+                    .map( params => +params['id'] )
+                    .subscribe( id => this.selected = id )
             }
         }
 
-        this.router.events.subscribe(event=> {
-            if( ! ( event instanceof NavigationEnd ) ) return
-
-            atachChildParamListner()
-        })
+        this.router.events
+            .filter( event => event instanceof NavigationEnd )
+            .subscribe( atachChildParamListner )
 
         atachChildParamListner()
     }
