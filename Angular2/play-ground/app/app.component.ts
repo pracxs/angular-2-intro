@@ -24,7 +24,7 @@ import { ContactDetails } from "./contact-details.component"
             </li>
         </ul>
 
-        <contact-details></contact-details>
+        <contact-details [contact]="selected"></contact-details>
     `
 })
 export class AppComponent implements OnInit {
