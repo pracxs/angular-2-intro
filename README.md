@@ -133,6 +133,10 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
     
     Examples: [mixins](TypeScript/mixins/mixins.ts)
 
+### Demo Apps
+- Phone book app based on namespaces in separated files [phone-book](TypeScript/phone-book)
+- Phone book app based on modules [phone-book-modules](TypeScript/phone-book-modules)
+	
 ## Angular 2.0
 
 1. Hello world
@@ -157,7 +161,7 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
     
 1. HTTP Client
 
-    Examples: [observables-vs-promises](Angular2/observables-vs-promises/index.html)
+    Examples: [observables-vs-promises](Angular2/observables-vs-promises/index.html), [observables](Angular2/observables)
 
 ## Testing - Angular 2.0
 
