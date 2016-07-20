@@ -7,14 +7,10 @@
  * or to prometheus@itce.com
  */
 
-import {bootstrap}    from '@angular/platform-browser-dynamic';
-import {ROUTER_PROVIDERS} from '@angular/router-deprecated';
+import {bootstrap}    from '@angular/platform-browser-dynamic'
+import { disableDeprecatedForms, provideForms } from '@angular/forms'
 
-import {provide} from '@angular/core'
-import {HashLocationStrategy, LocationStrategy} from '@angular/common'
+import {AppComponent} from './app.component'
 
-import {AppComponent} from './app.component';
-
-
-// bootstrap(AppComponent, [ROUTER_PROVIDERS]);
-bootstrap(AppComponent, [ROUTER_PROVIDERS, provide(LocationStrategy, {useClass: HashLocationStrategy})]);
+bootstrap(AppComponent, [disableDeprecatedForms(), provideForms()])
+    .catch(err => console.error(err))
