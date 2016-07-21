@@ -23,5 +23,4 @@ export class HighlightDirective {
     private _highlight(color: string) {
         this._el.style.backgroundColor = color;
     }
-
 }
