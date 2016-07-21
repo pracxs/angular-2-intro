@@ -164,7 +164,7 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
     Examples: [observables-vs-promises](Angular2/observables-vs-promises/index.html), [observables](Angular2/observables)
 
 ### Demo Apps
-- Phone book app[phone-book](Angular2/phone-book)
+- Phone book app [phone-book](Angular2/phone-book)
 - HTTP base phone book app that retrieves contacts list from the server [phone-book-http](Angular2/phone-book-http)
 - New router base phone book app [phone-book-router](Angular2/phone-book-router)
 - Depricated router base phone book app [phone-book-router-depricated](Angular2/phone-book-router-depricated)
