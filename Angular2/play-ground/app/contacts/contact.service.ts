@@ -15,7 +15,7 @@ export class ContactsService {
 	static _contactId = 1;
 	
 	CONTACTS: Contact[] = [
-			{ id: ContactsService._contactId++, firstName: "Max 1", lastName: "Smith", email: "max@gmail.com" },
+			{ id: ContactsService._contactId++, firstName: "Max", lastName: "Smith", email: "max@gmail.com" },
 			{ id: ContactsService._contactId++, firstName: "Chris", lastName: "Raches", email: "chris@gmail.com" },
 			{ id: ContactsService._contactId++, firstName: "Michael", lastName: "Alloy", email: "michael@gmail.com" },
 			{ id: ContactsService._contactId++, firstName: "John", lastName: "Doe", email: "john@gmail.com" },
@@ -23,9 +23,7 @@ export class ContactsService {
 		];
 		
 	getAll() {
-		return new Promise<Contact[]>(resolve => {
-			setTimeout( ()=> resolve(this.CONTACTS) , 1)
-		} )
+		return this.CONTACTS;
 	}
 	
 	getById(id: number) {

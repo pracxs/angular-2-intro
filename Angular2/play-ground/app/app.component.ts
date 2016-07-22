@@ -7,22 +7,14 @@
  * or to prometheus@itce.com
  */
 
-import { Component } from '@angular/core'
-import { Contact } from "./contact"
-import { ContactsService } from "./contact.service"
-import { ContactDetails } from "./contact-details.component"
-import { ContactsListComponent } from "./contacts-list.component"
+import {Component, OnInit} from '@angular/core';
+import {ContactsComponent} from "./contacts/contacts.component"
 
 @Component({
     selector: 'my-app',
-    providers: [ContactsService],
-    directives: [ContactDetails, ContactsListComponent],
     template: `
-        <contacts-list (selectedEvent)="selected = $event"></contacts-list>
-
-        <contact-details [contact]="selected"></contact-details>
-    `
+        <contacts>Loading...</contacts>
+    `,
+    directives: [ContactsComponent]
 })
-export class AppComponent {
-    selected: Contact
-}
+export class AppComponent {}
