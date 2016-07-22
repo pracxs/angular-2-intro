@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {Control} from '@angular/common';
-import 'rxjs/add/operator/debounceTime';
+import { Component, OnInit } from '@angular/core'
+import { Control } from '@angular/common'
+import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms'
+import 'rxjs/add/operator/debounceTime'
 
 @Component({
     selector: 'my-app',
+    directives: [REACTIVE_FORM_DIRECTIVES],
     template: `
-        <input type=text [value]="firstName" [ngFormControl]="firstNameControl"><br/>
+        <input type=text [value]="firstName" [formControl]="firstNameControl"><br/>
         {{firstName}}
     `
 })
