@@ -7,14 +7,12 @@
  * or to prometheus@itce.com
  */
 
-import {Component, OnInit} from '@angular/core';
-import {ContactsComponent} from "./contacts/contacts.component"
+import {Component} from '@angular/core';
 
 @Component({
     selector: 'my-app',
     template: `
-        <contacts>Loading...</contacts>
-    `,
-    directives: [ContactsComponent]
+        Hi
+    `
 })
 export class AppComponent {}
