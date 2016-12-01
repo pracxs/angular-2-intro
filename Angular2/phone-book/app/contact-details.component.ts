@@ -8,7 +8,7 @@
  */
 
 import {Component, Input, Output, OnChanges, EventEmitter} from '@angular/core'
-import {NgForm} from '@angular/common' 
+import {NgForm} from '@angular/forms' 
 import {Contact} from "./contact"
 import {ContactsService} from "./contact.service"
 import {EmailValidator} from "./email-validator.directive"
@@ -43,8 +43,7 @@ import {EmailValidator} from "./email-validator.directive"
             </form>
         </div>
     `,
-    styles: ['.alert {margin-left: 104px;}'],
-    directives: [EmailValidator]
+    styles: ['.alert {margin-left: 104px;}']
 })
 export class ContactDetailsComponent implements OnChanges {
     @Input()
