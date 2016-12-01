@@ -12,6 +12,7 @@ import {Http, Response} from '@angular/http'
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
+import 'rxjs/add/observable/throw'
 import {Contact} from "./contact"
 
 const CONTACTS_URL = 'contacts.json'
@@ -69,7 +70,7 @@ export class ContactsService {
 	
 	private handleError (error: any) {
 		// In a real world app, we might send the error to remote logging infrastructure
-		let errMsg = error.message || 'Server error';
+		let errMsg = error.message || error.status + ' ' + error.statusText + ': ' + error.url || 'Server error';
 		console.error(errMsg); // log to console instead
 		return Observable.throw(errMsg);
 	}
