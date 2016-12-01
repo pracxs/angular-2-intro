@@ -12,7 +12,7 @@ import {Component} from '@angular/core';
 @Component({
     selector: 'my-app',
     template: `
-        Hi
+        Hello World!
     `
 })
 export class AppComponent {}
