@@ -7,13 +7,12 @@ import {PersonService} from './person.service'
     selector: 'my-app',
     template: `
         <ul>
-            <li (click)="selected=person" *ngFor="#person of persons">{{person.firstName}} {{person.lastName}}</li>
+            <li (click)="selected=person" *ngFor="let person of persons">{{person.firstName}} {{person.lastName}}</li>
         </ul>
         <list-details [person]="selected"></list-details> 
         
         <!-- (deleteRequest)="delete($event)" -->
     `,
-    directives: [DetailsComponent],
     providers: [PersonService]
 })
 export class AppComponent implements OnInit {
