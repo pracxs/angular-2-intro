@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core'
-import { Control } from '@angular/common'
-import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms'
+import { FormControl } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime'
 
 @Component({
     selector: 'my-app',
-    directives: [REACTIVE_FORM_DIRECTIVES],
     template: `
         <input type=text [value]="firstName" [formControl]="firstNameControl"><br/>
         {{firstName}}
@@ -13,10 +11,10 @@ import 'rxjs/add/operator/debounceTime'
 })
 export class AppComponent implements OnInit {
     firstName = ''
-    firstNameControl: Control
+    firstNameControl: FormControl
     
     constructor() { 
-        this.firstNameControl = new Control();
+        this.firstNameControl = new FormControl();
     }
     
     ngOnInit() {

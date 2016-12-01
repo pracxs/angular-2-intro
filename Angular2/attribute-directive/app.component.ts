@@ -14,8 +14,7 @@ import {Component, Input} from '@angular/core';
         </div>
         
         <p [myHighlight]="color">Highlight me!</p>
-    `,
-    directives: [HighlightDirective],
+    `
 })
 export class AppComponent {
     color: string
