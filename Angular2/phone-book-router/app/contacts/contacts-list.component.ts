@@ -7,10 +7,8 @@
  * or to prometheus@itce.com
  */
 
-import { Component, OnInit, OnDestroy } from '@angular/core'
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'
-import { Subscription } from 'rxjs/Subscription'
-import 'rxjs/add/operator/filter'
+import { Component, OnInit } from '@angular/core'
+import { Router, ActivatedRoute, Params } from '@angular/router'
 import 'rxjs/add/operator/map'
 import { Contact } from "./contact"
 import { ContactsService } from "./contact.service"
@@ -26,58 +24,32 @@ import { ContactsService } from "./contact.service"
         </ul>
     `
 })
-export class ContactsListComponent implements OnInit, OnDestroy {
+export class ContactsListComponent implements OnInit 
+{
     selected: number
     persons: Contact[]
-    private sub: Subscription
-    
+
     constructor(
         private personService: ContactsService, 
         private router: Router,
         private route: ActivatedRoute
     ) {}
-    
+
     remove(person: Contact) {    
         this.personService.remove(person.id)
         if(person.id==this.selected )
             this.router.navigate(['/contacts'])
     }
-    
+
     onSelect(person: Contact) {
         this.router.navigate(['/contacts', person.id])
     }
-    
+
     ngOnInit() {
         this.persons = this.personService.getAll();
-        
-        let oldChildRoute
 
-        let atachChildParamListner = () => {
-            let childRoute: ActivatedRoute = this.router.routerState.children(this.route)[0]
-
-            if(oldChildRoute!=childRoute) {
-                oldChildRoute = childRoute
-
-                if(this.sub)
-                    this.sub.unsubscribe()
-
-                if( ! oldChildRoute ) return
-
-                this.sub = childRoute.params
-                    .map( params => +params['id'] )
-                    .subscribe( id => this.selected = id )
-            }
-        }
-
-        this.router.events
-            .filter( event => event instanceof NavigationEnd )
-            .subscribe( atachChildParamListner )
-
-        atachChildParamListner()
+        this.route.params
+            .map((params: Params) => +params['id'])
+            .subscribe(contactId => this.selected = contactId)
     }
-
-    ngOnDestroy() {
-        if(this.sub)
-            this.sub.unsubscribe()
-    }
- }
+}

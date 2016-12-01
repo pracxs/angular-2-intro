@@ -7,21 +7,41 @@
  * or to prometheus@itce.com
  */
 
-import { Component } from '@angular/core'
-import { ROUTER_DIRECTIVES } from '@angular/router'
-import { ContactsService } from "./contact.service"
-import { ContactsListComponent } from "./contacts-list.component"
+import { Component, ViewChild }     from '@angular/core'
+import { CanComponentDeactivate }   from '../can-deactivate-guard'
+import { Observable }               from 'rxjs/Observable'
+import { DialogService }            from "../dialog.service"
+import 'rxjs/add/observable/fromPromise'
+import {ContactDetailsComponent}    from './contact-details.component';
 
 @Component({
     selector: 'contacts',
-    providers: [ContactsService],
-    directives: [ContactsListComponent, ROUTER_DIRECTIVES],
     template: `
         <contacts-list></contacts-list>
         
         <a id="add" class="text-danger" [routerLink]="['/contacts', -1]"><span class="glyphicon glyphicon-plus"></span>Add</a>
         
-        <router-outlet></router-outlet>
+        <contact-details></contact-details>
     `
 })
-export class ContactsComponent {}
+export class ContactsComponent implements CanComponentDeactivate
+{
+    @ViewChild(ContactDetailsComponent)
+    private contactDetailsComponent: ContactDetailsComponent
+
+    constructor (
+        private dialogService: DialogService
+    ) {}
+
+    canDeactivate(): Observable<boolean> | boolean {
+        // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
+        if ( ! this.contactDetailsComponent.showEdit )
+            return true
+        
+        // Otherwise ask the user with the dialog service and return its
+        // promise which resolves to true or false when the user decides
+        let p: Promise<boolean> = this.dialogService.confirm('Discard changes?')
+        let o = Observable.fromPromise(p)
+        return o
+    }
+}

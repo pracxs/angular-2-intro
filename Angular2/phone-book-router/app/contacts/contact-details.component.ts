@@ -9,12 +9,9 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
-import { NgForm } from '@angular/common'
+import { NgForm } from '@angular/forms'
 import { Subscription } from 'rxjs/Subscription'
-import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/observable/fromPromise'
-import { CanComponentDeactivate }    from '../can-deactivate-guard'
-import { DialogService } from "../dialog.service"
+
 import { Contact } from "./contact"
 import { ContactsService } from "./contact.service"
 import { EmailValidator } from "../email-validator.directive"
@@ -49,10 +46,9 @@ import { EmailValidator } from "../email-validator.directive"
             </form>
         </div>
     `,
-    styles: ['.alert {margin-left: 104px;}'],
-    directives: [EmailValidator]
+    styles: ['.alert {margin-left: 104px;}']
 })
-export class ContactDetailsComponent implements OnInit, OnDestroy, CanComponentDeactivate {
+export class ContactDetailsComponent implements OnInit, OnDestroy {
     contact: Contact
     showEdit: boolean
     private sub: Subscription
@@ -60,8 +56,7 @@ export class ContactDetailsComponent implements OnInit, OnDestroy, CanComponentD
     constructor(
         private contactsService: ContactsService,
         private router: Router,
-        private route: ActivatedRoute,
-        private dialogService: DialogService
+        private route: ActivatedRoute
     ) {}
     
     ngOnInit() {
@@ -111,17 +106,5 @@ export class ContactDetailsComponent implements OnInit, OnDestroy, CanComponentD
             this.router.navigate(['/contacts']);
             // this.contactChange.emit(this.contact);
         }
-    }
-
-    canDeactivate(): Observable<boolean> | boolean {
-        // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
-        if (!this.showEdit)
-            return true
-        
-        // Otherwise ask the user with the dialog service and return its
-        // promise which resolves to true or false when the user decides
-        let p: Promise<boolean> = this.dialogService.confirm('Discard changes?')
-        let o = Observable.fromPromise(p)
-        return o
     }
  }

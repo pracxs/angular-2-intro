@@ -8,12 +8,10 @@
  */
 
 import { Component } from '@angular/core'
-import { Router, ROUTER_DIRECTIVES } from '@angular/router'
 import { DialogService } from "./dialog.service"
 
 @Component({
     selector: 'my-app',
-    directives: [ROUTER_DIRECTIVES],
     providers: [DialogService],
     styles: [
         "ul { margin-left: 10px; background: #eee; padding: 15px; }", 
