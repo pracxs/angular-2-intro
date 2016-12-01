@@ -7,9 +7,9 @@
  * or to prometheus@itce.com
  */
 
-import { RouterConfig } from '@angular/router'
-import { AboutComponent } from "./about.component"
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './app.module';
 
-export const AboutRoutes: RouterConfig = [
-  { path: 'about', component: AboutComponent },
-]
+platformBrowserDynamic()
+    .bootstrapModule(AppModule)
+    .catch(err => console.error(err));
