@@ -16,15 +16,18 @@
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
     
+    <script src="node_modules/zone.js/dist/long-stack-trace-zone.js"></script>
     <script src="node_modules/zone.js/dist/async-test.js"></script>
-    
-    <script src="systemjs.config.js"></script> 
-    
     <script src="node_modules/zone.js/dist/fake-async-test.js"></script>
+    <script src="node_modules/zone.js/dist/sync-test.js"></script>
+    <script src="node_modules/zone.js/dist/proxy.js"></script>
+    <script src="node_modules/zone.js/dist/jasmine-patch.js"></script>
+    
+    <script src="systemjs.config.js"></script>
     
     <script>
         Promise.all([
-          System.import('dist/1st.spec'),
+          System.import('dist/1st.spec'), 
         ])
           .then(window.posponeonload)
           .catch(console.error.bind(console));

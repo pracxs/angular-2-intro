@@ -7,7 +7,7 @@ import {LoadPersonsService} from './load-persons.service'
     selector: 'my-app',
     template: `
         <ul>
-            <li *ngFor="#person of persons">{{person.firstName}} {{person.lastName}}</li>
+            <li *ngFor="let person of persons">{{person.firstName}} {{person.lastName}}</li>
         </ul>
     `,
     providers: [PersonService, LoadPersonsService]
