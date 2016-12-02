@@ -1,28 +1,32 @@
-import {inject, addProviders, setBaseTestProviders, getTestInjector} from '@angular/core/testing'
-import {TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS} from '@angular/platform-browser-dynamic/testing'
-import {provide} from "@angular/core"
-import {RouteRegistry, Router, ROUTER_PRIMARY_COMPONENT} from "@angular/router-deprecated"
+import {async, inject, TestBed, ComponentFixture} from '@angular/core/testing'
+import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'
+import {Router} from "@angular/router"
 import {Location} from '@angular/common'
 import {SpyLocation} from "@angular/common/testing"
-import {RootRouter} from "@angular/router-deprecated/src/router"
+import {AppModule} from "./app.module"
 import {AppComponent} from "./app.component"
 
 describe('Router tests', () => {
-  if( !getTestInjector().platformProviders.length )
-    setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS)
   
   let router: Router
   let spylocation: SpyLocation
+  let fixture: ComponentFixture<AppComponent>
   
-  //setup
-  beforeEach(() => {
-    addProviders([
-      RouteRegistry,
-      provide(ROUTER_PRIMARY_COMPONENT, {useValue: AppComponent}),
-      provide(Location, {useClass: SpyLocation}),
-      provide(Router, {useClass: RootRouter}),
-    ])
+  beforeAll( () => { 
+      TestBed.resetTestEnvironment()
+      TestBed.initTestEnvironment( BrowserDynamicTestingModule, platformBrowserDynamicTesting() )
   })
+
+  //setup
+  beforeEach( async(() => {
+    TestBed.configureTestingModule({
+      imports: [ AppModule ],
+      providers: [ { provide: Location, useClass: SpyLocation } ]
+    })
+    .compileComponents().then(() => {
+      fixture = TestBed.createComponent(AppComponent)
+    })
+  }))
   
   beforeEach(inject([Router, Location], (r, l) => {
     router = r
@@ -31,21 +35,21 @@ describe('Router tests', () => {
   
   //specs
   it('Should be able to navigate to Home', done => {
-    router.navigate(['PersonList']).then(() => {
-      expect(spylocation.path()).toBe('')
+    router.navigate(['']).then(() => {
+      expect(spylocation.path()).toBe('/')
       done()
     }).catch(e => done.fail(e))
   })
 
   it('should redirect not registered urls to Home', done => {
     router.navigateByUrl('/unknown').then(() => {
-      expect(spylocation.path()).toBe('')
+      expect(spylocation.path()).toBe('/')
       done()
     }).catch(e => done.fail(e))
   })
   
   it('Should be able to navigate to About', done => {    
-    router.navigate(['About']).then(() => {
+    router.navigate(['about']).then(() => {
       expect(spylocation.path()).toBe('/about')
       done()
     }).catch(e => done.fail(e))

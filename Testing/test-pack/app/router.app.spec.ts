@@ -1,11 +1,9 @@
-import {inject, async, TestComponentBuilder, ComponentFixture, addProviders, setBaseTestProviders, getTestInjector} from '@angular/core/testing'
-import {TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS} from '@angular/platform-browser-dynamic/testing'
-import {provide} from "@angular/core"
-import {RouteRegistry, Router, ROUTER_PRIMARY_COMPONENT} from "@angular/router-deprecated"
+import {async, inject, TestBed, ComponentFixture} from '@angular/core/testing'
+import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'
+import {Router} from "@angular/router"
 import {Location} from '@angular/common'
 import {SpyLocation} from "@angular/common/testing"
-import {RootRouter} from "@angular/router-deprecated/src/router"
-import {Http} from '@angular/http'
+import {AppModule} from "./app.module"
 import {AppComponent} from "./app.component"
 
 const responseData = [
@@ -13,54 +11,51 @@ const responseData = [
         { "id": "2", "firstName": "Chris",   "lastName": "Raches", "email": "chris@gmail.com" }]
 
 describe('Router & App tests', () => {
-  if( !getTestInjector().platformProviders.length )
-    setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS)
-  
+
   let router: Router
   let spylocation: SpyLocation
   let fixture: ComponentFixture<AppComponent>
   
+  beforeAll( () => { 
+      TestBed.resetTestEnvironment()
+      TestBed.initTestEnvironment( BrowserDynamicTestingModule, platformBrowserDynamicTesting() )
+  })
+
   //setup
-  beforeEach(() => {
-    addProviders([
-      RouteRegistry,
-      provide(ROUTER_PRIMARY_COMPONENT, {useValue: AppComponent}),
-      provide(Location, {useClass: SpyLocation}),
-      provide(Router, {useClass: RootRouter}),
-      provide(Http, {useValue: {} }),
-    ])
-  })
+  beforeEach( async(() => {
+    TestBed.configureTestingModule({
+      imports: [ AppModule ],
+      providers: [ { provide: Location, useClass: SpyLocation } ]
+    })
+    .compileComponents().then(() => {
+      fixture = TestBed.createComponent(AppComponent)
+    })
+  }))
   
-  beforeEach(done => { 
-    inject([Router, Location, TestComponentBuilder], (r, l, tcb: TestComponentBuilder) => {
-      router = r
-      spylocation = l
-      
-      return tcb
-              .createAsync(AppComponent)
-              .then(rootFixture => {
-                    fixture = rootFixture
-                    done()
-                  })
-    })()
-  })
+  beforeEach( inject([Router, Location], (r, l) => {
+    router = r
+    spylocation = l
+  }))
   
   //specs
   
-  it('Selecting person from the list should set correct URL', done => {
-    let element: HTMLElement = fixture.nativeElement
+  it('Selecting About link should load it', async(() => {
     
     fixture.detectChanges()
     
-    let links = <NodeListOf<HTMLLinkElement>> element.querySelectorAll('a')
-    links.item(1).click()
+    fixture.whenStable().then(() => {
+      let element: HTMLElement = fixture.nativeElement
+
+      let links = <NodeListOf<HTMLAnchorElement>> element.querySelectorAll('a')
+      links.item(1).click()
     
-    fixture.detectChanges()
-    
-    setTimeout(() => {
-      // console.log(element.innerHTML)
-      expect(spylocation.path()).toBe('/about')
-      done()
+      fixture.detectChanges()
+
+      fixture.whenStable().then(() => {
+        // console.log(element.innerHTML)
+        // console.log(element.textContent)
+        expect(spylocation.path()).toBe('/about')
+      }) 
     })
-  })
+  }))
 })
