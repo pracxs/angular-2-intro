@@ -1,23 +1,35 @@
-import {provide} from '@angular/core'
-import {inject, async, addProviders, TestComponentBuilder, ComponentFixture, setBaseTestProviders, getTestInjector} from '@angular/core/testing'
-import {TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS} from '@angular/platform-browser-dynamic/testing'
+import {async, ComponentFixture, TestBed} from '@angular/core/testing'
+import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'
 import {GreeterComponent} from './greeter.component'
 
-describe('GreeterComponent', () => {
-    if( !getTestInjector().platformProviders.length )
-        setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS)
-    
-    it('must be "Phone Book App"', 
-        async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-            return tcb.createAsync(GreeterComponent)
-                .then((fixture: ComponentFixture<GreeterComponent>) => {
-                    let element = fixture.nativeElement
+describe('GreeterComponent', () => {    
+    let fixture: ComponentFixture<GreeterComponent>
+    let comp: GreeterComponent
 
-                    fixture.detectChanges()
+    beforeAll( () => { 
+        TestBed.resetTestEnvironment()
+        TestBed.initTestEnvironment( BrowserDynamicTestingModule, platformBrowserDynamicTesting() )
+    })
 
-                    expect(element.querySelectorAll('h1').length).toBe(1);
-                    expect(element.querySelector('h1').innerText).toBe('Phone Book App');
-                })
-        }))
-    )   
+    beforeEach(() => {
+        // refine the test module by declaring the test component
+        TestBed.configureTestingModule({
+            declarations: [ GreeterComponent ],
+        })
+
+        // create component and test fixture
+        fixture = TestBed.createComponent( GreeterComponent )
+
+        // get test component from the fixture
+        comp = fixture.componentInstance
+    })
+
+    it('must be "Phone Book App"', () => {
+        let element = fixture.nativeElement
+
+        fixture.detectChanges()
+
+        expect(element.querySelectorAll('h1').length).toBe(1);
+        expect(element.querySelector('h1').innerText).toBe('Phone Book App');
+    })
 })

@@ -1,10 +1,9 @@
-import {inject, fakeAsync, tick, TestComponentBuilder, ComponentFixture, setBaseTestProviders, getTestInjector} from '@angular/core/testing'
-import {TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS} from '@angular/platform-browser-dynamic/testing'
+import {fakeAsync, tick, TestBed, ComponentFixture} from '@angular/core/testing'
+import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'
 import {Component, Output, EventEmitter} from "@angular/core"
 import {LogClicksDirective} from "./log-clicks.directive"
 
 @Component({ 
-  selector: 'container',
   template: `<div log-clicks (changes)="changed($event)"></div>`,
   directives: [LogClicksDirective]
 })
@@ -17,18 +16,27 @@ export class TestContainer {
 }
 
 describe('LogClicksDirective (SYNC)', () => {
-    if( !getTestInjector().platformProviders.length )
-        setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS)
     
+    let fixture: ComponentFixture<TestContainer>
+
+    beforeAll( () => { 
+        TestBed.resetTestEnvironment()
+        TestBed.initTestEnvironment( BrowserDynamicTestingModule, platformBrowserDynamicTesting() )
+    })
+    
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [ TestContainer, LogClicksDirective ]
+        })
+
+        fixture = TestBed.createComponent( TestContainer )
+    })
+
     it('should increment counter',
-        fakeAsync ( inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-            let fixture: ComponentFixture<TestContainer>
-            
-            tcb
-                .createAsync(TestContainer)
-                .then(rootFicture => fixture = rootFicture)
+        fakeAsync (() => {
+            fixture.detectChanges();
         
-            // Create component-tick (initializes fixture variable)
+            // tick initializes fixture variable
             tick();
         
             let container = fixture.componentInstance
@@ -48,6 +56,6 @@ describe('LogClicksDirective (SYNC)', () => {
                 // let subscriber to execute
                 tick()
             }
-        }))
+        })
     )
 }) 

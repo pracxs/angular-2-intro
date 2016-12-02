@@ -6,9 +6,11 @@
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "lib": [ "es2015", "dom" ],
     "removeComments": false,
     "noImplicitAny": false,
-	"outDir": "./dist/"
+    "suppressImplicitAnyIndexErrors": true,
+	  "outDir": "./dist/"
   },
   "exclude": [
     "node_modules"

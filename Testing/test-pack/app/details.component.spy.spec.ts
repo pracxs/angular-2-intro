@@ -1,16 +1,13 @@
-import {inject, async, TestComponentBuilder, ComponentFixture, setBaseTestProviders, getTestInjector} from '@angular/core/testing'
-import {TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS} from '@angular/platform-browser-dynamic/testing'
-import {provide} from '@angular/core'
+import {async, TestBed, ComponentFixture} from '@angular/core/testing'
+import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'
 import {PersonsDetailsComponent} from './details.component'
 import {PersonService} from './person.service'
 import {LoadPersonsService} from './load-persons.service'
 
 describe('PersonsDetailsComponent (SPY)', () => {
-    if( !getTestInjector().platformProviders.length )
-        setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS)
     
     let fixture: ComponentFixture<PersonsDetailsComponent>
-    
+
     class PersonServiceMock {
         getAll() {
             return [
@@ -21,19 +18,28 @@ describe('PersonsDetailsComponent (SPY)', () => {
     
     let personServiceSpy = new PersonServiceMock()
     
-    beforeEach(async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+    beforeAll( () => { 
+        TestBed.resetTestEnvironment()
+        TestBed.initTestEnvironment( BrowserDynamicTestingModule, platformBrowserDynamicTesting() )
+    })
+
+    beforeEach(() => {
         spyOn(personServiceSpy, 'getAll').and.callThrough()
         
-        return tcb
-            .overrideProviders(
-                PersonsDetailsComponent
-                ,
-                [provide(PersonService, {useValue: personServiceSpy}),
-                 provide(LoadPersonsService, {useValue: {}})]
-            )
-            .createAsync(PersonsDetailsComponent)
-            .then(rootFixture => fixture = rootFixture)
-    })))
+        TestBed.configureTestingModule({
+            declarations: [ PersonsDetailsComponent ],
+        })
+        .overrideComponent( PersonsDetailsComponent, {
+            set: {
+                providers: [
+                    {provide: PersonService, useValue: personServiceSpy},
+                    {provide: LoadPersonsService, useValue: {}}
+                ]
+            }
+        })
+
+        fixture = TestBed.createComponent( PersonsDetailsComponent )
+    })
     
     it('must be a list of persons list', () => {
         let component = fixture.componentInstance

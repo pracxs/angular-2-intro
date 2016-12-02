@@ -1,5 +1,6 @@
-import {inject, addProviders} from '@angular/core/testing'
-import {provide, Injector} from '@angular/core'
+import {async, TestBed} from '@angular/core/testing'
+import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'
+import {Injector} from '@angular/core'
 import {Http, Response} from '@angular/http'
 import {MockBackend} from '@angular/http/testing'
 import {BaseRequestOptions}    from '@angular/http'
@@ -11,24 +12,30 @@ const responseData = [
         { "id": "2", "firstName": "Chris",   "lastName": "Raches", "email": "chris@gmail.com" }]
 
 describe('MockBackend: LoadPersonsService', () => {
+  
   let mockbackend: MockBackend, service: LoadPersonsService
   
+  beforeAll( () => { 
+    TestBed.resetTestEnvironment()
+    TestBed.initTestEnvironment( BrowserDynamicTestingModule, platformBrowserDynamicTesting() )
+  })
+
   //setup
   beforeEach(() => {
-    addProviders([
-      LoadPersonsService,
-      MockBackend,
-      BaseRequestOptions,
-      provide(Http, {
-        useFactory: (backend, options) => new Http(backend, options), 
-        deps: [MockBackend, BaseRequestOptions]})
-    ])
+    TestBed.configureTestingModule({
+        providers: [
+          LoadPersonsService,
+          MockBackend,
+          BaseRequestOptions,
+          { provide: Http,
+            useFactory: (backend, options) => new Http(backend, options), 
+            deps: [MockBackend, BaseRequestOptions]}
+        ]
+    })
+
+    mockbackend = TestBed.get(MockBackend)
+    service = TestBed.get(LoadPersonsService)
   })
-  
-  beforeEach(inject([MockBackend, LoadPersonsService], (_mockbackend, _service) => {
-    mockbackend = _mockbackend
-    service = _service
-  }))
   
   //specs
   it('should return mocked response', done => {    

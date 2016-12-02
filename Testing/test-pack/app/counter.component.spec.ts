@@ -1,16 +1,24 @@
-import {inject, addProviders} from '@angular/core/testing'
+import {ComponentFixture, TestBed} from '@angular/core/testing'
+import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'
 import {Counter} from "./counter.component"
 
 describe('EventEmitter: Counter', () => {
-  
+
+  beforeAll( () => { 
+      TestBed.resetTestEnvironment()
+      TestBed.initTestEnvironment( BrowserDynamicTestingModule, platformBrowserDynamicTesting() )
+  })
+
   //setup
   beforeEach(() => {
-    addProviders([Counter])
+      TestBed.configureTestingModule({
+          declarations: [ Counter ],
+      })
+
+      let fixture = TestBed.createComponent( Counter )
+
+      this.counter = fixture.componentInstance
   })
-  
-  beforeEach(inject([Counter], c => {
-    this.counter = c
-  }))
   
   //specs
   it('should increment +1', done => {
