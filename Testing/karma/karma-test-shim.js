@@ -1,99 +1,95 @@
-// borrowed one from Julie Ralph repo ng2-test-seed and "Two Fucking Developers: Testing Angular 2 with Karma and Jasmine" article
+// /*global jasmine, __karma__, window*/
+Error.stackTraceLimit = Infinity; // "No stacktrace"" is usually best for app testing.
 
-// Tun on full stack traces in errors to help debugging
-Error.stackTraceLimit = Infinity
+// Uncomment to get full stacktrace output. Sometimes helpful, usually not.
+// Error.stackTraceLimit = Infinity; //
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 
-// // Cancel Karma's synchronous start,
-// // we will call `__karma__.start()` later, once all the specs are loaded.
-__karma__.loaded = function() {}
+// builtPaths: root paths for output ("built") files
+// get from karma.config.js, then prefix with '/base/' (default is 'app/')
+var builtPaths = (__karma__.config.builtPaths || ['dist/'])
+                 .map(function(p) { return '/base/'+p;});
 
-// standard systemjs.config.js with base/dist for specs
+__karma__.loaded = function () { };
 
-var map = {
-    'app':                        'base/dist', // 'app',
-    'rxjs':                       'base/node_modules/rxjs',
-    //'angular2-in-memory-web-api': 'base/node_modules/angular2-in-memory-web-api',
-    '@angular':                   'base/node_modules/@angular'
+function isJsFile(path) {
+  return path.slice(-3) == '.js';
 }
 
-var packages = {
-    'app':                        { main: 'main.js',  defaultExtension: 'js' },
-    'rxjs':                       { defaultExtension: 'js' },
-    // 'angular2-in-memory-web-api': { defaultExtension: 'js' },
-    // extra package with specs and our .ts files
-    'base/dist': {
-        defaultExtension: 'js',
-        format: 'register',
-        map: Object.keys(window.__karma__.files).filter(onlyAppFiles).reduce(createPathRecords, {})
-    }
+function isSpecFile(path) {
+  return /\.spec\.(.*\.)?js$/.test(path);
 }
 
-var packageNames = [
-    '@angular/common',
-    '@angular/compiler',
-    '@angular/core',
-    '@angular/http',
-    '@angular/platform-browser',
-    '@angular/platform-browser-dynamic',
-    '@angular/router',
-    '@angular/router-deprecated',
-    '@angular/testing',
-    '@angular/upgrade',
-    '@angular/forms'
-]
-
-packageNames.forEach(function(pkgName) {
-    packages[pkgName] = { main: 'index.js', defaultExtension: 'js' }
-})
-
-var config = {
-    map: map,
-    packages: packages
+// Is a "built" file if is JavaScript file in one of the "built" folders
+function isBuiltFile(path) {
+  return isJsFile(path) &&
+         builtPaths.reduce(function(keep, bp) {
+           return keep || (path.substr(0, bp.length) === bp);
+         }, false);
 }
 
-// filterSystemConfig - index.html's chance to modify config before we register it.
-// if (global.filterSystemConfig) { global.filterSystemConfig(config) }
+var allSpecFiles = Object.keys(window.__karma__.files)
+  .filter(isSpecFile)
+  .filter(isBuiltFile);
 
-System.config(config)
+System.config({
+  baseURL: 'base',
+  // Extend usual application package list with test folder
+  packages: { 'testing': { main: 'index.js', defaultExtension: 'js' } },
 
-// load browser adapter
+  // Assume npm: is set in `paths` in systemjs.config
+  // Map the angular testing umd bundles
+  map: {
+    '@angular/core/testing': 'npm:@angular/core/bundles/core-testing.umd.js',
+    '@angular/common/testing': 'npm:@angular/common/bundles/common-testing.umd.js',
+    '@angular/compiler/testing': 'npm:@angular/compiler/bundles/compiler-testing.umd.js',
+    '@angular/platform-browser/testing': 'npm:@angular/platform-browser/bundles/platform-browser-testing.umd.js',
+    '@angular/platform-browser-dynamic/testing': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
+    '@angular/http/testing': 'npm:@angular/http/bundles/http-testing.umd.js',
+    '@angular/router/testing': 'npm:@angular/router/bundles/router-testing.umd.js',
+    '@angular/forms/testing': 'npm:@angular/forms/bundles/forms-testing.umd.js',
+  },
+});
 
-System.import('@angular/platform-browser/src/browser/browser_adapter')
-    .then(function(browser_adapter) { browser_adapter.BrowserDomAdapter.makeCurrent() })
-    .then(function() { return Promise.all(resolveTestFiles()) })
-    .then(
-        function() { 
-            __karma__.start() 
-        }, function(error) { 
-            __karma__.error(error.stack || error) 
-        })
+System.import('systemjs.config.js')
+  // .then(importSystemJsExtras)
+  .then(initTestBed)
+  .then(initTesting);
 
-function createPathRecords(pathsMapping, appPath) {
-    // creates local module name mapping to global path with karma's fingerprint in path, e.g.:
-    var pathParts = appPath.split('/')
-    var moduleName = './' + pathParts.slice(Math.max(pathParts.length - 2, 1)).join('/')
-    //console.log(moduleName)
-    moduleName = moduleName.replace(/\.js$/, '')
-    pathsMapping[moduleName] = appPath + '?' + window.__karma__.files[appPath]
-    return pathsMapping
+/** Optional SystemJS configuration extras. Keep going w/o it */
+function importSystemJsExtras(){
+  return System.import('systemjs.config.extras.js')
+  .catch(function(reason) {
+    console.log(
+      'Warning: System.import could not load the optional "systemjs.config.extras.js". Did you omit it by accident? Continuing without it.'
+    );
+    console.log(reason);
+  });
 }
 
-function onlyAppFiles(filePath) {
-    return /\/base\/dist\/(?!.*\.spec\.js$).*\.js$/.test(filePath)
+function initTestBed(){
+  return Promise.all([
+    System.import('@angular/core/testing'),
+    System.import('@angular/platform-browser-dynamic/testing')
+  ])
+
+  .then(function (providers) {
+    var coreTesting    = providers[0];
+    var browserTesting = providers[1];
+
+    coreTesting.TestBed.initTestEnvironment(
+      browserTesting.BrowserDynamicTestingModule,
+      browserTesting.platformBrowserDynamicTesting());
+  })
 }
 
-function onlySpecFiles(path) {
-    return /\.spec\.js$/.test(path)
-}
-
-function resolveTestFiles() {
-    return Object.keys(window.__karma__.files)  // All files served by Karma.
-        .filter(onlySpecFiles)
-        .map(function(moduleName) {
-            // loads all spec files via their global module names (e.g.
-            // 'base/dist/vg-player/vg-player.spec')
-            return System.import(moduleName)
-        })
+// Import all spec files and start karma
+function initTesting () {
+  return Promise.all(
+    allSpecFiles.map(function (moduleName) {
+      return System.import(moduleName);
+    })
+  )
+  .then(__karma__.start, __karma__.error);
 }
