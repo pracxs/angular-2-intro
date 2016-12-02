@@ -1,5 +1,5 @@
-import {inject, addProviders} from '@angular/core/testing'
-import {provide} from '@angular/core'
+import {inject, TestBed} from '@angular/core/testing'
+import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'
 import {Person} from './person'
 import {PersonService} from './person.service'
 import {LoadPersonsService} from './load-persons.service'
@@ -13,12 +13,16 @@ describe('PersonService', () => {
             ]
         }
     }
+
+    beforeAll( () => TestBed.initTestEnvironment( BrowserDynamicTestingModule, platformBrowserDynamicTesting() ) )
     
     beforeEach(() => {
-        addProviders([
-            PersonService,
-            provide(LoadPersonsService,{useClass: LoadPersonsServiceMock})
-        ])
+        TestBed.configureTestingModule({
+            providers: [
+                PersonService,
+                { provide: LoadPersonsService, useClass: LoadPersonsServiceMock } 
+            ]
+        })
     })
     
     it('must have 2 persons', inject([PersonService], (personService) => {
