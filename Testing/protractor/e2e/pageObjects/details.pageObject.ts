@@ -1,4 +1,4 @@
-/// <reference path="../../../typings/main.d.ts" />
+import { browser, element, by } from 'protractor';
 
 export class DetailsPageObject {
     public contactsDetail = element(by.id('contactsDetailsContainer'))

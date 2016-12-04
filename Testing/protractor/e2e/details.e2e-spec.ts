@@ -1,3 +1,4 @@
+import { browser, element, by } from 'protractor'
 import {HomePageObject} from './pageObjects/home.pageObject'
 import {DetailsPageObject} from './pageObjects/details.pageObject'
 

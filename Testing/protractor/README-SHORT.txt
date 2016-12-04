@@ -1,12 +1,11 @@
 Installation Notes
 ---------------------------------------
+npm -g install protractor
 
-1. Some rework of the package.json
-2. Run npm -g install cpy-cli
-3. Run npm -g install protractor
-
-Usage
+Running the App
 ---------------------------------------
-1. npm start
-2. npm run dev
-3. npm run e2e
+npm start
+
+Running Tests
+---------------------------------------
+npm run e2e

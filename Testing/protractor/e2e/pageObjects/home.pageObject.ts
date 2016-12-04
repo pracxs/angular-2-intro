@@ -1,4 +1,4 @@
-/// <reference path="../../../typings/main.d.ts" />
+import { browser, element, by } from 'protractor';
 
 export class HomePageObject {    
     public copyright = element(by.css('.copyright'))
