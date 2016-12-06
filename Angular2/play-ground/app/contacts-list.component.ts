@@ -38,6 +38,15 @@ export class ContactsListComponent implements OnInit {
         this.selectedChange.emit( contact )
     }
 
+    remove(contact: Contact) {
+        if( contact==this.selected ) {
+            this.selected = null
+            this.selectedChange.emit(this.selected)
+        }
+            
+        this.contactsService.remove(contact.id);
+    }
+
     ngOnInit() {
         this.contactsService.getAll()
             .then( data => this.contacts = data )

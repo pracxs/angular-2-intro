@@ -16,16 +16,19 @@ import { ContactsService } from './contacts.service';
             <form #form="ngForm" (ngSubmit)="$event.preventDefault(); submit(form)" name="editContactForm" *ngIf="showEdit" novalidate>
                 <label for="firstName">First Name: </label>
                 <input id="firstName" name="firstName" [ngModel]="contact.firstName" required><br/>
+                <div class="alert alert-danger" role="alert" *ngIf="form.controls.firstName && !form.controls.firstName.pristine && !form.controls.firstName.valid">First name is required</div>
 
                 <label for="lastName">Last Name: </label>
                 <input id="lastName" name="lastName" [ngModel]="contact.lastName" required><br/>
-                
+                <div class="alert alert-danger" role="alert" *ngIf="!form.controls.lastName?.pristine && !form.controls.lastName?.valid">Last name is required</div>
+
                 <label for="email">email: </label>
-                <input id="email" name="email" [ngModel]="contact.email"><br/>
-                
+                <input id="email" name="email" [ngModel]="contact.email" email><br/>
+                <div class="alert alert-danger" role="alert" *ngIf="!form.controls.email?.valid">Email is invalid</div>
+
                 <label></label>
-                <input type="submit" class="btn btn-danger" value="Save" />
-                <a href="#" class="text-danger">Cancel</a>
+                <input type="submit" class="btn btn-danger" value="{{ !contact.id ? 'Add' : 'Save' }}" [disabled]="form.invalid || form.pristine" />
+                <a href="#" class="text-danger" (click)="onCancel()">Cancel</a>
             </form>
         </div>
     `
@@ -60,7 +63,18 @@ export class ContactDetailsComponent implements OnChanges {
     }
 
     ngOnChanges(changes) {
-        if(changes && changes.contact && changes.contact.currentValue!==changes.contact.previousValue)
+        if(changes && changes.contact && changes.contact.currentValue!==changes.contact.previousValue) {
             this.showEdit = false
+            setTimeout( ()=> this.showEdit = ( this.contact && this.contact.id === null ), 0 )
+        }
+    }
+
+    onCancel() {
+        this.showEdit = false
+
+        if( this.contact.id === null ) {
+            this.contact = null
+            this.contactChange.emit(this.contact)
+        }
     }
 }

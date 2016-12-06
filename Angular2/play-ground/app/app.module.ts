@@ -16,10 +16,11 @@ import { MyUpperPipe } from './my-upper.pipe';
 import { ContactDetailsComponent } from './contact-details.component';
 import { ContactsListComponent } from './contacts-list.component';
 import { ContactsService } from './contacts.service';
+import { EmailValidator } from './email-validator.directive';
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, FormsModule ],
-  declarations: [ AppComponent, MyUpperPipe, ContactDetailsComponent, ContactsListComponent ],
+  declarations: [ AppComponent, MyUpperPipe, ContactDetailsComponent, ContactsListComponent, EmailValidator ],
   bootstrap:    [ AppComponent ],
   providers:    [ ContactsService ]
 })
