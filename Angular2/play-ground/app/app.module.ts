@@ -11,10 +11,11 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent }  from './app.component';
 import { MyUpperPipe } from './my-upper.pipe';
+import { ContactDetailsComponent } from './contact-details.component';
 
 @NgModule({
   imports:      [ BrowserModule ],
-  declarations: [ AppComponent, MyUpperPipe ],
+  declarations: [ AppComponent, MyUpperPipe, ContactDetailsComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule {}
