@@ -7,7 +7,7 @@
  * or to prometheus@itce.com
  */
 
-import { Component, Output, EventEmitter, OnInit } from '@angular/core'
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core'
 import { Contact } from "./contact.interface"
 import { ContactsService } from './contacts.service';
 
@@ -24,16 +24,18 @@ import { ContactsService } from './contacts.service';
 })
 export class ContactsListComponent implements OnInit {
     contacts: Contact[]
+
+    @Input()
     selected: Contact
 
     @Output()
-    onselect = new EventEmitter<Contact>()
+    selectedChange = new EventEmitter<Contact>()
 
     constructor(private contactsService: ContactsService) {}
 
     select(contact: Contact): void {
         this.selected = contact
-        this.onselect.emit( contact )
+        this.selectedChange.emit( contact )
     }
 
     ngOnInit() {

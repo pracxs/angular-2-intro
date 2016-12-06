@@ -13,8 +13,9 @@ import { Contact } from './contact.interface'
 @Component({
     selector: 'my-app',
     template: `
-        <contacts-list (onselect)="selected=$event"></contacts-list>
-        <contact-details [contact]="selected"></contact-details>
+        <contacts-list [(selected)]="selected"></contacts-list>
+        <contact-details [contact]="selected" (newcontact)="selected=$event"></contact-details>
+        {{selected | json}}
     `
 })
 export class AppComponent {
