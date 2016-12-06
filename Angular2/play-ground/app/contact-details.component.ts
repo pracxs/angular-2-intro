@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core'
+import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core'
 import { NgForm } from '@angular/forms'
 import { Contact } from './contact.interface'
 import { ContactsService } from './contacts.service';
@@ -13,7 +13,7 @@ import { ContactsService } from './contacts.service';
                 <label>email: </label><b>{{ contact.email }}</b><br/>
                 <label></label><a href="#" class="text-danger" (click)="showEdit=true"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
             </span>
-            <form #form="ngForm" (ngSubmit)="submit(form)" name="editContactForm" *ngIf="showEdit" novalidate>
+            <form #form="ngForm" (ngSubmit)="$event.preventDefault(); submit(form)" name="editContactForm" *ngIf="showEdit" novalidate>
                 <label for="firstName">First Name: </label>
                 <input id="firstName" name="firstName" [ngModel]="contact.firstName" required><br/>
 
@@ -24,23 +24,24 @@ import { ContactsService } from './contacts.service';
                 <input id="email" name="email" [ngModel]="contact.email"><br/>
                 
                 <label></label>
-                <input type="submit" class="btn btn-danger" value="Save" [disabled]="form.invalid || form.pristine" />
+                <input type="submit" class="btn btn-danger" value="Save" />
                 <a href="#" class="text-danger">Cancel</a>
             </form>
         </div>
     `
 })
-export class ContactDetailsComponent {
+export class ContactDetailsComponent implements OnChanges {
     @Input()
     contact: Contact
     @Output()
-    newcontact = new EventEmitter<Contact>()
+    contactChange = new EventEmitter<Contact>()
 
     showEdit: boolean
 
     constructor(private contactsService: ContactsService) {}
 
     submit(form: NgForm) {
+        
         if(! form.valid) return;
 
         let dirtyContact: Contact = form.value
@@ -53,8 +54,13 @@ export class ContactDetailsComponent {
             
         this.contact = dirtyContact
          
-        this.newcontact.emit( dirtyContact )
+        this.contactChange.emit( dirtyContact )
 
         this.showEdit = false
+    }
+
+    ngOnChanges(changes) {
+        if(changes && changes.contact && changes.contact.currentValue!==changes.contact.previousValue)
+            this.showEdit = false
     }
 }
