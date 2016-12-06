@@ -14,25 +14,25 @@
 			var myFather = new Person("John", "Doe", 50, "blue");
 			var myMother = new Person("Sally", "Rally", 48, "green");
 			
-			myFather.name = function () {
-				return this.firstName + " " + this.lastName;
-			};
+			//myFather.name = function () {
+			//	return this.firstName + " " + this.lastName;
+			//};
 			
-			console.log('--- name() -----------------------------');
-			console.log('myFather.name(): ' + myFather.name());
+			//console.log('--- name() -----------------------------');
+			//console.log('myFather.name(): ' + myFather.name());
 			//console.log('myMother.name(): ' + myMother.name());
 			
-			console.log('--- Person.residence -----------------------------');
+			//console.log('--- Person.residence -----------------------------');
 			// Cant add new property to prototype
 			Person.residence = "Canda";
-			console.log('myFather.residence: ' + myFather.residence);
-			console.log('myMother.residence: ' + myMother.residence);
+			//console.log('myFather.residence: ' + myFather.residence);
+			//console.log('myMother.residence: ' + myMother.residence);
 			
 			console.log('--- Person.prototype -----------------------------');
 			
 			Person.prototype.residence = "Canda";
-			console.log('myFather.residence: ' + myFather.residence);
-			console.log('myMother.residence: ' + myMother.residence);
+			//console.log('myFather.residence: ' + myFather.residence);
+			//console.log('myMother.residence: ' + myMother.residence);
 			
 			Person.prototype.name = function() {
 				return this.lastName + ", " + this.firstName;
