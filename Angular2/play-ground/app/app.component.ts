@@ -20,19 +20,10 @@ import { Contact } from './contact.interface'
             </li>
         </ul>
 
-        <contact-details></contact-details>
-        
-        <div id="contactsDetailsContainer" *ngIf="selected">
-            <label>First Name: </label><b>{{ selected.firstName }}</b><br/>
-            <label>Last Name: </label><b>{{ selected.lastName }}</b><br/>
-            <label>email: </label><b>{{ selected.email }}</b><br/>
-            <label></label><a href="#" class="text-danger"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
-        </div>
+        <contact-details [contact]="selected"></contact-details>
     `
 })
 export class AppComponent {
-    d = new Date()
-
     contacts = [
         { id: "1", firstName: "Max", lastName: "Smith", email: "max@gmail.com" },
         { id: "2", firstName: "Chris", lastName: "Raches", email: "chris@gmail.com" },
