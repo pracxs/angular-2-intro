@@ -15,13 +15,17 @@ import { Contact } from './contact.interface'
     template: `
         <ul>
             <li [class.active]="selected==contact" *ngFor="let contact of contacts" class='item'>
-                <a href='#' (click)="select(contact)">{{contact.firstName}} {{contact.lastName.toUpperCase()}}</a>
+                <a href='#' (click)="select(contact)">{{contact.firstName}} {{contact.lastName | myUpper }}</a>
                 <a href='#' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
         </ul>
+
+        <br/>
     `
 })
 export class AppComponent {
+    d = new Date()
+
     contacts = [
         { id: "1", firstName: "Max", lastName: "Smith", email: "max@gmail.com" },
         { id: "2", firstName: "Chris", lastName: "Raches", email: "chris@gmail.com" },
