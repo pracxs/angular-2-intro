@@ -7,9 +7,9 @@
  * or to prometheus@itce.com
  */
 
-import { Component, Output, EventEmitter } from '@angular/core'
+import { Component, Output, EventEmitter, OnInit } from '@angular/core'
 import { Contact } from "./contact.interface"
-
+import { ContactsService } from './contacts.service';
 
 @Component({
     selector: 'contacts-list',
@@ -22,22 +22,22 @@ import { Contact } from "./contact.interface"
         </ul>
     `
 })
-export class ContactsListComponent {
-    contacts = [
-        { id: "1", firstName: "Max", lastName: "Smith", email: "max@gmail.com" },
-        { id: "2", firstName: "Chris", lastName: "Raches", email: "chris@gmail.com" },
-        { id: "3", firstName: "Michael", lastName: "Alloy", email: "michael@gmail.com" },
-        { id: "4", firstName: "John", lastName: "Doe", email: "john@gmail.com" },
-        { id: "5", firstName: "Jenny", lastName: "Doe", email: "jenny@gmail.com" }
-    ]
-
+export class ContactsListComponent implements OnInit {
+    contacts: Contact[]
     selected: Contact
 
     @Output()
     onselect = new EventEmitter<Contact>()
 
+    constructor(private contactsService: ContactsService) {}
+
     select(contact: Contact): void {
         this.selected = contact
         this.onselect.emit( contact )
+    }
+
+    ngOnInit() {
+        this.contactsService.getAll()
+            .then( data => this.contacts = data )
     }
 }

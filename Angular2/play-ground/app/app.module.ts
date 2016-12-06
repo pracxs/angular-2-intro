@@ -9,14 +9,17 @@
 
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { AppComponent }  from './app.component';
 import { MyUpperPipe } from './my-upper.pipe';
 import { ContactDetailsComponent } from './contact-details.component';
 import { ContactsListComponent } from './contacts-list.component';
+import { ContactsService } from './contacts.service';
 
 @NgModule({
-  imports:      [ BrowserModule ],
+  imports:      [ BrowserModule, HttpModule ],
   declarations: [ AppComponent, MyUpperPipe, ContactDetailsComponent, ContactsListComponent ],
-  bootstrap:    [ AppComponent ]
+  bootstrap:    [ AppComponent ],
+  providers:    [ ContactsService ]
 })
 export class AppModule {}
