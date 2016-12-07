@@ -21,13 +21,24 @@
     <script src="node_modules/zone.js/dist/fake-async-test.js"></script>
     <script src="node_modules/zone.js/dist/sync-test.js"></script>
     <script src="node_modules/zone.js/dist/proxy.js"></script>
-    <!-- script src="node_modules/zone.js/dist/jasmine-patch.js"></script -->
+    <script src="node_modules/zone.js/dist/jasmine-patch.js"></script>
     
     <script src="systemjs.config.js"></script>
     
     <script>
         Promise.all([
           System.import('dist/1st.spec'),
+          //System.import('dist/observable.spec'),
+          //System.import('dist/person.service.spec'),
+          //System.import('dist/counter.component.spec'),
+          //System.import('dist/greeter.component.spec'),
+          //System.import('dist/details.component.spec'),
+          //System.import('dist/log-clicks.directive.spec'),
+          //System.import('dist/log-clicks.directive.sync.spec'),
+          //System.import('dist/details.component.spy.spec'),
+          //System.import('dist/http.spec'),
+          //System.import('dist/router.spec'),
+          //System.import('dist/router.app.spec'),
         ])
           .then(window.posponeonload)
           .catch(console.error.bind(console));
