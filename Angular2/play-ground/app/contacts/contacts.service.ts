@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Http } from '@angular/http';
 import { Contact } from './contact.interface';
+import 'rxjs/add/operator/toPromise'
 
 @Injectable()
 export class ContactsService {
@@ -14,11 +15,11 @@ export class ContactsService {
         { id: 5, firstName: "Jenny", lastName: "Doe", email: "jenny@gmail.com" }
     ]
 
-    constructor() {}
+    constructor(private http: Http) {}
 
     getAll(): Promise<Contact[]> {
-        return Promise.resolve( this.contacts )
-        // return new Promise( resolve => setTimeout( () => resolve(this.contacts), 4000 ) )
+        return this.http.get('contacts.json').toPromise()
+			.then( response => response.json() )
     }
 
     getById(id: number) {
