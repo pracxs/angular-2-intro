@@ -170,7 +170,8 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
 ### Demo Apps
 - Phone book app [phone-book](Angular2/phone-book)
 - HTTP base phone book app that retrieves contacts list from the server [phone-book-http](Angular2/phone-book-http)
-- New router base phone book app [phone-book-router](Angular2/phone-book-router)
+- Router base phone book app [phone-book-router](Angular2/phone-book-router)
+- Router base phone book app with child router outlet [phone-book-router-children](Angular2/phone-book-router-children)
 - Depricated router base phone book app [phone-book-router-depricated](Angular2/phone-book-router-depricated)
 	
 ## Testing - Angular 2.0
