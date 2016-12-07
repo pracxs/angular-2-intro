@@ -139,9 +139,13 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
 	
 ## Angular 2.0
 
-1. Hello world
+1. Hello world (with pure JavaScript)
 
     Examples: [hello-world](Angular2/hello-world/index.html)
+    
+1. Hello world (with TypeScript)
+
+    Examples: [hello-world-ts](Angular2/hello-world-ts)
     
 1. Attribute, class & style bindings
 
