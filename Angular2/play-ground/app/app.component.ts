@@ -7,12 +7,12 @@
  * or to prometheus@itce.com
  */
 
-import { Component } from '@angular/core'
+import {Component} from '@angular/core';
 
 @Component({
     selector: 'my-app',
     template: `
-        <router-outlet></router-outlet>
+        Hello World!
     `
 })
 export class AppComponent {}
