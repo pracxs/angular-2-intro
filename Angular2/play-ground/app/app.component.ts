@@ -20,6 +20,13 @@ import {ContactsService} from './contacts.service'
                 <a href='#' onclick='ctrl.remove(event, " + contact.id + ")' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
 		</ul>
+
+        <div *ngIf="selected" id="contactsDetailsContainer">
+            <label>First Name: </label><b>{{selected.firstName}}</b><br/>
+            <label>Last Name: </label><b>{{selected.lastName}}</b><br/>
+            <label>email: </label><b>{{selected.email}}</b><br/>
+            <label></label><a href="#" class="text-danger" onclick="ctrl.edit(event,' + contact.id + ')"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
+        <div>
     `
 })
 export class AppComponent implements OnInit {
