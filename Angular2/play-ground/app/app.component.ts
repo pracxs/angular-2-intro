@@ -7,7 +7,8 @@
  * or to prometheus@itce.com
  */
 
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core'
+import {ContactsService} from './contacts.service'
 
 @Component({
     selector: 'my-app',
@@ -15,22 +16,22 @@ import {Component} from '@angular/core';
     template: `
         <ul>
             <li [class.active]="contact == selected" *ngFor="let contact of contacts" class='item'> 
-                <a href='#' (click)="selected = contact">{{contact.firstName}} {{contact.lastName.toUpperCase()}}</a>
+                <a href='#' (click)="selected = contact">{{contact.firstName}} {{contact.lastName | myUpper}}</a>
                 <a href='#' onclick='ctrl.remove(event, " + contact.id + ")' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
 		</ul>
-
-        {{ selected?.id }}
     `
 })
-export class AppComponent {
-    contacts = [
-				{ id: "1", firstName: "Max", lastName: "Smith", email: "max@gmail.com" },
-				{ id: "2", firstName: "Chris", lastName: "Raches", email: "chris@gmail.com" },
-				{ id: "3", firstName: "Michael", lastName: "Alloy", email: "michael@gmail.com" },
-				{ id: "4", firstName: "John", lastName: "Doe", email: "john@gmail.com" },
-				{ id: "5", firstName: "Jenny", lastName: "Doe", email: "jenny@gmail.com" }
-			]
+export class AppComponent implements OnInit {
+    contacts: Contact[]
+    selected: Contact
 
-    selected: any
+    constructor(private contactsService: ContactsService) {}
+
+    ngOnInit() {
+        this.contactsService.getAll()
+            .then(
+                data => this.contacts = data
+            )
+    }
 }
