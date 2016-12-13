@@ -26,8 +26,8 @@ export class ContactsService {
         return Observable.create( observer => observer.next( this.contacts ) )
     }
 
-	getById(id: number): Contact {
-		return this.findById(id);
+	getById(id: number): Observable<Contact> {
+		return Observable.create( observer => observer.next( this.findById(id)) )
 	}
 	
 	remove(id: number): void {

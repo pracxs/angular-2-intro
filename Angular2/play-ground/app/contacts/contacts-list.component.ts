@@ -7,9 +7,11 @@
  * or to prometheus@itce.com
  */
 
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { ContactsService }   from './contacts.service'
+import 'rxjs/add/operator/switchMap'
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'contacts-list',
@@ -22,7 +24,7 @@ import { ContactsService }   from './contacts.service'
 		</ul>
     `
 })
-export class ContactsListComponent implements OnInit {
+export class ContactsListComponent implements OnInit, OnDestroy {
     contacts: Contact[]
 
     @Input()
@@ -30,6 +32,8 @@ export class ContactsListComponent implements OnInit {
 
     @Output()
     selectedChange = new EventEmitter<Contact>()
+
+    private sub: Subscription
 
     constructor(
         private contactsService: ContactsService,
@@ -43,9 +47,17 @@ export class ContactsListComponent implements OnInit {
                 data => this.contacts = data
             )
 
-       let id = + this.route.snapshot.params['id']
-       this.selected = this.contactsService.getById( id )
-       this.selectedChange.emit( this.selected )
+       this.sub = this.route.params
+            .map( params => + params['id'] )
+            .switchMap( id => this.contactsService.getById( id ) )
+            .subscribe( contact => {
+                this.selected = contact
+                this.selectedChange.emit( this.selected ) 
+            })
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe()
     }
 
     select(contact: Contact): boolean {
