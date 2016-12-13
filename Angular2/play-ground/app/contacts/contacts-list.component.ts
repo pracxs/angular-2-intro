@@ -34,7 +34,7 @@ export class ContactsListComponent implements OnInit {
 
     ngOnInit() {
         this.contactsService.getAll()
-            .then(
+            .subscribe(
                 data => this.contacts = data
             )
     }

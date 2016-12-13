@@ -1,4 +1,12 @@
-import {Injectable} from '@angular/core';
+import { Http, Response } from '@angular/http'
+import { Injectable } from '@angular/core'
+import { Observable } from 'rxjs/Observable'
+
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/catch'
+import 'rxjs/add/observable/throw'
+
+const CONTACTS_URL = 'contacts.json'
 
 @Injectable()
 export class ContactsService {
@@ -12,8 +20,10 @@ export class ContactsService {
 				{ id: 5, firstName: "Jenny", lastName: "Doe", email: "jenny@gmail.com" }
 			]
 
-    getAll(): Promise<Contact[]> {
-        return Promise.resolve(this.contacts)
+	constructor( private http: Http) {}
+
+    getAll(): Observable<Contact[]> {
+        return Observable.create( observer => observer.next( this.contacts ) )
     }
 
 	getById(id: number): Contact {
@@ -54,5 +64,20 @@ export class ContactsService {
 		this.contacts.push( contact );
 		
 		return contact.id;
+	}
+
+	private extractData(res: Response) {
+		if (res.status < 200 || res.status >= 300) {
+			throw new Error('Bad response status: ' + res.status);
+		}
+		let body = res.json();
+		return body || { };
+	}
+
+	private handleError (error: any) {
+		// In a real world app, we might send the error to remote logging infrastructure
+		let errMsg = error.message || error.status + ' ' + error.statusText + ': ' + error.url || 'Server error';
+		console.error(errMsg); // log to console instead
+		return Observable.throw(errMsg);
 	}
 }

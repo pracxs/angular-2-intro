@@ -10,16 +10,19 @@
 import { NgModule }      from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
+import { HttpModule } from '@angular/http'
 import { AppComponent }  from './app.component'
 import { MyUpperPipe }   from './my-upper.pipe'
-import { ContactsService } from './contacts.service'
-import { ContactDetailsComponent } from './contact-details.component'
-import { ContactsListComponent } from './contacts-list.component'
+import { ContactsService } from './contacts/contacts.service'
+import { ContactsComponent } from './contacts/contacts.component'
+import { ContactDetailsComponent } from './contacts/contact-details.component'
+import { ContactsListComponent } from './contacts/contacts-list.component'
+import { AboutComponent } from './about/about.component'
 import { EmailValidator } from './email-validator.directive'
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule ],
-  declarations: [ AppComponent, MyUpperPipe, ContactsListComponent, ContactDetailsComponent, EmailValidator ],
+  imports:      [ BrowserModule, FormsModule, HttpModule ],
+  declarations: [ AppComponent, MyUpperPipe, AboutComponent, ContactsComponent, ContactsListComponent, ContactDetailsComponent, EmailValidator ],
   bootstrap:    [ AppComponent ],
   providers:    [ ContactsService ]
 })
