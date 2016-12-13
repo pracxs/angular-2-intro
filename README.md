@@ -174,6 +174,7 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
 - Router base phone book app with child router outlet [phone-book-router-children](Angular2/phone-book-router-children)
 - Router base phone book app that loads sub-module immediate [phone-book-router-modules](Angular2/phone-book-router-modules)
 - Router base phone book app that loads sub-module lazy [phone-book-router-modules-lazy](Angular2/phone-book-router-modules-lazy)
+- Router base phone book app that uses named outlet [phone-book-router-named-outlet](Angular2/phone-book-router-named-outlet)
 - Depricated router base phone book app [phone-book-router-depricated](Angular2/phone-book-router-depricated)
 	
 ## Testing - Angular 2.0
