@@ -7,7 +7,9 @@
  * or to prometheus@itce.com
  */
 
-import {Component, Input} from '@angular/core'
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
+import { NgForm }           from "@angular/forms"
+import { ContactsService }  from './contacts.service'
 
 @Component({
     selector: 'contact-details',
@@ -20,19 +22,37 @@ import {Component, Input} from '@angular/core'
                 <label>email: </label><b>{{contact.email}}</b><br/>
                 <label></label><a href="#" class="text-danger" (click)="showEdit = true"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
             </span>
-            <form *ngSwitchDefault name="editContactForm">
-                <label>First Name: </label><input name="firstName" [value]="contact.firstName"><br/>
-                <label>Last Name: </label><input name="lastName" [value]="contact.lastName"><br/>
-                <label>email: </label><input name="email" [value]="contact.email"><br/>
+            <form *ngSwitchDefault #form="ngForm" name="editContactForm" (ngSubmit)="$event.preventDefault(); submit(form)">
+                <label>First Name: </label><input name="firstName" [ngModel]="contact.firstName"><br/>
+                <label>Last Name: </label><input name="lastName" [ngModel]="contact.lastName"><br/>
+                <label>email: </label><input name="email" [ngModel]="contact.email"><br/>
                 <label></label><input type="submit" class="btn btn-danger" value="Save"/>
                 <a href="#" class="text-danger" (click)="showEdit = false">Cancel</a>
             </form>
         <div>
     `
 })
-export class ContactDetailsComponent {
+export class ContactDetailsComponent implements OnChanges {
     @Input()
     contact: Contact
 
     showEdit: boolean = false
+
+
+    constructor(private contactsService: ContactsService) {}
+
+    submit(form: NgForm) {
+        let dirtyContact: Contact = form.value
+
+        dirtyContact.id = this.contact.id
+
+        this.contactsService.update( dirtyContact )
+        this.contact = dirtyContact
+        this.showEdit = false
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if(changes && changes['contact'] && changes['contact'].currentValue!==changes['contact'].previousValue)
+            this.showEdit = false
+    }
 }
