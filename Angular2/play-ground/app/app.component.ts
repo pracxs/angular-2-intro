@@ -7,33 +7,15 @@
  * or to prometheus@itce.com
  */
 
-import {Component, OnInit} from '@angular/core'
-import {ContactsService} from './contacts.service'
+import { Component } from '@angular/core'
 
 @Component({
     selector: 'my-app',
-    styles: ['.hide { display: none !important; }'],
     template: `
-        <ul>
-            <li [class.active]="contact == selected" *ngFor="let contact of contacts" class='item'> 
-                <a href='#' (click)="selected = contact">{{contact.firstName}} {{contact.lastName | myUpper}}</a>
-                <a href='#' onclick='ctrl.remove(event, " + contact.id + ")' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
-            </li>
-		</ul>
-
+        <contacts-list (onselect)="selected = $event"></contacts-list>
         <contact-details [contact]="selected"></contact-details>
     `
 })
-export class AppComponent implements OnInit {
-    contacts: Contact[]
+export class AppComponent {
     selected: Contact
-
-    constructor(private contactsService: ContactsService) {}
-
-    ngOnInit() {
-        this.contactsService.getAll()
-            .then(
-                data => this.contacts = data
-            )
-    }
 }
