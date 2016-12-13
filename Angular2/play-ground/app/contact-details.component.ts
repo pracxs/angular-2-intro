@@ -22,12 +22,16 @@ import { ContactsService }  from './contacts.service'
                 <label>email: </label><b>{{contact.email}}</b><br/>
                 <label></label><a href="#" class="text-danger" (click)="showEdit = true"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
             </span>
-            <form *ngSwitchDefault #form="ngForm" name="editContactForm" (ngSubmit)="$event.preventDefault(); submit(form)">
-                <label>First Name: </label><input name="firstName" [ngModel]="contact.firstName"><br/>
-                <label>Last Name: </label><input name="lastName" [ngModel]="contact.lastName"><br/>
+            <form *ngSwitchDefault #form="ngForm" name="editContactForm" (ngSubmit)="$event.preventDefault(); submit(form)" novalidate>
+                <label>First Name: </label><input #spy name="firstName" [ngModel]="contact.firstName" required><br/>
+                <label>Last Name: </label><input name="lastName" [ngModel]="contact.lastName" required><br/>
                 <label>email: </label><input name="email" [ngModel]="contact.email"><br/>
                 <label></label><input type="submit" class="btn btn-danger" value="Save"/>
                 <a href="#" class="text-danger" (click)="showEdit = false">Cancel</a>
+
+                <br/>
+                <br/>
+                {{spy.className}}
             </form>
         <div>
     `
@@ -44,6 +48,8 @@ export class ContactDetailsComponent implements OnChanges {
     constructor(private contactsService: ContactsService) {}
 
     submit(form: NgForm) {
+        if( ! form.valid ) return
+
         let dirtyContact: Contact = form.value
 
         dirtyContact.id = this.contact.id
