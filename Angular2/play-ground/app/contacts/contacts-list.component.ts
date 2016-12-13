@@ -8,6 +8,7 @@
  */
 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { Router, ActivatedRoute } from '@angular/router'
 import { ContactsService }   from './contacts.service'
 
 @Component({
@@ -30,18 +31,28 @@ export class ContactsListComponent implements OnInit {
     @Output()
     selectedChange = new EventEmitter<Contact>()
 
-    constructor(private contactsService: ContactsService) {}
+    constructor(
+        private contactsService: ContactsService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.contactsService.getAll()
             .subscribe(
                 data => this.contacts = data
             )
+
+       let id = + this.route.snapshot.params['id']
+       this.selected = this.contactsService.getById( id )
+       this.selectedChange.emit( this.selected )
     }
 
     select(contact: Contact): boolean {
         this.selected = contact
         this.selectedChange.emit( contact )
+
+        this.router.navigate(['contacts', contact.id])
 
         return false;
     }

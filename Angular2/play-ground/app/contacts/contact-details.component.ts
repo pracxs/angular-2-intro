@@ -21,7 +21,7 @@ import { ContactsService }  from './contacts.service'
                 <label>First Name: </label><b>{{contact.firstName}}</b><br/>
                 <label>Last Name: </label><b>{{contact.lastName}}</b><br/>
                 <label>email: </label><b>{{contact.email}}</b><br/>
-                <label></label><a href="#" class="text-danger" (click)="showEdit = true"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
+                <label></label><a href="#" class="text-danger" (click)="$event.preventDefault(); showEdit = true"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
             </span>
             <form *ngSwitchDefault #form="ngForm" name="editContactForm" (ngSubmit)="$event.preventDefault(); submit(form)" novalidate>
                 <label>First Name: </label><input name="firstName" [ngModel]="contact.firstName" required><br/>

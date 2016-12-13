@@ -5,6 +5,7 @@ import { AboutComponent }       from './about/about.component'
 
 let routes: Routes = [
   { path: 'contacts', component: ContactsComponent },
+  { path: 'contacts/:id', component: ContactsComponent },
   { path: 'about', component: AboutComponent },
   { path: '', redirectTo: 'contacts', pathMatch: 'full' },
   { path: '**', component: AboutComponent }
