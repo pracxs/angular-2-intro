@@ -25,7 +25,7 @@ import { ContactsService }  from './contacts.service'
             <form *ngSwitchDefault #form="ngForm" name="editContactForm" (ngSubmit)="$event.preventDefault(); submit(form)" novalidate>
                 <label>First Name: </label><input #spy name="firstName" [ngModel]="contact.firstName" required><br/>
                 <label>Last Name: </label><input name="lastName" [ngModel]="contact.lastName" required><br/>
-                <label>email: </label><input name="email" [ngModel]="contact.email"><br/>
+                <label>email: </label><input name="email" [ngModel]="contact.email" email><br/>
                 <label></label><input type="submit" class="btn btn-danger" value="Save"/>
                 <a href="#" class="text-danger" (click)="showEdit = false">Cancel</a>
 
