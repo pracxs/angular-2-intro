@@ -1,3 +1,4 @@
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 /* Copyright (C) 2016 Pracxs Net & ITCE - All Rights Reserved
  * You may use, distribute and modify this code under the
  * terms of the Prometheus courses license.
@@ -23,15 +24,16 @@ import { ContactsService }  from './contacts.service'
                 <label></label><a href="#" class="text-danger" (click)="showEdit = true"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
             </span>
             <form *ngSwitchDefault #form="ngForm" name="editContactForm" (ngSubmit)="$event.preventDefault(); submit(form)" novalidate>
-                <label>First Name: </label><input #spy name="firstName" [ngModel]="contact.firstName" required><br/>
-                <label>Last Name: </label><input name="lastName" [ngModel]="contact.lastName" required><br/>
-                <label>email: </label><input name="email" [ngModel]="contact.email" email><br/>
-                <label></label><input type="submit" class="btn btn-danger" value="Save"/>
-                <a href="#" class="text-danger" (click)="showEdit = false">Cancel</a>
+                <label>First Name: </label><input name="firstName" [ngModel]="contact.firstName" required><br/>
+                <div class="alert alert-danger" role="alert" *ngIf="!form.controls.firstName?.pristine && !form.controls.firstName?.valid">First name is required</div>
 
-                <br/>
-                <br/>
-                {{spy.className}}
+                <label>Last Name: </label><input name="lastName" [ngModel]="contact.lastName" required><br/>
+                <div class="alert alert-danger" role="alert" *ngIf="!form.controls.lastName?.pristine && !form.controls.lastName?.valid">Last name is required</div>
+
+                <label>email: </label><input name="email" [ngModel]="contact.email" email><br/>
+
+                <label></label><input type="submit" class="btn btn-danger" value="Save" [disabled]="form.pristine || form.invalid"/>
+                <a href="#" class="text-danger" (click)="showEdit = false">Cancel</a>
             </form>
         <div>
     `
