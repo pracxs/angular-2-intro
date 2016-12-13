@@ -39,8 +39,10 @@ export class ContactsListComponent implements OnInit {
             )
     }
 
-    select(contact: Contact): void {
+    select(contact: Contact): boolean {
         this.selected = contact
         this.selectedChange.emit( contact )
+
+        return false;
     }
 }

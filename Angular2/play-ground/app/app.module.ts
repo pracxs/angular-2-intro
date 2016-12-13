@@ -11,6 +11,7 @@ import { NgModule }      from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { HttpModule } from '@angular/http'
+import { RouterModule, Routes } from '@angular/router'
 import { AppComponent }  from './app.component'
 import { MyUpperPipe }   from './my-upper.pipe'
 import { ContactsService } from './contacts/contacts.service'
@@ -20,8 +21,13 @@ import { ContactsListComponent } from './contacts/contacts-list.component'
 import { AboutComponent } from './about/about.component'
 import { EmailValidator } from './email-validator.directive'
 
+let routes: Routes = [
+  { path: 'contacts', component: ContactsComponent },
+  { path: 'about', component: AboutComponent }
+]
+
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpModule ],
+  imports:      [ BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(routes, { useHash: true }) ],
   declarations: [ AppComponent, MyUpperPipe, AboutComponent, ContactsComponent, ContactsListComponent, ContactDetailsComponent, EmailValidator ],
   bootstrap:    [ AppComponent ],
   providers:    [ ContactsService ]
