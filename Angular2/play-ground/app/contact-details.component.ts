@@ -31,6 +31,7 @@ import { ContactsService }  from './contacts.service'
                 <div class="alert alert-danger" role="alert" *ngIf="!form.controls.lastName?.pristine && !form.controls.lastName?.valid">Last name is required</div>
 
                 <label>email: </label><input name="email" [ngModel]="contact.email" email><br/>
+                <div class="alert alert-danger" role="alert" *ngIf="!form.controls.email?.valid">Email is invalid</div>
 
                 <label></label><input type="submit" class="btn btn-danger" value="Save" [disabled]="form.pristine || form.invalid"/>
                 <a href="#" class="text-danger" (click)="showEdit = false">Cancel</a>
