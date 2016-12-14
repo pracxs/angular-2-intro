@@ -14,6 +14,10 @@ import { ContactsService }          from './contacts.service'
 import 'rxjs/add/operator/switchMap'
 import 'rxjs/add/operator/filter'
 import { Subscription }             from 'rxjs/Subscription'
+import { CanComponentDeactivate }   from '../can-deactivate-guard'
+import { DialogService }            from '../dialog.service'
+import { Observable }               from 'rxjs/Observable'
+import 'rxjs/add/observable/fromPromise'
 
 @Component({
     selector: 'contact-details',
@@ -42,7 +46,7 @@ import { Subscription }             from 'rxjs/Subscription'
         <div>
     `
 })
-export class ContactDetailsComponent implements OnInit {
+export class ContactDetailsComponent implements OnInit, CanComponentDeactivate {
     private contact: Contact
     private showEdit: boolean = false
     private sub: Subscription
@@ -52,7 +56,8 @@ export class ContactDetailsComponent implements OnInit {
     constructor(
         private contactsService: ContactsService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private dialogService: DialogService
     ) {}
 
     submit(form: NgForm) {
@@ -81,6 +86,7 @@ export class ContactDetailsComponent implements OnInit {
                 let id = + params['id']
                 if( id<0 ) {
                     this.contact =  {id: null, firstName: '', lastName: '', email: ''}
+                    this.form.resetForm()
                     this.showEdit = true
                 } else {
                     this.showEdit = false
@@ -92,5 +98,16 @@ export class ContactDetailsComponent implements OnInit {
             .subscribe( contact => {
                 this.contact = contact
             })
+    }
+
+    canDeactivate(): boolean | Observable<boolean> {
+        if ( ! this.showEdit || ! this.form.dirty )
+            return true
+        
+        // Otherwise ask the user with the dialog service and return its
+        // promise which resolves to true or false when the user decides
+        let p: Promise<boolean> = this.dialogService.confirm('Discard changes?')
+        let o = Observable.fromPromise(p)
+        return o
     }
 }

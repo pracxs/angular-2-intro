@@ -19,10 +19,11 @@ import { EmailValidator }       from '../email-validator.directive'
 import { ContactsService }      from './contacts.service'
 import { MyUpperPipe }          from '../my-upper.pipe'
 import { ContactsRoutingModule }     from './contacts-routing.module'
+import { DialogService }            from '../dialog.service'
 
 @NgModule({
   imports:      [ CommonModule, FormsModule, ContactsRoutingModule, HttpModule ],
   declarations: [ ContactsComponent, ContactsListComponent, ContactDetailsComponent, EmailValidator, MyUpperPipe ],
-  providers:    [ ContactsService ]
+  providers:    [ ContactsService, DialogService ]
 })
 export class ContactsModule {}
