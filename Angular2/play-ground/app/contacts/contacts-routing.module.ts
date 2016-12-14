@@ -15,7 +15,7 @@ import { ContactDetailsComponent }  from './contact-details.component'
 
 const routes: Routes = [
   { 
-    path: 'contacts',       
+    path: '',       
     component: ContactsComponent,
     children: [
       { path: ':id', component: ContactDetailsComponent  },

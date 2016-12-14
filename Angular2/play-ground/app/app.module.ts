@@ -12,10 +12,9 @@ import { BrowserModule } from '@angular/platform-browser'
 import { AppComponent }  from './app.component'
 import { AboutComponent } from './about/about.component'
 import { AppRoutingModule } from './app-routing.module'
-import { ContactsModule } from './contacts/contacts.module'
 
 @NgModule({
-  imports:      [ BrowserModule, AppRoutingModule, ContactsModule ],
+  imports:      [ BrowserModule, AppRoutingModule ],
   declarations: [ AppComponent, AboutComponent ],
   bootstrap:    [ AppComponent ]
 })

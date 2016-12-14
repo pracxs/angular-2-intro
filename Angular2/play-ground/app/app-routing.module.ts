@@ -1,12 +1,13 @@
 import { NgModule }             from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { ContactsComponent }    from './contacts/contacts.component'
 import { AboutComponent }       from './about/about.component'
 import { ContactDetailsComponent } from './contacts/contact-details.component'
 
 let routes: Routes = [
+  { path: 'contacts', loadChildren: 'app/contacts/contacts.module#ContactsModule' },
   { path: 'about', component: AboutComponent },
-  { path: '', redirectTo: 'contacts', pathMatch: 'full' }
+  { path: '', redirectTo: 'contacts', pathMatch: 'full' },
+  { path: '**', component: AboutComponent }
 ]
 
 @NgModule({
