@@ -5,16 +5,8 @@ import { AboutComponent }       from './about/about.component'
 import { ContactDetailsComponent } from './contacts/contact-details.component'
 
 let routes: Routes = [
-  { 
-    path: 'contacts', 
-    component: ContactsComponent,
-    children: [
-      { path: ':id', component: ContactDetailsComponent }
-    ] 
-  },
   { path: 'about', component: AboutComponent },
-  { path: '', redirectTo: 'contacts', pathMatch: 'full' },
-  { path: '**', component: AboutComponent }
+  { path: '', redirectTo: 'contacts', pathMatch: 'full' }
 ]
 
 @NgModule({

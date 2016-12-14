@@ -58,7 +58,7 @@ export class ContactsListComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.paramsSub.unsubscribe()
+        this.paramsSub && this.paramsSub.unsubscribe()
         this.routerSub.unsubscribe()
     }
 

@@ -51,6 +51,7 @@ export class ContactDetailsComponent implements OnInit {
 
     constructor(
         private contactsService: ContactsService,
+        private router: Router,
         private route: ActivatedRoute
     ) {}
 
@@ -61,11 +62,14 @@ export class ContactDetailsComponent implements OnInit {
 
         dirtyContact.id = this.contact.id
 
+        let newId: number = this.contact.id
+
         if(this.contact.id === null)
-            this.contactsService.add( dirtyContact )
+            newId = this.contactsService.add( dirtyContact )
         else
             this.contactsService.update( dirtyContact )
 
+        this.router.navigate(['contacts', newId])
 
         this.contact = dirtyContact
         this.showEdit = false
