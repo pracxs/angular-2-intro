@@ -12,17 +12,11 @@ import { Component } from '@angular/core'
 @Component({
     selector: 'contacts',
     template: `
-        <contacts-list [(selected)]="selected"></contacts-list>
+        <contacts-list></contacts-list>
 
-        <a id="add" href="#" class="text-danger" (click)="onAdd()"><span class="glyphicon glyphicon-plus"></span>Add</a>
+        <a id="add" href="#" class="text-danger" [routerLink]="'/contacts/-1'"><span class="glyphicon glyphicon-plus"></span>Add</a>
 
-        <contact-details [(contact)]="selected"></contact-details>
+        <contact-details></contact-details>
     `
 })
-export class ContactsComponent {
-    selected: Contact
-
-    onAdd() {
-        this.selected = {id: null, firstName: '', lastName: '', email: ''}
-    }
-}
+export class ContactsComponent {}

@@ -1,4 +1,3 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 /* Copyright (C) 2016 Pracxs Net & ITCE - All Rights Reserved
  * You may use, distribute and modify this code under the
  * terms of the Prometheus courses license.
@@ -8,9 +7,13 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
  * or to prometheus@itce.com
  */
 
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewChild } from '@angular/core'
-import { NgForm }           from "@angular/forms"
-import { ContactsService }  from './contacts.service'
+import { Component, OnInit, ViewChild } from '@angular/core'
+import { NgForm }                   from "@angular/forms"
+import { Router, ActivatedRoute }   from '@angular/router'
+import { ContactsService }          from './contacts.service'
+import 'rxjs/add/operator/switchMap'
+import 'rxjs/add/operator/filter'
+import { Subscription }             from 'rxjs/Subscription'
 
 @Component({
     selector: 'contact-details',
@@ -39,17 +42,17 @@ import { ContactsService }  from './contacts.service'
         <div>
     `
 })
-export class ContactDetailsComponent implements OnChanges {
-    @Input()
-    contact: Contact
-    @Output()
-    contactChange = new EventEmitter<Contact>()
-
-    showEdit: boolean = false
+export class ContactDetailsComponent implements OnInit {
+    private contact: Contact
+    private showEdit: boolean = false
+    private sub: Subscription
 
     @ViewChild('form') form : NgForm
 
-    constructor(private contactsService: ContactsService) {}
+    constructor(
+        private contactsService: ContactsService,
+        private route: ActivatedRoute
+    ) {}
 
     submit(form: NgForm) {
         if( ! form.valid ) return
@@ -66,15 +69,24 @@ export class ContactDetailsComponent implements OnChanges {
 
         this.contact = dirtyContact
         this.showEdit = false
-
-        this.contactChange.emit( dirtyContact )
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        if(changes && changes['contact'] && changes['contact'].currentValue!==changes['contact'].previousValue) {
-            if(this.form)
-                this.form.resetForm()
-            this.showEdit = ( this.contact && this.contact.id === null )
-        }
+    ngOnInit() {
+       this.sub = this.route.params
+            .map( params => {
+                let id = + params['id']
+                if( id<0 ) {
+                    this.contact =  {id: null, firstName: '', lastName: '', email: ''}
+                    this.showEdit = true
+                } else {
+                    this.showEdit = false
+                }
+                return id 
+            })
+            .filter( id => id >= 0 )
+            .switchMap( id => this.contactsService.getById( id ) )
+            .subscribe( contact => {
+                this.contact = contact
+            })
     }
 }
