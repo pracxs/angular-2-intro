@@ -16,7 +16,7 @@ import { Component } from '@angular/core'
 
         <a id="add" href="#" class="text-danger" [routerLink]="'/contacts/-1'"><span class="glyphicon glyphicon-plus"></span>Add</a>
 
-        <contact-details></contact-details>
+        <router-outlet></router-outlet>
     `
 })
 export class ContactsComponent {}

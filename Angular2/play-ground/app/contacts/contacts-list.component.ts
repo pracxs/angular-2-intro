@@ -8,7 +8,7 @@
  */
 
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { Router, ActivatedRoute } from '@angular/router'
+import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router'
 import { ContactsService }   from './contacts.service'
 import 'rxjs/add/operator/switchMap'
 import { Subscription } from 'rxjs/Subscription'
@@ -29,7 +29,8 @@ export class ContactsListComponent implements OnInit, OnDestroy {
 
     selectedId: number
 
-    private sub: Subscription
+    private paramsSub: Subscription
+    private routerSub: Subscription
 
     constructor(
         private contactsService: ContactsService,
@@ -43,21 +44,25 @@ export class ContactsListComponent implements OnInit, OnDestroy {
                 data => this.contacts = data
             )
 
-       this.sub = this.route.params
-            .map( params => + params['id'] )
-            .switchMap( id => this.contactsService.getById( id ) )
-            .subscribe( contact => {
-                this.selectedId = contact ? contact.id : null
+        this.routerSub = this.router.events
+            .filter((e) => e instanceof NavigationEnd)
+            .subscribe( () => {
+                if( this.paramsSub )
+                    this.paramsSub.unsubscribe()
+                if( this.route.firstChild )
+                    this.paramsSub = this.route.firstChild
+                        .params
+                        .map((params: Params) => +params['id'])
+                        .subscribe(contactId => this.selectedId = contactId)
             })
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe()
+        this.paramsSub.unsubscribe()
+        this.routerSub.unsubscribe()
     }
 
     select(contact: Contact): boolean {
-        this.selectedId = contact.id
-
         this.router.navigate(['contacts', contact.id])
 
         return false;
