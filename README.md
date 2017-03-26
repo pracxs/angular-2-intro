@@ -206,7 +206,7 @@ This course is intendet for quick introduction into JavaScript, TypeScript and A
 ## Useful link
 |Ttile|Link|
 |---|---|
-|Javascript Tutorial|http://www.ttorialspoint.com/javascript/ |
+|Javascript Tutorial|http://www.tutorialspoint.com/javascript/ |
 |Async vs Defer Attributes|http://www.growingwiththeweb.com/2014/02/async-vs-defer-attributes.html |
 |What is "use strict"|http://www.w3schools.com/js/js_strict.asp |
 |JavaScript Variable Scope|https://www.sitepoint.com/demystifying-javascript-variable-scope-hoisting/ |
