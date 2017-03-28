@@ -62,7 +62,7 @@ let employeeName = buildName4("Joseph", "Samuel", "Lucas", "MacKinzie");
 // issue
 {
     class MultiplierCreator {
-        constructor(private mulitiplier:number) {}
+        constructor(private multiplier:number) {}
         
         create() {
             return function(value: number) {
