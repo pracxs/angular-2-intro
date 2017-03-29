@@ -22,13 +22,18 @@ const CONTACTS: Contact[] = [
     selector: 'my-app',
     template: `
         <ul> 
-            <li class='item' *ngFor="let contact of contacts">
-                <a href='#' onclick='ctrl.select(event, contact.id)'>{{contact.firstName}} {{contact.lastName.toUpperCase()}}</a>
-                <a href='#' onclick='ctrl.remove(event, contact.id)' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
+            <li [class.active]="contact==selected" class='item' *ngFor="let contact of contacts">
+                <a href='#' (click)="select(contact)">{{contact.firstName}} {{contact.lastName.toUpperCase()}}</a>
+                <a href='#' onclick='ctrl.remove(event, contact)' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
 		</ul>
     `
 })
 export class AppComponent {
     contacts: Contact[] = CONTACTS
+    selected: Contact 
+
+    select(c: Contact) {
+        this.selected = c
+    }
 }
