@@ -21,12 +21,7 @@ import { ContactsService } from './contact.service'
                 <a href='#' (click)='remove(contact)' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
 		</ul>
-        <div id="contactsDetailsContainer" *ngIf="selected">
-            <label>First Name: </label><b>{{selected.firstName}}</b><br/>
-            <label>Last Name: </label><b>{{selected.lastName}}</b><br/>
-            <label>email: </label><b>{{selected.email}}</b><br/>
-            <label></label><a href="#" class="text-danger" onclick="ctrl.edit(event,' selected.id)"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
-        </div>
+        <contact-details [contact]="selected"></contact-details>
     `
 })
 export class AppComponent implements OnInit {
@@ -44,6 +39,9 @@ export class AppComponent implements OnInit {
     }
 
     remove(contact: Contact) {
+        if(this.selected == contact)  
+            this.selected = null
+            
         this.contactsService.remove(contact.id)
     }
 }
