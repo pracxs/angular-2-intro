@@ -8,7 +8,9 @@
  */
 
 import {Injectable} from "@angular/core"
-import {Contact} from "./contact"
+import { Contact } from "./contact"
+import { Observable } from 'rxjs/Observable'
+import 'rxjs/add/observable/of'
 
 @Injectable()
 export class ContactsService {
@@ -23,7 +25,7 @@ export class ContactsService {
 		];
 		
 	getAll() {
-		return this.CONTACTS;
+		return Observable.of(this.CONTACTS);
 	}
 	
 	getById(id: number) {
