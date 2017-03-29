@@ -12,14 +12,17 @@ import { BrowserModule }  from '@angular/platform-browser'
 import { FormsModule }    from '@angular/forms'
 import { HttpModule }     from '@angular/http'
 import { AppComponent }   from './app.component'
-import { ContactsListComponent } from './contacts-list.component'
-import { ContactDetailsComponent } from './contact-details.component'
+import { ContactsComponent } from './contacts/contacts.component'
+import { ContactsListComponent } from './contacts/contacts-list.component'
+import { ContactDetailsComponent } from './contacts/contact-details.component'
 import { MyUpperPipe }    from './my-upper.pipe'
 import { EmailValidator } from './email-validator.directive'
+import { AboutComponent } from './about/about.component'
+import { AppRoutingModule } from "./app-routing.module"
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpModule ],
-  declarations: [ AppComponent, ContactDetailsComponent, ContactsListComponent, MyUpperPipe, EmailValidator ],
+  imports:      [ BrowserModule, FormsModule, HttpModule, AppRoutingModule ],
+  declarations: [ AppComponent, AboutComponent, ContactsComponent, ContactDetailsComponent, ContactsListComponent, MyUpperPipe, EmailValidator ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule {}

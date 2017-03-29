@@ -43,6 +43,7 @@ export class ContactsListComponent implements OnInit {
     select(c: Contact) {
         this.selected = c
         this.selectedChange.emit(c)
+        return false
     }
 
     remove(contact: Contact) {
