@@ -14,10 +14,11 @@ import { AppComponent }   from './app.component'
 import { ContactsListComponent } from './contacts-list.component'
 import { ContactDetailsComponent } from './contact-details.component'
 import { MyUpperPipe }    from './my-upper.pipe'
+import { EmailValidator } from './email-validator.directive'
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule ],
-  declarations: [ AppComponent, ContactDetailsComponent, ContactsListComponent, MyUpperPipe ],
+  declarations: [ AppComponent, ContactDetailsComponent, ContactsListComponent, MyUpperPipe, EmailValidator ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule {}

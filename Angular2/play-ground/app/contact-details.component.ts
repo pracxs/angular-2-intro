@@ -24,7 +24,7 @@ import { ContactsService } from './contact.service'
             </span>
             <form name="editContactForm" #form="ngForm" (ngSubmit)="onSubmit(form)" *ngIf="showEdit" novalidate>
                 <label for="firstName">First Name: </label>
-                <input #inp id="firstName" name="firstName" [ngModel]="contact.firstName" required><br/>
+                <input id="firstName" name="firstName" [ngModel]="contact.firstName" required><br/>
                 <div class="alert alert-danger" role="alert" *ngIf="!form.controls.firstName?.pristine && !form.controls.firstName?.valid">First name is required</div>
                 
                 <label for="lastName">Last Name: </label>
@@ -38,8 +38,6 @@ import { ContactsService } from './contact.service'
                 <label></label>
                 <input type="submit" class="btn btn-danger" value="{{ !contact.id ? 'Add' : 'Save' }}" [disabled]="form.invalid || form.pristine" />
                 <a href="#" class="text-danger" (click)="onCancel()">Cancel</a>
-
-                <pre>{{inp.className|json}}</pre>
             </form>
         </div>
     `
