@@ -7,24 +7,18 @@
  * or to prometheus@itce.com
  */
 
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Contact } from './contact'
-
-const CONTACTS: Contact[] = [
-    { id: 1, firstName: "Max", lastName: "Smith", email: "max@gmail.com" },
-    { id: 2, firstName: "Chris", lastName: "Raches", email: "chris@gmail.com" },
-    { id: 3, firstName: "Michael", lastName: "Alloy", email: "michael@gmail.com" },
-    { id: 4, firstName: "John", lastName: "Doe", email: "john@gmail.com" },
-    { id: 5, firstName: "Jenny", lastName: "Doe", email: "jenny@gmail.com" }
-];
+import { ContactsService } from './contact.service'
 
 @Component({
     selector: 'my-app',
+    providers: [ ContactsService ],
     template: `
         <ul> 
             <li [class.active]="contact==selected" class='item' *ngFor="let contact of contacts">
                 <a href='#' (click)="select(contact)">{{contact.firstName}} {{contact.lastName | myUpper}}</a>
-                <a href='#' onclick='ctrl.remove(event, contact)' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
+                <a href='#' (click)='remove(contact)' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
 		</ul>
         <div id="contactsDetailsContainer" *ngIf="selected">
@@ -35,11 +29,21 @@ const CONTACTS: Contact[] = [
         </div>
     `
 })
-export class AppComponent {
-    contacts: Contact[] = CONTACTS
+export class AppComponent implements OnInit {
+    contacts: Contact[]
     selected: Contact 
+
+    constructor(private contactsService: ContactsService) {}
+
+    ngOnInit() {
+        this.contacts = this.contactsService.getAll()
+    }
 
     select(c: Contact) {
         this.selected = c
+    }
+
+    remove(contact: Contact) {
+        this.contactsService.remove(contact.id)
     }
 }
