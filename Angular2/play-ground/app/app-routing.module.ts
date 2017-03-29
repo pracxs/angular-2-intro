@@ -13,8 +13,10 @@ import { ContactsComponent }    from './contacts/contacts.component'
 import { AboutComponent }       from './about/about.component'
 
 const routes: Routes = [
-  { path: 'contacts', component: ContactsComponent },
-  { path: 'about',    component: AboutComponent },
+  { path: 'contacts',       component: ContactsComponent },
+  { path: 'contacts/:id',   component: ContactsComponent },
+  { path: 'about',          component: AboutComponent },
+  { path: '',               redirectTo: '/contacts', pathMatch: 'full' }
 ]
 
 @NgModule({
