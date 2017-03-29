@@ -21,9 +21,9 @@ const CONTACTS: Contact[] = [
 @Component({
     selector: 'my-app',
     template: `
-        <ul #box> 
+        <ul> 
             <li [class.active]="contact==selected" class='item' *ngFor="let contact of contacts">
-                <a href='#' (click)="select(contact)">{{contact.firstName}} {{contact.lastName | uppercase}}</a>
+                <a href='#' (click)="select(contact)">{{contact.firstName}} {{contact.lastName | myUpper}}</a>
                 <a href='#' onclick='ctrl.remove(event, contact)' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
 		</ul>
@@ -33,9 +33,6 @@ const CONTACTS: Contact[] = [
             <label>email: </label><b>{{selected.email}}</b><br/>
             <label></label><a href="#" class="text-danger" onclick="ctrl.edit(event,' selected.id)"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
         </div>
-        <pre>
-            {{box | json}}
-        </pre>
     `
 })
 export class AppComponent {
