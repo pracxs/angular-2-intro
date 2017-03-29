@@ -7,7 +7,7 @@
  * or to prometheus@itce.com
  */
 
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnChanges } from '@angular/core'
 import { Contact } from './contact'
 
 @Component({
@@ -31,18 +31,23 @@ import { Contact } from './contact'
                 <input id="email" name="email" [value]="contact.email" email><br/>
                 
                 <label></label>
-                <input type="submit" class="btn btn-danger" value="Save" />
+                <input type="submit" class="btn btn-danger" value="{{ !contact.id ? 'Add' : 'Save' }}" />
                 <a href="#" class="text-danger" (click)="onCancel()">Cancel</a>
             </form>
         </div>
     `
 })
-export class ContactDetailsComponent {
+export class ContactDetailsComponent implements OnChanges {
     @Input()
     contact: Contact
     showEdit: boolean = false
 
     onCancel() {
         this.showEdit = false
+    }
+
+    ngOnChanges(changes) {
+        if(changes && changes.contact && changes.contact.currentValue!==changes.contact.previousValue)
+            this.showEdit = ( this.contact && this.contact.id === null )
     }
 }

@@ -7,7 +7,7 @@
  * or to prometheus@itce.com
  */
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { Contact } from './contact'
 import { ContactsService } from './contact.service'
 
@@ -24,10 +24,12 @@ import { ContactsService } from './contact.service'
 })
 export class ContactsListComponent implements OnInit {
     contacts: Contact[]
+
+    @Input()
     selected: Contact
 
     @Output()
-    contactChanged = new EventEmitter<Contact>()
+    selectedChange = new EventEmitter<Contact>()
 
     constructor(private contactsService: ContactsService) {}
 
@@ -37,13 +39,13 @@ export class ContactsListComponent implements OnInit {
 
     select(c: Contact) {
         this.selected = c
-        this.contactChanged.emit(c)
+        this.selectedChange.emit(c)
     }
 
     remove(contact: Contact) {
         if(this.selected == contact) { 
             this.selected = null
-            this.contactChanged.emit(null)
+            this.selectedChange.emit(null)
         }
             
         this.contactsService.remove(contact.id)
