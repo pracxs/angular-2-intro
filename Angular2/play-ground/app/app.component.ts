@@ -27,6 +27,8 @@ const CONTACTS: Contact[] = [
                 <a href='#' onclick='ctrl.remove(event, contact)' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
 		</ul>
+        <div id="contactsDetailsContainer">
+        </div>
     `
 })
 export class AppComponent {
