@@ -22,13 +22,13 @@ import { Contact } from './contact'
             </span>
             <form name="editContactForm" *ngIf="showEdit">
                 <label for="firstName">First Name: </label>
-                <input id="firstName" name="firstName" [value]="contact.firstName" required><br/>
+                <input id="firstName" name="firstName" [(ngModel)]="contact.firstName" required><br/>
                 
                 <label for="lastName">Last Name: </label>
-                <input id="lastName" name="lastName" [value]="contact.lastName" required><br/>
+                <input id="lastName" name="lastName" [(ngModel)]="contact.lastName" required><br/>
                 
                 <label for="email">email: </label>
-                <input id="email" name="email" [value]="contact.email" email><br/>
+                <input id="email" name="email" [(ngModel)]="contact.email" email><br/>
                 
                 <label></label>
                 <input type="submit" class="btn btn-danger" value="{{ !contact.id ? 'Add' : 'Save' }}" />

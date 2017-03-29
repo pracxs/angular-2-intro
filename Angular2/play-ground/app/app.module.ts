@@ -9,13 +9,14 @@
 
 import { NgModule }       from '@angular/core'
 import { BrowserModule }  from '@angular/platform-browser'
+import { FormsModule }    from '@angular/forms'
 import { AppComponent }   from './app.component'
 import { ContactsListComponent } from './contacts-list.component'
 import { ContactDetailsComponent } from './contact-details.component'
 import { MyUpperPipe }    from './my-upper.pipe'
 
 @NgModule({
-  imports:      [ BrowserModule ],
+  imports:      [ BrowserModule, FormsModule ],
   declarations: [ AppComponent, ContactDetailsComponent, ContactsListComponent, MyUpperPipe ],
   bootstrap:    [ AppComponent ]
 })
