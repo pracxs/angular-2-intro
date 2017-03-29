@@ -19,7 +19,7 @@ import { ContactsService } from './contact.service'
 
         <a id="add" href="#" class="text-danger" (click)="onAdd()"><span class="glyphicon glyphicon-plus"></span>Add</a>
 
-        <contact-details [contact]="selected"></contact-details>
+        <contact-details [(contact)]="selected"></contact-details>
     `
 })
 export class AppComponent {
