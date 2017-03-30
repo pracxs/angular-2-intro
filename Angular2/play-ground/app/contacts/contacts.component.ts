@@ -7,9 +7,10 @@
  * or to prometheus@itce.com
  */
 
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Contact } from './contact'
 import { ContactsService } from './contact.service'
+import { ActivatedRoute } from "@angular/router"
 
 @Component({
     selector: 'contacts',
@@ -22,10 +23,21 @@ import { ContactsService } from './contact.service'
         <contact-details [(contact)]="selected"></contact-details>
     `
 })
-export class ContactsComponent {
+export class ContactsComponent implements OnInit {
     selected: Contact
+
+    constructor(
+        private route: ActivatedRoute,
+        private contactsService: ContactsService
+    ) {}
 
     onAdd() {
         this.selected = {id: null, firstName: '', lastName: '', email: ''}
+    }
+
+    ngOnInit() {
+        let id = +this.route.snapshot.params['id']
+        if( id >0 )
+            this.selected = this.contactsService.getById(id)
     }
 }

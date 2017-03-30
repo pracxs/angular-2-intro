@@ -11,23 +11,26 @@ import { Injectable } from "@angular/core"
 import { Contact } from "./contact"
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
+import 'rxjs/add/observable/of'
 import { Http, Response } from "@angular/http"
 
-const CONTACTS_URL = 'contacts.json'
+
 
 @Injectable()
 export class ContactsService {
 	static _contactId = 1;
-	private CONTACTS : Contact[]
+	private CONTACTS : Contact[] = [
+		{ id: ContactsService._contactId++, firstName: "Max", lastName: "Smith", email: "max@gmail.com" },
+		{ id: ContactsService._contactId++, firstName: "Chris", lastName: "Raches", email: "chris@gmail.com" },
+		{ id: ContactsService._contactId++, firstName: "Michael", lastName: "Alloy", email: "michael@gmail.com" },
+		{ id: ContactsService._contactId++, firstName: "John", lastName: "Doe", email: "john@gmail.com" },
+		{ id: ContactsService._contactId++, firstName: "Jenny", lastName: "Doe", email: "jenny@gmail.com" }
+	];
 
 	constructor(private http: Http) {}
 		
 	getAll() {
-		return this.http.get(CONTACTS_URL)
-			.map((res: Response) => {
-				this.CONTACTS = res.json()
-				return this.CONTACTS
-			})
+		return this.CONTACTS
 	}
 	
 	getById(id: number) {
