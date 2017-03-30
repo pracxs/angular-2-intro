@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
-
+import {Component} from '@angular/core'
 @Component({
     selector: 'my-app',
     template: `
-        Hi, Here must be the tested app
+        <greet></greet>
+        <router-outlet></router-outlet>
+        <a [routerLink]="['']">List</a> | <a [routerLink]="['about']">About</a>
     `
 })
 export class AppComponent {}
