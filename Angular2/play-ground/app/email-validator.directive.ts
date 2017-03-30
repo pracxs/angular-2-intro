@@ -7,7 +7,7 @@
  * or to prometheus@itce.com
  */
 
-import { Directive, forwardRef} from '@angular/core'
+import {Directive, forwardRef} from '@angular/core'
 import {AbstractControl, NG_VALIDATORS, Validator} from '@angular/forms'
 
 function validateEmailFactory() {
@@ -25,7 +25,7 @@ function validateEmailFactory() {
 @Directive({
   selector: '[email][ngModel],[email][formControl]',
   providers: [
-    { provide: NG_VALIDATORS,  useExisting: forwardRef(() => EmailValidator), multi: true }
+    { provide: NG_VALIDATORS, useExisting: forwardRef(() => EmailValidator), multi: true }
   ]
 })
 export class EmailValidator implements Validator {

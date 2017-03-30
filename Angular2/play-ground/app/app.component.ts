@@ -8,9 +8,11 @@
  */
 
 import { Component } from '@angular/core'
+import { DialogService } from "./dialog.service"
 
 @Component({
     selector: 'my-app',
+    providers: [DialogService],
     styles: [
         "ul { margin-left: 10px; background: #eee; padding: 15px; }", 
         "li {display: inline-block;}",
@@ -21,7 +23,6 @@ import { Component } from '@angular/core'
             <li [routerLinkActive]="['active']"><a [routerLink]="['/contacts']">Contacts</a></li>
             <li><a [routerLink]="['/about']" [routerLinkActive]="['active']">About</a></li>
         </ul>
-
         <router-outlet></router-outlet>
     `
 })

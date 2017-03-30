@@ -8,16 +8,14 @@
  */
 
 import { Component, ViewChild }     from '@angular/core'
-//import { CanComponentDeactivate }   from '../can-deactivate-guard'
+import { CanComponentDeactivate }   from '../can-deactivate-guard'
 import { Observable }               from 'rxjs/Observable'
-//import { DialogService }            from "../dialog.service"
+import { DialogService }            from "../dialog.service"
 import 'rxjs/add/observable/fromPromise'
-import { ContactDetailsComponent } from './contact-details.component'
-import { ContactsService } from "./contact.service"
+import {ContactDetailsComponent}    from './contact-details.component';
 
 @Component({
     selector: 'contacts',
-    providers: [ ContactsService ],
     template: `
         <contacts-list></contacts-list>
         
@@ -26,4 +24,24 @@ import { ContactsService } from "./contact.service"
         <contact-details></contact-details>
     `
 })
-export class ContactsComponent {}
+export class ContactsComponent implements CanComponentDeactivate
+{
+    @ViewChild(ContactDetailsComponent)
+    private contactDetailsComponent: ContactDetailsComponent
+
+    constructor (
+        private dialogService: DialogService
+    ) {}
+
+    canDeactivate(): Observable<boolean> | boolean {
+        // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
+        if ( ! this.contactDetailsComponent.showEdit )
+            return true
+        
+        // Otherwise ask the user with the dialog service and return its
+        // promise which resolves to true or false when the user decides
+        let p: Promise<boolean> = this.dialogService.confirm('Discard changes?')
+        let o = Observable.fromPromise(p)
+        return o
+    }
+}
