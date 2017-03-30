@@ -14,17 +14,15 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/observable/of'
 import { Http, Response } from "@angular/http"
 
-
-
 @Injectable()
 export class ContactsService {
-	static _contactId = 1;
+	static _contactId = 6;
 	private CONTACTS : Contact[] = [
-		{ id: ContactsService._contactId++, firstName: "Max", lastName: "Smith", email: "max@gmail.com" },
-		{ id: ContactsService._contactId++, firstName: "Chris", lastName: "Raches", email: "chris@gmail.com" },
-		{ id: ContactsService._contactId++, firstName: "Michael", lastName: "Alloy", email: "michael@gmail.com" },
-		{ id: ContactsService._contactId++, firstName: "John", lastName: "Doe", email: "john@gmail.com" },
-		{ id: ContactsService._contactId++, firstName: "Jenny", lastName: "Doe", email: "jenny@gmail.com" }
+		{ id: 1, firstName: "Max", lastName: "Smith", email: "max@gmail.com" },
+		{ id: 2, firstName: "Chris", lastName: "Raches", email: "chris@gmail.com" },
+		{ id: 3, firstName: "Michael", lastName: "Alloy", email: "michael@gmail.com" },
+		{ id: 4, firstName: "John", lastName: "Doe", email: "john@gmail.com" },
+		{ id: 5, firstName: "Jenny", lastName: "Doe", email: "jenny@gmail.com" }
 	];
 
 	constructor(private http: Http) {}

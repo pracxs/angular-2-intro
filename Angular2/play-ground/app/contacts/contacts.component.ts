@@ -7,37 +7,23 @@
  * or to prometheus@itce.com
  */
 
-import { Component, OnInit } from '@angular/core'
-import { Contact } from './contact'
-import { ContactsService } from './contact.service'
-import { ActivatedRoute } from "@angular/router"
+import { Component, ViewChild }     from '@angular/core'
+//import { CanComponentDeactivate }   from '../can-deactivate-guard'
+import { Observable }               from 'rxjs/Observable'
+//import { DialogService }            from "../dialog.service"
+import 'rxjs/add/observable/fromPromise'
+import { ContactDetailsComponent } from './contact-details.component'
+import { ContactsService } from "./contact.service"
 
 @Component({
     selector: 'contacts',
     providers: [ ContactsService ],
     template: `
-        <contacts-list [(selected)]="selected"></contacts-list>
-
-        <a id="add" href="#" class="text-danger" (click)="onAdd()"><span class="glyphicon glyphicon-plus"></span>Add</a>
-
-        <contact-details [(contact)]="selected"></contact-details>
+        <contacts-list></contacts-list>
+        
+        <a id="add" class="text-danger" [routerLink]="['/contacts', -1]"><span class="glyphicon glyphicon-plus"></span>Add</a>
+        
+        <contact-details></contact-details>
     `
 })
-export class ContactsComponent implements OnInit {
-    selected: Contact
-
-    constructor(
-        private route: ActivatedRoute,
-        private contactsService: ContactsService
-    ) {}
-
-    onAdd() {
-        this.selected = {id: null, firstName: '', lastName: '', email: ''}
-    }
-
-    ngOnInit() {
-        let id = +this.route.snapshot.params['id']
-        if( id >0 )
-            this.selected = this.contactsService.getById(id)
-    }
-}
+export class ContactsComponent {}

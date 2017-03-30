@@ -7,48 +7,49 @@
  * or to prometheus@itce.com
  */
 
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-import { Contact } from './contact'
-import { ContactsService } from './contact.service'
+import { Component, OnInit } from '@angular/core'
+import { Router, ActivatedRoute, Params } from '@angular/router'
+import 'rxjs/add/operator/map'
+import { Contact } from "./contact"
+import { ContactsService } from "./contact.service"
 
 @Component({
     selector: 'contacts-list',
     template: `
-        <ul> 
-            <li [class.active]="contact==selected" class='item' *ngFor="let contact of contacts">
-                <a href='#' (click)="select(contact)">{{contact.firstName}} {{contact.lastName | myUpper}}</a>
-                <a href='#' (click)='remove(contact)' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
+        <ul>
+            <li *ngFor="let person of persons" class="item" [class.active]="selected==person.id">
+                <a (click)="onSelect(person)">{{person.firstName}} {{person.lastName | uppercase}}</a>
+                <a (click)="remove(person)" class="remove" title="Remove"><span class="glyphicon glyphicon-remove-sign"></span></a>
             </li>
-		</ul>
+        </ul>
     `
 })
-export class ContactsListComponent implements OnInit {
-    contacts: Contact[]
+export class ContactsListComponent implements OnInit 
+{
+    selected: number
+    persons: Contact[]
 
-    @Input()
-    selected: Contact
+    constructor(
+        private personService: ContactsService, 
+        private router: Router,
+        private route: ActivatedRoute
+    ) {}
 
-    @Output()
-    selectedChange = new EventEmitter<Contact>()
+    remove(person: Contact) {    
+        this.personService.remove(person.id)
+        if(person.id==this.selected )
+            this.router.navigate(['/contacts'])
+    }
 
-    constructor(private contactsService: ContactsService) {}
+    onSelect(person: Contact) {
+        this.router.navigate(['/contacts', person.id])
+    }
 
     ngOnInit() {
-        this.contacts = this.contactsService.getAll()
-    }
+        this.persons = this.personService.getAll();
 
-    select(c: Contact) {
-        this.selected = c
-        this.selectedChange.emit(c)
-        return false
-    }
-
-    remove(contact: Contact) {
-        if(this.selected == contact) { 
-            this.selected = null
-            this.selectedChange.emit(null)
-        }
-            
-        this.contactsService.remove(contact.id)
+        this.route.params
+            .map((params: Params) => +params['id'])
+            .subscribe(contactId => this.selected = contactId)
     }
 }
