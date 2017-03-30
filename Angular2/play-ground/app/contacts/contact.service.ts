@@ -7,7 +7,7 @@
  * or to prometheus@itce.com
  */
 
-import {Injectable} from "@angular/core"
+import { Injectable } from "@angular/core"
 import { Contact } from "./contact"
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
@@ -18,13 +18,15 @@ const CONTACTS_URL = 'contacts.json'
 @Injectable()
 export class ContactsService {
 	static _contactId = 1;
+	private CONTACTS : Contact[]
 
 	constructor(private http: Http) {}
 		
 	getAll() {
 		return this.http.get(CONTACTS_URL)
 			.map((res: Response) => {
-				return res.json()
+				this.CONTACTS = res.json()
+				return this.CONTACTS
 			})
 	}
 	
