@@ -20,9 +20,10 @@ let _CONTACTS: Contact[] = [
 @Component({
     selector: 'my-app',
     template: `
+        <div>Selected ID: {{selectedId}}</div>
         <ul>
             <li *ngFor="let contact of contacts" class="item">
-                <a href='#' onclick='ctrl.select(event, " + contact.id + ")'>{{contact.firstName}} {{contact.lastName.toUpperCase()}}</a>
+                <a href='#' (click)='onSelect(contact.id)'>{{contact.firstName}} {{contact.lastName.toUpperCase()}}</a>
                 <a href='#' onclick='ctrl.remove(event, " + contact.id + ")' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
         </ul>
