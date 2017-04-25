@@ -20,10 +20,10 @@ let _CONTACTS: Contact[] = [
 @Component({
     selector: 'my-app',
     template: `
-        <div>Selected ID: {{selectedId}}</div>
+        <pre>Selected contact: {{selected | json}}</pre>
         <ul>
-            <li *ngFor="let contact of contacts" class="item">
-                <a href='#' (click)='onSelect(contact.id)'>{{contact.firstName}} {{contact.lastName.toUpperCase()}}</a>
+            <li *ngFor="let contact of contacts" class="item" [class.active]="selected == contact">
+                <a href='#' (click)='onSelect(contact)'>{{contact.firstName}} {{contact.lastName.toUpperCase()}}</a>
                 <a href='#' onclick='ctrl.remove(event, " + contact.id + ")' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
         </ul>
@@ -31,9 +31,9 @@ let _CONTACTS: Contact[] = [
 })
 export class AppComponent {
     contacts = _CONTACTS
-    selectedId: number
+    selected: Contact
 
-    onSelect(id: number) {
-        this.selectedId = id
+    onSelect(contact: Contact) {
+        this.selected = contact
     }
 }
