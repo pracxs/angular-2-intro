@@ -7,7 +7,7 @@
  * or to prometheus@itce.com
  */
 
-(function(exports) {
+namespace App {
 	interface Contact {
 		id: number
 		firstName: string
@@ -238,14 +238,14 @@
 		}
 	}
 	
-	function bootstrap() {
+	export function bootstrap() {
 		var contactsService = new ContactsService();
 		var controller = new Controller(contactsService);
 		
-		exports['ctrl'] = controller
+		window['ctrl'] = controller
 		
 		controller.drawContactsList()
 	}
-	
-	bootstrap();
-})( window );
+};
+
+App.bootstrap()
