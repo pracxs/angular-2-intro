@@ -1,11 +1,17 @@
-define(["require", "exports"], function (require, exports) {
+System.register([], function (exports_1, context_1) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    var __moduleName = context_1 && context_1.id;
     var EditMode;
-    (function (EditMode) {
-        EditMode[EditMode["VIEW"] = 0] = "VIEW";
-        EditMode[EditMode["ADD"] = 1] = "ADD";
-        EditMode[EditMode["EDIT"] = 2] = "EDIT";
-    })(EditMode = exports.EditMode || (exports.EditMode = {}));
+    return {
+        setters: [],
+        execute: function () {
+            (function (EditMode) {
+                EditMode[EditMode["VIEW"] = 0] = "VIEW";
+                EditMode[EditMode["ADD"] = 1] = "ADD";
+                EditMode[EditMode["EDIT"] = 2] = "EDIT";
+            })(EditMode || (EditMode = {}));
+            exports_1("EditMode", EditMode);
+        }
+    };
 });
 //# sourceMappingURL=edit-mode.enum.js.map

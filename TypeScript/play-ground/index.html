@@ -51,6 +51,16 @@
 	    </div>
     </footer>
 		
-	<script src="/js/pracxs.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/systemjs/0.20.12/system.js"></script>
+	<script>
+		// set our baseURL reference path
+		System.config({
+			map: {app: 'js'},
+			packages: {app: {main: 'pracxs.js',  defaultExtension: 'js'}}
+		});
+
+		// loads /app/main.js
+		System.import('js/pracxs.js');
+	</script>
   </body>
 </html>
