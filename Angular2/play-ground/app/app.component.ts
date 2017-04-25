@@ -30,4 +30,9 @@ let _CONTACTS: Contact[] = [
 })
 export class AppComponent {
     contacts = _CONTACTS
+    selectedId: number
+
+    onSelect(id: number) {
+        this.selectedId = id
+    }
 }
