@@ -21,9 +21,10 @@ import { ContactsService }  from "./contacts.service"
                 <label>email: </label><b>{{contact.email}}</b><br/>
                 <label></label><a href="#" class="text-danger" (click)="showEdit = true"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
             </span>
-            <form name="editContactForm" #form="ngForm" (ngSubmit)="onSubmit(form)" *ngIf="showEdit">
+            <form name="editContactForm" #form="ngForm" (ngSubmit)="onSubmit(form)" *ngIf="showEdit" novalidate>
                 <label for="firstName">First Name: </label>
-                <input id="firstName" name="firstName" [ngModel]="contact.firstName"><br/>
+                <input id="firstName" name="firstName" [ngModel]="contact.firstName" required><br/>
+                <div class="alert alert-danger" role="alert" *ngIf="form.controls.firstName && !form.controls.firstName.pristine && !form.controls.firstName.valid">First name is required</div>
                 
                 <label for="lastName">Last Name: </label>
                 <input id="lastName" name="lastName" [ngModel]="contact.lastName"><br/>
@@ -32,7 +33,7 @@ import { ContactsService }  from "./contacts.service"
                 <input id="email" name="email" [ngModel]="contact.email"><br/>
                 
                 <label></label>
-                <input type="submit" value="Save" class="btn btn-danger" />
+                <input type="submit" [disabled]="form.invalid || form.pristine" value="Save" class="btn btn-danger" />
                 <a href="#" class="text-danger" (click)="onCancel()">Cancel</a>
             </form>
         </div>
@@ -54,6 +55,8 @@ export class ContactDetailsComponent implements OnChanges {
     }
 
     onSubmit(form: NgForm) {
+        if(! form.valid ) return
+
         let dirtyContact: Contact = form.value
         dirtyContact.id = this.contact.id
 
