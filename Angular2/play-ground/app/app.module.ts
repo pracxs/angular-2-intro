@@ -8,6 +8,7 @@
  */
 
 import { NgModule }                 from '@angular/core'
+import { FormsModule }              from '@angular/forms'
 import { BrowserModule }            from '@angular/platform-browser'
 import { AppComponent }             from './app.component'
 import { MyUpperPipe }              from './my-upper.pipe'
@@ -16,7 +17,7 @@ import { ContactDetailsComponent }  from './contact-details.component'
 import { ContactsListComponent }    from "./contacts-list.component"
 
 @NgModule({
-  imports:      [ BrowserModule ],
+  imports:      [ BrowserModule, FormsModule ],
   declarations: [ AppComponent, ContactsListComponent, ContactDetailsComponent, MyUpperPipe ],
   bootstrap:    [ AppComponent ],
   providers:    [ ContactsService ]
