@@ -20,12 +20,7 @@ import { ContactsService } from './contacts.service'
             </li>
         </ul>
 
-        <div id="contactsDetailsContainer" *ngIf="selected">
-            <label>First Name: </label><b>{{selected?.firstName}}</b><br/>
-            <label>Last Name: </label><b>{{selected?.lastName}}</b><br/>
-            <label>email: </label><b>{{selected?.email}}</b><br/>
-            <label></label><a href="#" class="text-danger" onclick="ctrl.edit(event,' + contact.id + ')"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
-        </div>
+        <contact-details></contact-details>
     `
 })
 export class AppComponent {
