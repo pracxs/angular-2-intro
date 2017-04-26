@@ -12,9 +12,9 @@ import { Component } from '@angular/core'
 @Component({
     selector: 'my-app',
     template: `
-        <contacts-list (selectedEvent)="selected = $event"></contacts-list>
+        <contacts-list [selected]="selected" (selectedEvent)="selected = $event"></contacts-list>
 
-        <contact-details [contact]="selected"></contact-details>
+        <contact-details [(contact)]="selected"></contact-details>
     `
 })
 export class AppComponent {

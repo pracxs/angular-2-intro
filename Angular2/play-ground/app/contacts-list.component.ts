@@ -7,7 +7,7 @@
  * or to prometheus@itce.com
  */
 
-import { Component, Output, OnInit, EventEmitter } from '@angular/core'
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core'
 import { ContactsService } from './contacts.service'
 
 @Component({
@@ -23,7 +23,10 @@ import { ContactsService } from './contacts.service'
 })
 export class ContactsListComponent implements OnInit {
     contacts: Contact[]
+
+    @Input()
     selected: Contact
+    
     @Output()
     selectedEvent = new EventEmitter<Contact>()
 
