@@ -7,7 +7,7 @@
  * or to prometheus@itce.com
  */
 
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { ContactsService } from './contacts.service'
 
 @Component({
@@ -23,15 +23,17 @@ import { ContactsService } from './contacts.service'
         <contact-details></contact-details>
     `
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     contacts: Contact[]
     selected: Contact
 
-    constructor(contactsService: ContactsService) {
-        this.contacts = contactsService.getAll()
-    }
+    constructor(private contactsService: ContactsService) {}
 
     onSelect(contact: Contact) {
         this.selected = contact
+    }
+
+    ngOnInit() {
+        this.contacts = this.contactsService.getAll()
     }
 }
