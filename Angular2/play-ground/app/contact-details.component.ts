@@ -35,7 +35,7 @@ import { ContactsService }  from "./contacts.service"
                 <div class="alert alert-danger" role="alert" *ngIf="form.controls.email && !form.controls.email.valid">Email is invalid</div>
                 
                 <label></label>
-                <input type="submit" [disabled]="form.invalid || form.pristine" value="Save" class="btn btn-danger" />
+                <input type="submit" [disabled]="form.invalid || form.pristine" [value]="contact.id!==-1 ? 'Save' : 'Add'" class="btn btn-danger" />
                 <a href="#" class="text-danger" (click)="onCancel()">Cancel</a>
             </form>
         </div>
@@ -54,6 +54,11 @@ export class ContactDetailsComponent implements OnChanges {
 
     onCancel() {
         this.showEdit = false
+
+        if( this.contact && this.contact.id===-1 ) {
+            this.contact = null
+            this.contactChange.emit(this.contact)
+        }
     }
 
     onSubmit(event: UIEvent, form: NgForm) {
@@ -64,7 +69,11 @@ export class ContactDetailsComponent implements OnChanges {
         let dirtyContact: Contact = form.value
         dirtyContact.id = this.contact.id
 
-        this.contactsService.update(dirtyContact)
+        if(this.contact.id === -1)
+            this.contactsService.add(dirtyContact)   
+        else
+            this.contactsService.update(dirtyContact);
+
         this.contact = dirtyContact
 
         this.contactChange.emit(dirtyContact)
@@ -74,6 +83,6 @@ export class ContactDetailsComponent implements OnChanges {
 
     ngOnChanges(changes) {
         if(changes && changes.contact && changes.contact.currentValue!==changes.contact.previousValue)
-            this.showEdit = false
+            this.showEdit = ( this.contact && this.contact.id === -1 )
     }
 }

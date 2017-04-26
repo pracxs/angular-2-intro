@@ -13,9 +13,16 @@ import { Component } from '@angular/core'
     selector: 'my-app',
     template: `
         <contacts-list [(selected)]="selected"></contacts-list>
+
+        <a id="add" href="#" (click)="onAdd()" class="text-danger"><span class="glyphicon glyphicon-plus"></span>Add</a>
+
         <contact-details [(contact)]="selected"></contact-details>
     `
 })
 export class AppComponent {
     selected: Contact
+
+    onAdd() {
+        this.selected = { id: -1, firstName: '', lastName: '', email: '' } 
+    }
 }

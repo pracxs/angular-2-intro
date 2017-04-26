@@ -8,32 +8,22 @@
  */
 
 import {Injectable} from "@angular/core"
-import {Http, Response} from '@angular/http'
-import {Observable} from 'rxjs/Observable'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/observable/throw'
 import {Contact} from "./contact"
-
-const CONTACTS_URL = 'contacts.json'
 
 @Injectable()
 export class ContactsService {
-	private static _contactId = 1;
+	static _contactId = 1;
 	
-	constructor(private http: Http) {}
-	
-	getAll(): Observable<Contact[]> {
-		return this.http.get(CONTACTS_URL)
-                    .map((res: Response) => {
-						let data: Contact[] = this.extractData(res)
-						 
-						data.map((val) => { ContactsService._contactId = Math.max(val.id, ContactsService._contactId) })
-						ContactsService._contactId++;
-						 
-						return data;
-					})
-                    .catch(this.handleError)
+	CONTACTS: Contact[] = [
+			{ id: ContactsService._contactId++, firstName: "Max", lastName: "Smith", email: "max@gmail.com" },
+			{ id: ContactsService._contactId++, firstName: "Chris", lastName: "Raches", email: "chris@gmail.com" },
+			{ id: ContactsService._contactId++, firstName: "Michael", lastName: "Alloy", email: "michael@gmail.com" },
+			{ id: ContactsService._contactId++, firstName: "John", lastName: "Doe", email: "john@gmail.com" },
+			{ id: ContactsService._contactId++, firstName: "Jenny", lastName: "Doe", email: "jenny@gmail.com" }
+		];
+		
+	getAll() {
+		return this.CONTACTS;
 	}
 	
 	getById(id: number) {
@@ -41,37 +31,36 @@ export class ContactsService {
 	}
 	
 	remove(id: number) {
-		throw 'Unimpemented functionality'
+		let ind = this.findIndexById(id);
+		if( ind>=0 )
+			this.CONTACTS.splice(ind, 1);
 	}
 	
 	update(contact: Contact) {
-		throw 'Unimpemented functionality'
+		let ind = this.findIndexById(contact.id);
+		if( ind<0 ) return null;
+		
+		this.CONTACTS.splice( ind, 1, contact );
+		
+		return contact.id;
 	}
 	
 	add(contact: Contact) {
-		throw 'Unimpemented functionality'
+		contact.id = ContactsService._contactId++;
+		
+		this.CONTACTS.push( contact );
+		
+		return contact.id;
 	}
 	
 	private findById(contactId: number): Contact {
-		throw 'Unimpemented functionality'
+		return this.CONTACTS.find(row => row.id == contactId )
 	}
 	
 	private findIndexById(contactId: number) {
-		throw 'Unimpemented functionality'
-	}
-	
-	private extractData(res: Response) {
-		if (res.status < 200 || res.status >= 300) {
-			throw new Error('Bad response status: ' + res.status);
-		}
-		let body = res.json();
-		return body || { };
-	}
-	
-	private handleError (error: any) {
-		// In a real world app, we might send the error to remote logging infrastructure
-		let errMsg = error.message || error.status + ' ' + error.statusText + ': ' + error.url || 'Server error';
-		console.error(errMsg); // log to console instead
-		return Observable.throw(errMsg);
+		let contact = this.findById(contactId);
+		if( !contact ) return -1;
+		
+		return this.CONTACTS.indexOf(contact);
 	}
 }
