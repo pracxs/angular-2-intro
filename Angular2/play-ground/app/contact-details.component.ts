@@ -21,14 +21,15 @@ import { ContactsService }  from "./contacts.service"
                 <label>email: </label><b>{{contact.email}}</b><br/>
                 <label></label><a href="#" class="text-danger" (click)="showEdit = true"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
             </span>
-            <form name="editContactForm" #form="ngForm" (ngSubmit)="onSubmit(form)" *ngIf="showEdit" novalidate>
+            <form name="editContactForm" #form="ngForm" (ngSubmit)="onSubmit($event, form)" *ngIf="showEdit" novalidate>
                 <label for="firstName">First Name: </label>
                 <input id="firstName" name="firstName" [ngModel]="contact.firstName" required><br/>
                 <div class="alert alert-danger" role="alert" *ngIf="form.controls.firstName && !form.controls.firstName.pristine && !form.controls.firstName.valid">First name is required</div>
                 
                 <label for="lastName">Last Name: </label>
-                <input id="lastName" name="lastName" [ngModel]="contact.lastName"><br/>
-                
+                <input id="lastName" name="lastName" [ngModel]="contact.lastName" required><br/>
+                <div class="alert alert-danger" role="alert" *ngIf="form.controls.lastName && !form.controls.lastName.pristine && !form.controls.lastName.valid">Last name is required</div>
+
                 <label for="email">email: </label>
                 <input id="email" name="email" [ngModel]="contact.email"><br/>
                 
@@ -54,7 +55,9 @@ export class ContactDetailsComponent implements OnChanges {
         this.showEdit = false
     }
 
-    onSubmit(form: NgForm) {
+    onSubmit(event: UIEvent, form: NgForm) {
+        event.preventDefault()
+        
         if(! form.valid ) return
 
         let dirtyContact: Contact = form.value
