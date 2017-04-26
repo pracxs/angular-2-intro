@@ -20,7 +20,7 @@ import { ContactsService } from './contacts.service'
             </li>
         </ul>
 
-        <contact-details></contact-details>
+        <contact-details [contact]="selected"></contact-details>
     `
 })
 export class AppComponent implements OnInit {

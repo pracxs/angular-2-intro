@@ -7,7 +7,7 @@
  * or to prometheus@itce.com
  */
 
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 
 @Component({
     selector: 'contact-details',
@@ -21,5 +21,6 @@ import { Component } from '@angular/core'
     `
 })
 export class ContactDetailsComponent {
-    contact: Contact = { id: 4, firstName: "John", lastName: "Doe", email: "john@gmail.com" }
+    @Input()
+    contact: Contact
 }
