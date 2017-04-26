@@ -7,7 +7,7 @@
  * or to prometheus@itce.com
  */
 
-import { Component, Input, Output, EventEmitter } from '@angular/core'
+import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core'
 import { NgForm }           from "@angular/forms"
 import { ContactsService }  from "./contacts.service"
 
@@ -38,7 +38,7 @@ import { ContactsService }  from "./contacts.service"
         </div>
     `
 })
-export class ContactDetailsComponent {
+export class ContactDetailsComponent implements OnChanges {
     @Input()
     contact: Contact
     
@@ -63,5 +63,10 @@ export class ContactDetailsComponent {
         this.contactChange.emit(dirtyContact)
 
         this.showEdit = false
+    }
+
+    ngOnChanges(changes) {
+        if(changes && changes.contact && changes.contact.currentValue!==changes.contact.previousValue)
+            this.showEdit = false
     }
 }

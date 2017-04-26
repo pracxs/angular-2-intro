@@ -28,13 +28,13 @@ export class ContactsListComponent implements OnInit {
     selected: Contact
     
     @Output()
-    selectedEvent = new EventEmitter<Contact>()
+    selectedChange = new EventEmitter<Contact>()
 
     constructor(private contactsService: ContactsService) {}
 
     onSelect(contact: Contact) {
         this.selected = contact
-        this.selectedEvent.emit(contact)
+        this.selectedChange.emit(contact)
     }
 
     ngOnInit() {
