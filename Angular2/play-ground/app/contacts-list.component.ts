@@ -38,6 +38,8 @@ export class ContactsListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.contacts = this.contactsService.getAll()
+        this.contactsService.getAll().subscribe(   
+            contacts => this.contacts = contacts
+        )
     }
 }

@@ -1,4 +1,6 @@
 import {Injectable} from "@angular/core"
+import {Observable} from 'rxjs/Observable'
+import 'rxjs/add/observable/of'
 
 let _CONTACTS: Contact[] = [
             { id: 1, firstName: "Max", lastName: "Smith", email: "max@gmail.com" },
@@ -13,8 +15,8 @@ export class ContactsService {
     private CONTACTS = _CONTACTS
     private static _contactId = 5
         
-    getAll(): Promise<Contact[]> {
-        return Promise.resolve(this.CONTACTS);
+    getAll(): Observable<Contact[]> {
+        return Observable.of(this.CONTACTS);
     }
     
     getById(id) {
