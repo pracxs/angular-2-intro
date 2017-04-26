@@ -13,8 +13,8 @@ export class ContactsService {
     private CONTACTS = _CONTACTS
     private static _contactId = 5
         
-    getAll(): Contact[] {
-        return this.CONTACTS;
+    getAll(): Promise<Contact[]> {
+        return Promise.resolve(this.CONTACTS);
     }
     
     getById(id) {
