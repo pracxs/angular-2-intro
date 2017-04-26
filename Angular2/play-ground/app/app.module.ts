@@ -15,10 +15,15 @@ import { MyUpperPipe }              from './my-upper.pipe'
 import { ContactsService }          from './contacts.service'
 import { ContactDetailsComponent }  from './contact-details.component'
 import { ContactsListComponent }    from "./contacts-list.component"
+import { EmailValidator }           from "./email-validator.directive"
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule ],
-  declarations: [ AppComponent, ContactsListComponent, ContactDetailsComponent, MyUpperPipe ],
+  declarations: [ AppComponent, 
+                  ContactsListComponent, 
+                  ContactDetailsComponent, 
+                  MyUpperPipe,
+                  EmailValidator ],
   bootstrap:    [ AppComponent ],
   providers:    [ ContactsService ]
 })
