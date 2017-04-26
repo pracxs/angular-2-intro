@@ -10,6 +10,7 @@
 import { NgModule }                 from '@angular/core'
 import { FormsModule }              from '@angular/forms'
 import { BrowserModule }            from '@angular/platform-browser'
+import { HttpModule }               from '@angular/http'
 import { AppComponent }             from './app.component'
 import { MyUpperPipe }              from './my-upper.pipe'
 import { ContactsService }          from './contacts.service'
@@ -18,7 +19,7 @@ import { ContactsListComponent }    from "./contacts-list.component"
 import { EmailValidator }           from "./email-validator.directive"
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule ],
+  imports:      [ BrowserModule, FormsModule, HttpModule ],
   declarations: [ AppComponent, 
                   ContactsListComponent, 
                   ContactDetailsComponent, 
