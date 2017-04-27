@@ -11,6 +11,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core'
 import { ContactsService } from './contacts.service'
 import { Router, ActivatedRoute, Params, NavigationEnd } from "@angular/router"
 import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/switchMap'
 import 'rxjs/add/operator/filter'
 import { Subscription } from "rxjs/Subscription";
 
@@ -28,7 +29,6 @@ import { Subscription } from "rxjs/Subscription";
 export class ContactsListComponent implements OnInit {
     contacts: Contact[]
     selectedId: number
-    private paramsSub: Subscription
 
     constructor(
         private contactsService: ContactsService,
@@ -46,15 +46,9 @@ export class ContactsListComponent implements OnInit {
 
         this.router.events
             .filter((e) => e instanceof NavigationEnd)
-            .subscribe( () => {
-                if( this.paramsSub )
-                    this.paramsSub.unsubscribe()
-                if( this.route.firstChild )
-                    this.paramsSub = this.route.firstChild
-                        .params
-                        .map((params: Params) => +params['id'])
-                        .subscribe(contactId => this.selectedId = contactId)
-            })
+            .switchMap( () => this.route.params )
+            .map((params: Params) => +params['id'])
+            .subscribe(contactId => this.selectedId = contactId)
     }
 
     onRemove(contact: Contact) {

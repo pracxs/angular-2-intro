@@ -4,6 +4,7 @@ import { FailComponent }            from "./fail/fail.component"
 
 let routes: Routes = [
   { path: 'contacts',   loadChildren: 'app/contacts/contacts.module#ContactsModule' },
+  { path: 'about',      loadChildren: 'app/about/about.module#AboutModule' },
   { path: '',           redirectTo: '/contacts', pathMatch: 'full' },
   { path: '**',         component: FailComponent }
 ]

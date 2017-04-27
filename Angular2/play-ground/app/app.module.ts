@@ -10,18 +10,12 @@
 import { NgModule }                 from '@angular/core'
 import { BrowserModule }            from '@angular/platform-browser'
 import { AppRoutingModule }         from './app-routing.module'
-import { AboutModule }              from './about/about.module'
 import { AppComponent }             from './app.component'
-import { AboutComponent }           from './about/about.component'
 import { FailComponent }            from "./fail/fail.component"
-import { DialogService }            from "./dialog.service"
 
 @NgModule({
-  imports:      [ BrowserModule,
-                  AboutModule,
-                  AppRoutingModule ],
-  declarations: [ AppComponent, 
-                  FailComponent ],
+  imports:      [ BrowserModule, AppRoutingModule ],
+  declarations: [ AppComponent, FailComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule {}
