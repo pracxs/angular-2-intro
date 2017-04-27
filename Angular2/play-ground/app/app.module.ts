@@ -19,24 +19,27 @@ import { ContactDetailsComponent }  from './contacts/contact-details.component'
 import { ContactsListComponent }    from "./contacts/contacts-list.component"
 import { EmailValidator }           from "./email-validator.directive"
 import { AboutComponent }           from './about/about.component'
+import { FailComponent }            from "./fail/fail.component"
 
 let routes: Routes = [
   { path: 'contacts', component: ContactsComponent },
   { path: 'about',    component: AboutComponent },
-  { path: '',         redirectTo: '/contacts', pathMatch: 'full' }
+  { path: '',         redirectTo: '/contacts', pathMatch: 'full' },
+  { path: '**',       component: FailComponent }
 ]
 
 @NgModule({
   imports:      [ BrowserModule,
                   FormsModule,
-                  RouterModule.forRoot(routes) ],
+                  RouterModule.forRoot(routes, { useHash: true }) ],
   declarations: [ AppComponent, 
                   ContactsComponent,
                   ContactsListComponent, 
                   ContactDetailsComponent, 
                   MyUpperPipe,
                   EmailValidator,
-                  AboutComponent ],
+                  AboutComponent,
+                  FailComponent ],
   bootstrap:    [ AppComponent ],
   providers:    [ ContactsService ]
 })
