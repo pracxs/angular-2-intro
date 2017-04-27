@@ -9,8 +9,8 @@
 
 import { NgModule }                 from '@angular/core'
 import { FormsModule }              from '@angular/forms'
-import { RouterModule, Routes }     from '@angular/router'
 import { BrowserModule }            from '@angular/platform-browser'
+import { AppRoutingModule }         from './app-routing.module'
 import { AppComponent }             from './app.component'
 import { MyUpperPipe }              from './my-upper.pipe'
 import { ContactsComponent }        from './contacts/contacts.component'
@@ -21,17 +21,10 @@ import { EmailValidator }           from "./email-validator.directive"
 import { AboutComponent }           from './about/about.component'
 import { FailComponent }            from "./fail/fail.component"
 
-let routes: Routes = [
-  { path: 'contacts', component: ContactsComponent },
-  { path: 'about',    component: AboutComponent },
-  { path: '',         redirectTo: '/contacts', pathMatch: 'full' },
-  { path: '**',       component: FailComponent }
-]
-
 @NgModule({
   imports:      [ BrowserModule,
                   FormsModule,
-                  RouterModule.forRoot(routes, { useHash: true }) ],
+                  AppRoutingModule ],
   declarations: [ AppComponent, 
                   ContactsComponent,
                   ContactsListComponent, 
