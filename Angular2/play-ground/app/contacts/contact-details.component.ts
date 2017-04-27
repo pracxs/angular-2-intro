@@ -7,9 +7,11 @@
  * or to prometheus@itce.com
  */
 
-import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core'
-import { NgForm }           from "@angular/forms"
-import { ContactsService }  from "./contacts.service"
+import { Component, OnInit }    from '@angular/core'
+import { ActivatedRoute, Params, Router } from '@angular/router'
+import { NgForm }               from "@angular/forms"
+import { ContactsService }      from "./contacts.service"
+import 'rxjs/add/operator/map'
 
 @Component({
     selector: 'contact-details',
@@ -19,7 +21,7 @@ import { ContactsService }  from "./contacts.service"
                 <label>First Name: </label><b>{{contact.firstName}}</b><br/>
                 <label>Last Name: </label><b>{{contact.lastName}}</b><br/>
                 <label>email: </label><b>{{contact.email}}</b><br/>
-                <label></label><a href="#" class="text-danger" (click)="showEdit = true"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
+                <label></label><a href="#" class="text-danger" (click)="$event.preventDefault(); showEdit = true"><span class="glyphicon glyphicon-edit"></span>Edit</a><br/>
             </span>
             <form name="editContactForm" #form="ngForm" (ngSubmit)="onSubmit($event, form)" *ngIf="showEdit" novalidate>
                 <label for="firstName">First Name: </label>
@@ -41,24 +43,25 @@ import { ContactsService }  from "./contacts.service"
         </div>
     `
 })
-export class ContactDetailsComponent implements OnChanges {
-    @Input()
+export class ContactDetailsComponent implements OnInit {
     contact: Contact
     
-    @Output()
-    contactChange = new EventEmitter<Contact>()
-
     showEdit = false
 
-    constructor(private contactsService: ContactsService) {}
+    constructor(
+        private contactsService: ContactsService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) {}
 
     onCancel() {
         this.showEdit = false
 
         if( this.contact && this.contact.id===-1 ) {
-            this.contact = null
-            this.contactChange.emit(this.contact)
+            this.router.navigate(['/contacts'])
         }
+
+        return false
     }
 
     onSubmit(event: UIEvent, form: NgForm) {
@@ -69,20 +72,34 @@ export class ContactDetailsComponent implements OnChanges {
         let dirtyContact: Contact = form.value
         dirtyContact.id = this.contact.id
 
-        if(this.contact.id === -1)
-            this.contactsService.add(dirtyContact)   
-        else
+        if(this.contact.id === -1) {
+            this.contactsService.add(dirtyContact)
+            this.router.navigate(['contacts', dirtyContact.id])
+        } else {
             this.contactsService.update(dirtyContact);
+        }
 
         this.contact = dirtyContact
-
-        this.contactChange.emit(dirtyContact)
 
         this.showEdit = false
     }
 
-    ngOnChanges(changes) {
-        if(changes && changes.contact && changes.contact.currentValue!==changes.contact.previousValue)
-            this.showEdit = ( this.contact && this.contact.id === -1 )
+    ngOnInit() {
+        this.route.params
+            .map((params: Params) => +params['id'])
+            .subscribe(
+                id => {
+                    if( id>0 ) {
+                        this.contact = this.contactsService.getById(+id)
+                        this.showEdit = false
+                    } else if( id===-1 ) {
+                        this.contact = {id: -1, firstName: '', lastName: '', email: ''}
+                        this.showEdit = true
+                    } else {
+                        this.contact = null
+                        this.showEdit = false
+                    }
+                }
+            )
     }
 }

@@ -16,7 +16,7 @@ import 'rxjs/add/operator/map'
     selector: 'contacts-list',
     template: `
         <ul>
-            <li *ngFor="let contact of contacts" class="item" [class.active]="selected == contact">
+            <li *ngFor="let contact of contacts" class="item" [class.active]="selectedId == contact.id">
                 <a href='#' (click)='onSelect(contact)'>{{contact.firstName}} {{contact.lastName | myUpper}}</a>
                 <a href='#' (click)='onRemove(contact)' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
@@ -25,7 +25,7 @@ import 'rxjs/add/operator/map'
 })
 export class ContactsListComponent implements OnInit {
     contacts: Contact[]
-    selected: Contact
+    selectedId: number
 
     constructor(
         private contactsService: ContactsService,
@@ -43,14 +43,15 @@ export class ContactsListComponent implements OnInit {
 
         this.route.params
             .map((params: Params) => +params['id'])
-            .subscribe(contactId => this.selected = this.contactsService.getById(contactId))
+            .subscribe(contactId => this.selectedId = contactId)
     }
 
-    onRemove(contact: Contact): void {
+    onRemove(contact: Contact) {
         this.contactsService.remove(contact.id)
-        if(contact===this.selected) {
-            this.selected = null
+        if(contact.id ===this.selectedId) {
             this.router.navigate(['contacts'])
         }
+
+        return false
     }
 }
