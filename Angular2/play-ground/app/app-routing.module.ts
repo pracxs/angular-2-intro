@@ -5,10 +5,11 @@ import { AboutComponent }           from './about/about.component'
 import { FailComponent }            from "./fail/fail.component"
 
 let routes: Routes = [
-  { path: 'contacts', component: ContactsComponent },
-  { path: 'about',    component: AboutComponent },
-  { path: '',         redirectTo: '/contacts', pathMatch: 'full' },
-  { path: '**',       component: FailComponent }
+  { path: 'contacts',       component: ContactsComponent },
+  { path: 'contacts/:id',   component: ContactsComponent },
+  { path: 'about',          component: AboutComponent },
+  { path: '',               redirectTo: '/contacts', pathMatch: 'full' },
+  { path: '**',             component: FailComponent }
 ]
 
 @NgModule({

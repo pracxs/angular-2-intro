@@ -14,8 +14,8 @@ import { ContactsService } from './contacts.service'
     selector: 'contacts-list',
     template: `
         <ul>
-            <li *ngFor="let contact of contacts" class="item" [class.active]="selected == contact">
-                <a href='#' (click)='onSelect(contact)'>{{contact.firstName}} {{contact.lastName | myUpper}}</a>
+            <li *ngFor="let contact of contacts" class="item" [routerLinkActive]="['active']">
+                <a href='#' [routerLink]="['/contacts', contact.id]">{{contact.firstName}} {{contact.lastName | myUpper}}</a>
                 <a href='#' (click)='onRemove(contact)' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
         </ul>
