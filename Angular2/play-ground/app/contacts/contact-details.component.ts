@@ -7,11 +7,15 @@
  * or to prometheus@itce.com
  */
 
-import { Component, OnInit }    from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { NgForm }               from "@angular/forms"
 import { ContactsService }      from "./contacts.service"
 import 'rxjs/add/operator/map'
+import 'rxjs/add/observable/fromPromise'
+import { CanComponentDeactivate } from "../can-deactivate-guard"
+import { Observable } from "rxjs/Observable";
+import { DialogService } from "../dialog.service"
 
 @Component({
     selector: 'contact-details',
@@ -43,15 +47,18 @@ import 'rxjs/add/operator/map'
         </div>
     `
 })
-export class ContactDetailsComponent implements OnInit {
+export class ContactDetailsComponent implements OnInit, CanComponentDeactivate {
     contact: Contact
     
     showEdit = false
 
+    @ViewChild('form') form: NgForm
+
     constructor(
         private contactsService: ContactsService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private dialogService: DialogService
     ) {}
 
     onCancel() {
@@ -101,5 +108,14 @@ export class ContactDetailsComponent implements OnInit {
                     }
                 }
             )
+    }
+
+    canDeactivate(): Observable<boolean> | boolean {
+        if ( ! this.showEdit || ! this.form.dirty )
+            return true
+
+        let p: Promise<boolean> = this.dialogService.confirm('Discard changes?')
+        let o = Observable.fromPromise(p)
+        return o
     }
 }

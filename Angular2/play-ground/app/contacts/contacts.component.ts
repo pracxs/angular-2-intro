@@ -7,12 +7,7 @@
  * or to prometheus@itce.com
  */
 
-import { Component, ViewChild } from '@angular/core'
-import { ContactDetailsComponent } from "./contact-details.component"
-import { CanComponentDeactivate } from "../can-deactivate-guard"
-import { Observable } from 'rxjs/Observable'
-import { DialogService } from "../dialog.service"
-import 'rxjs/add/observable/fromPromise'
+import { Component } from '@angular/core'
 
 @Component({
     selector: 'contacts',
@@ -21,26 +16,7 @@ import 'rxjs/add/observable/fromPromise'
 
         <a id="add" href="#" [routerLink]="['/contacts', -1]" class="text-danger"><span class="glyphicon glyphicon-plus"></span>Add</a>
 
-        <contact-details></contact-details>
+        <router-outlet></router-outlet>
     `
 })
-export class ContactsComponent implements CanComponentDeactivate {
-    @ViewChild(ContactDetailsComponent)
-    private contactDetailsComponent: ContactDetailsComponent
-
-    constructor (
-        private dialogService: DialogService
-    ) {}
-
-    canDeactivate(): Observable<boolean> | boolean {
-        // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
-        if ( ! this.contactDetailsComponent.showEdit )
-            return true
-        
-        // Otherwise ask the user with the dialog service and return its
-        // promise which resolves to true or false when the user decides
-        let p: Promise<boolean> = this.dialogService.confirm('Discard changes?')
-        let o = Observable.fromPromise(p)
-        return o
-    }
-}
+export class ContactsComponent {}
