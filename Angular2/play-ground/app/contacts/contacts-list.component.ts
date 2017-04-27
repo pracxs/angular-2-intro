@@ -7,15 +7,17 @@
  * or to prometheus@itce.com
  */
 
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core'
+import { Component, OnInit, EventEmitter } from '@angular/core'
 import { ContactsService } from './contacts.service'
+import { Router, ActivatedRoute, Params } from "@angular/router"
+import 'rxjs/add/operator/map'
 
 @Component({
     selector: 'contacts-list',
     template: `
         <ul>
-            <li *ngFor="let contact of contacts" class="item" [routerLinkActive]="['active']">
-                <a href='#' [routerLink]="['/contacts', contact.id]">{{contact.firstName}} {{contact.lastName | myUpper}}</a>
+            <li *ngFor="let contact of contacts" class="item" [class.active]="selected == contact">
+                <a href='#' (click)='onSelect(contact)'>{{contact.firstName}} {{contact.lastName | myUpper}}</a>
                 <a href='#' (click)='onRemove(contact)' class='remove' title='Remove'><span class='glyphicon glyphicon-remove-sign'></span></a>
             </li>
         </ul>
@@ -23,31 +25,32 @@ import { ContactsService } from './contacts.service'
 })
 export class ContactsListComponent implements OnInit {
     contacts: Contact[]
-
-    @Input()
     selected: Contact
-    
-    @Output()
-    selectedChange = new EventEmitter<Contact>()
 
-    constructor(private contactsService: ContactsService) {}
+    constructor(
+        private contactsService: ContactsService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) {}
 
     onSelect(contact: Contact) {
-        this.selected = contact
-        this.selectedChange.emit(contact)
-        
+        this.router.navigate(['contacts', contact.id])
         return false;
     }
 
     ngOnInit() {
         this.contacts = this.contactsService.getAll()
+
+        this.route.params
+            .map((params: Params) => +params['id'])
+            .subscribe(contactId => this.selected = this.contactsService.getById(contactId))
     }
 
     onRemove(contact: Contact): void {
         this.contactsService.remove(contact.id)
         if(contact===this.selected) {
             this.selected = null
-            this.selectedChange.emit(null)
+            this.router.navigate(['contacts'])
         }
     }
 }
