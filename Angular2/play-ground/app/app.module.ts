@@ -10,7 +10,6 @@
 import { NgModule }                 from '@angular/core'
 import { BrowserModule }            from '@angular/platform-browser'
 import { AppRoutingModule }         from './app-routing.module'
-import { ContactsModule }           from './contacts/contacts.module'
 import { AboutModule }              from './about/about.module'
 import { AppComponent }             from './app.component'
 import { AboutComponent }           from './about/about.component'
@@ -19,7 +18,6 @@ import { DialogService }            from "./dialog.service"
 
 @NgModule({
   imports:      [ BrowserModule,
-                  ContactsModule,
                   AboutModule,
                   AppRoutingModule ],
   declarations: [ AppComponent, 

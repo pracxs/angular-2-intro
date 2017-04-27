@@ -5,7 +5,7 @@ import { CanDeactivateGuard }       from "../can-deactivate-guard"
 import { ContactDetailsComponent } from './contact-details.component'
 
 let routes: Routes = [
-  { path: 'contacts',       
+  { path: '',       
     component: ContactsComponent,
     children: [
         { path: ':id', component: ContactDetailsComponent, canDeactivate: [CanDeactivateGuard] }

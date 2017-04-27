@@ -3,8 +3,9 @@ import { RouterModule, Routes }     from '@angular/router'
 import { FailComponent }            from "./fail/fail.component"
 
 let routes: Routes = [
-  { path: '',               redirectTo: '/contacts', pathMatch: 'full' },
-  { path: '**',             component: FailComponent }
+  { path: 'contacts',   loadChildren: 'app/contacts/contacts.module#ContactsModule' },
+  { path: '',           redirectTo: '/contacts', pathMatch: 'full' },
+  { path: '**',         component: FailComponent }
 ]
 
 @NgModule({
