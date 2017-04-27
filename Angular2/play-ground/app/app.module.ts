@@ -9,21 +9,34 @@
 
 import { NgModule }                 from '@angular/core'
 import { FormsModule }              from '@angular/forms'
+import { RouterModule, Routes }     from '@angular/router'
 import { BrowserModule }            from '@angular/platform-browser'
 import { AppComponent }             from './app.component'
 import { MyUpperPipe }              from './my-upper.pipe'
-import { ContactsService }          from './contacts.service'
-import { ContactDetailsComponent }  from './contact-details.component'
-import { ContactsListComponent }    from "./contacts-list.component"
+import { ContactsComponent }        from './contacts/contacts.component'
+import { ContactsService }          from './contacts/contacts.service'
+import { ContactDetailsComponent }  from './contacts/contact-details.component'
+import { ContactsListComponent }    from "./contacts/contacts-list.component"
 import { EmailValidator }           from "./email-validator.directive"
+import { AboutComponent }           from './about/about.component'
+
+let routes: Routes = [
+  { path: 'contacts', component: ContactsComponent },
+  { path: 'about',    component: AboutComponent },
+  { path: '',         redirectTo: '/contacts', pathMatch: 'full' }
+]
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule ],
+  imports:      [ BrowserModule,
+                  FormsModule,
+                  RouterModule.forRoot(routes) ],
   declarations: [ AppComponent, 
+                  ContactsComponent,
                   ContactsListComponent, 
                   ContactDetailsComponent, 
                   MyUpperPipe,
-                  EmailValidator ],
+                  EmailValidator,
+                  AboutComponent ],
   bootstrap:    [ AppComponent ],
   providers:    [ ContactsService ]
 })

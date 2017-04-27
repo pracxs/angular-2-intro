@@ -35,6 +35,8 @@ export class ContactsListComponent implements OnInit {
     onSelect(contact: Contact) {
         this.selected = contact
         this.selectedChange.emit(contact)
+        
+        return false;
     }
 
     ngOnInit() {

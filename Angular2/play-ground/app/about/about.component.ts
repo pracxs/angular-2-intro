@@ -10,7 +10,7 @@
 import { Component } from '@angular/core'
 
 @Component({
-    selector: 'contacts',
+    selector: 'about',
     template: `
         <h1>About</h1>
         <div class='about'>
