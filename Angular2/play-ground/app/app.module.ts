@@ -20,6 +20,7 @@ import { ContactsListComponent }    from "./contacts/contacts-list.component"
 import { EmailValidator }           from "./email-validator.directive"
 import { AboutComponent }           from './about/about.component'
 import { FailComponent }            from "./fail/fail.component"
+import { DialogService }            from "./dialog.service"
 
 @NgModule({
   imports:      [ BrowserModule,
@@ -34,6 +35,7 @@ import { FailComponent }            from "./fail/fail.component"
                   AboutComponent,
                   FailComponent ],
   bootstrap:    [ AppComponent ],
-  providers:    [ ContactsService ]
+  providers:    [ ContactsService,
+                  DialogService ]
 })
 export class AppModule {}
