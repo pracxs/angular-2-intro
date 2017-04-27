@@ -5,7 +5,20 @@ describe('1st tests', () => {
     )
     
     it('null is not the same thing as undefined',
-        () => expect(null).not.toEqual(undefined)
+        () => {
+            expect(null).not.toEqual(undefined)
+        } 
+    )
+
+    it('Jasmine Async',
+        done => {
+            setTimeout(
+                ()=> {
+                    expect(null).not.toEqual(undefined)
+                    done()
+                }
+            , 1000)
+        }
     )
 })
 
