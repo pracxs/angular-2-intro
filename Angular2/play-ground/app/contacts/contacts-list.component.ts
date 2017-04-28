@@ -7,13 +7,14 @@
  * or to prometheus@itce.com
  */
 
-import { Component, OnInit, EventEmitter } from '@angular/core'
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core'
 import { ContactsService } from './contacts.service'
 import { Router, ActivatedRoute, Params, NavigationEnd } from "@angular/router"
 import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/debounceTime'
 import 'rxjs/add/operator/switchMap'
 import 'rxjs/add/operator/filter'
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs/Subscription"
 
 @Component({
     selector: 'contacts-list',
@@ -26,9 +27,10 @@ import { Subscription } from "rxjs/Subscription";
         </ul>
     `
 })
-export class ContactsListComponent implements OnInit {
+export class ContactsListComponent implements OnInit, OnDestroy {
     contacts: Contact[]
     selectedId: number
+    sub: Subscription
 
     constructor(
         private contactsService: ContactsService,
@@ -44,11 +46,11 @@ export class ContactsListComponent implements OnInit {
     ngOnInit() {
         this.contacts = this.contactsService.getAll()
 
-        this.router.events
-            .filter((e) => e instanceof NavigationEnd)
+        this.sub = this.router.events
+            .filter( (e) =>  e instanceof NavigationEnd )
             .switchMap( () => this.route.params )
-            .map((params: Params) => +params['id'])
-            .subscribe(contactId => this.selectedId = contactId)
+            .map( (params: Params) => +params['id'] )
+            .subscribe( contactId => this.selectedId = contactId )
     }
 
     onRemove(contact: Contact) {
@@ -58,5 +60,9 @@ export class ContactsListComponent implements OnInit {
         }
 
         return false
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe()
     }
 }

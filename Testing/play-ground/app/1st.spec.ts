@@ -1,3 +1,4 @@
+import { async } from "@angular/core/testing" 
 
 describe('1st tests', () => {
     it('true is true', 
@@ -10,16 +11,14 @@ describe('1st tests', () => {
         } 
     )
 
-    it('Jasmine Async',
-        done => {
+    it('Jasmine Async', async(
+        () => {
             setTimeout(
-                ()=> {
-                    expect(null).not.toEqual(undefined)
-                    done()
-                }
-            , 1000)
+                ()=> expect(null).not.toEqual(undefined)
+                , 1000
+            )
         }
-    )
+    ))
 })
 
 // describe('Future test',  () => {
