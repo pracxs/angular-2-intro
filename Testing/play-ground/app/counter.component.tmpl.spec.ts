@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing'
+import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'
 import { Counter } from "./counter.component"
 import { By } from "@angular/platform-browser"
@@ -12,14 +12,16 @@ describe('EventEmitter: Counter', () => {
   })
 
   //setup
-  beforeEach(() => {
+  beforeEach(async(() => {
       TestBed.configureTestingModule({
           declarations: [ Counter ],
-      })
+      }).compileComponents()
+  }))
 
-      fixture = TestBed.createComponent( Counter )
+  beforeEach( ()=> {
+    fixture = TestBed.createComponent( Counter )
   })
-  
+
   it('initial count to be 0', ()=>{
     fixture.detectChanges()
 

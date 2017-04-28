@@ -2,12 +2,7 @@ import {Component, Output, EventEmitter} from '@angular/core'
 
 @Component({
   selector: 'counter',
-  template: `
-    <div>
-      <h1>{{counter}}</h1>
-      <button (click)="change(1)">+1</button>
-      <button (click)="change(-1)">-1</button>
-    </div>`
+  templateUrl: 'app/counter.component.html'
 })
 export class Counter {
   counter = 0
