@@ -4,14 +4,19 @@ import {PersonsDetailsComponent} from './details.component'
 import {PersonService} from './person.service'
 import {LoadPersonsService} from './load-persons.service'
 
-describe('PersonsDetailsComponent (SPY)', () => {
+describe('PersonsDetailsComponent (MOCK)', () => {
     
     let fixture: ComponentFixture<PersonsDetailsComponent>
-    let personServiceSpy: PersonService
 
-    let mock_contacts = [
-            { "id": 1, "firstName": "Max",     "lastName": "Smith",  "email": "max@gmail.com" },
-            { "id": 2, "firstName": "Chris",   "lastName": "Raches", "email": "chris@gmail.com" }]
+    class PersonServiceMock {
+        getAll() {
+            return [
+                  { "id": 1, "firstName": "Max",     "lastName": "Smith",  "email": "max@gmail.com" },
+                  { "id": 2, "firstName": "Chris",   "lastName": "Raches", "email": "chris@gmail.com" }]
+        }
+    }
+    
+    let personServiceSpy = new PersonServiceMock()
     
     beforeAll( () => { 
         TestBed.resetTestEnvironment()
@@ -19,22 +24,21 @@ describe('PersonsDetailsComponent (SPY)', () => {
     })
 
     beforeEach(() => {
+        spyOn(personServiceSpy, 'getAll').and.callThrough()
+        
         TestBed.configureTestingModule({
             declarations: [ PersonsDetailsComponent ],
         })
         .overrideComponent( PersonsDetailsComponent, {
             set: {
                 providers: [
-                    PersonService,
-                    {provide: LoadPersonsService, useValue: { load: ()=> null }}
+                    {provide: PersonService, useValue: personServiceSpy},
+                    {provide: LoadPersonsService, useValue: {}}
                 ]
             }
         })
 
         fixture = TestBed.createComponent( PersonsDetailsComponent )
-
-        personServiceSpy = fixture.debugElement.injector.get(PersonService)
-        spyOn(personServiceSpy, 'getAll').and.returnValue( mock_contacts )
     })
     
     it('must be a list of persons list', () => {
